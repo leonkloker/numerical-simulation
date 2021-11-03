@@ -33,4 +33,9 @@ public:
   //! compute the 2nd derivative ∂ v / ∂y^2
   virtual double computeDvDy2(int i, int j) const = 0;
 
+  //! compute the 1st derivative ∂ p / ∂x
+  virtual double computeDpDx(int i, int j) const = 0;
+
+  //! compute the 1st derivative ∂ p / ∂y
+  virtual double computeDpDy(int i, int j) const = 0;
 }
