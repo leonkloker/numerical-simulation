@@ -1,6 +1,6 @@
 #pragma once
 
-#include "discretization/0_staggered_grid.h"
+#include "staggered_grid.h"
 
 class Discretization :
   public StaggeredGrid

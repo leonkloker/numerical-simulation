@@ -1,8 +1,6 @@
-#include "array2d.h"
+#include "discretization.h"
 
-#include <cassert>
-
-Array2D::Array2D(std::array<int,2> size) :
+Discretization::Discretization(std::array<int,2> nCells, std::array<double,2> meshWidth) :
   size_(size)
 {
   // allocate data, initialize to 0
@@ -38,3 +36,5 @@ double Array2D::operator()(int i, int j) const
 
   return data_[index];
 }
+
+
