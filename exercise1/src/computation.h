@@ -1,8 +1,8 @@
 #pragma once
 
-#include "OutputWriter.h"
-#include "Settings.h"
-#include "PressureSolver.h"
+#include "output_writer/output_writer.h"
+#include "settings/settings.h"
+#include "solver/pressure_solver.h"
 
 /** This class handles the main simulation.
  *  It implements the time stepping scheme,
@@ -28,6 +28,9 @@ private:
 
   //! set boundary values of u and v to correct values
   void applyBoundaryValues();
+
+  //! set boundary values of f and g to correct values 
+  void applyBoundaryValuesFG();
 
   //! compute the preliminary velocities, F and G
   void computePreliminaryVelocities();
