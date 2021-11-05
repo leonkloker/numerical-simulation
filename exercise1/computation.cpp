@@ -6,10 +6,10 @@ void Computation::initialize(int argc, char* argv[])
     settings_.loadFromFile(argv[0]);
     meshWidth_[0] = Settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = Settings_.physicalSize[1]/settings_.nCells[1];
-    discretization_ = Discretization(settings_.nCells, meshWidth_);
-    pressureSolver_ = PressureSolver(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations);
-    outputWriterParaview_ = OutputWriterParaview(discretization_);
-    outputWriterText_ = OutputWriter(discretization_);
+    discretization_ = std::make_shared<Discretization>(Discretization(settings_.nCells, meshWidth_));
+    pressureSolver_ = std::make_unique<PressureSolver>(PressureSolver(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
+    outputWriterParaview_ = std::make_unique<OutputWriterParaview>(OutputWriterParaview(discretization_));
+    outputWriterText_ = std::make_unique<OutputWriter>(OutputWriter(discretization_));
 }
 
 void Computation::runSimulation()
@@ -49,22 +49,22 @@ void Computation::computeTimeStepWidth()
 void Computation::applyBoundaryValues()
 {
     for (i = 0; i <= settings_.nCells[0]; i++){
-        discretization_.u_(i,0) = 2 * settings_.dirichletBcBottom[0] - discretization_.u_(i,1);
-        discretization_.u_(i,settings_.nCells[1]+1) = 2 * settings_.dirichletBcTop[0] - discretization_.u_(i,settings_.nCells[1]);
+        discretization_->u(i,0) = 2 * settings_.dirichletBcBottom[0] - discretization_->u(i,1);
+        discretization_->u(i,settings_.nCells[1]+1) = 2 * settings_.dirichletBcTop[0] - discretization_->u(i,settings_.nCells[1]);
         
         if (i > 0){
-            discretization_.v_(i,0) = settings_.dirichletBcBottom[1];
-            discretization_.v_(i,settings_.nCells[1]) = settings_.dirichletBcTop[1];
+            discretization_->v(i,0) = settings_.dirichletBcBottom[1];
+            discretization_->v(i,settings_.nCells[1]) = settings_.dirichletBcTop[1];
         }
     }
 
     for (j = 0; j <= settings_.nCells[1]; j++){
-        discretization_.v_(0,j) = 2 * settings_.dirichletBcLeft[1] - discretization_.v_(1,j);
-        discretization_.v_(settings_.nCells[1]+1,j) = 2 * settings_.dirichletBcRight[1] - discretization_.v_(settings_.nCells[1],j);
+        discretization_->v(0,j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(1,j);
+        discretization_->v(settings_.nCells[1]+1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(settings_.nCells[1],j);
         
         if (j > 0){
-            discretization_.u_(0,j) = settings_.dirichletBcLeft[0];
-            discretization_.u_(settings_.nCells[0],j) = settings_.dirichletBcRight[0];
+            discretization_->u(0,j) = settings_.dirichletBcLeft[0];
+            discretization_->u(settings_.nCells[0],j) = settings_.dirichletBcRight[0];
         }
     }
 }
@@ -72,22 +72,22 @@ void Computation::applyBoundaryValues()
 void Computation::applyBoundaryValuesFG()
 {
     for (i = 0; i <= settings_.nCells[0]; i++){
-        discretization_.f_(i,0) = discretization_.u_(i,0);
-        discretization_.f_(i,settings_.nCells[1]+1) = discretization_.u_(i,settings_.nCells[1]+1);
+        discretization_->f(i,0) = discretization_->u(i,0);
+        discretization_->f(i,settings_.nCells[1]+1) = discretization_->u(i,settings_.nCells[1]+1);
         
         if (i > 0){
-            discretization_.g_(i,0) = discretization_.v_(i,0);
-            discretization_.g_(i,settings_.nCells[1]) = discretization_.v_(i,settings_.nCells[1]);
+            discretization_->g(i,0) = discretization_->v(i,0);
+            discretization_->g(i,settings_.nCells[1]) = discretization_->v(i,settings_.nCells[1]);
         }
     }
 
     for (j = 0; j <= settings_.nCells[1]; j++){
-        discretization_.g_(0,j) = discretization_.v_(0,j);
-        discretization_.g_(settings_.nCells[1]+1,j) = discretization_.v_(settings_.nCells[1]+1,j);
+        discretization_->g(0,j) = discretization_->v(0,j);
+        discretization_->g(settings_.nCells[1]+1,j) = discretization_->v(settings_.nCells[1]+1,j);
         
         if (j > 0){
-            discretization_.f_(0,j) = discretization_.u_(0,j);
-            discretization_.f_(settings_.nCells[0],j) = discretization_.u_(settings_.nCells[0],j);
+            discretization_->f(0,j) = discretization_->u(0,j);
+            discretization_->f(settings_.nCells[0],j) = discretization_->u(settings_.nCells[0],j);
         }
     }
 }
@@ -97,10 +97,10 @@ void Computation::computePreliminaryVelocities()
     for (i = 1; i <= settings_.nCells[0]; i++){
         for (j = 1; j <= settings_.nCells[1]; j++){
             if (i < settings_.nCells[0]){
-                discretization_.f_(i,j) = u(i,j) + dt_ * ((discretization_.computeD2uDx2(i,j) + discretization_.computeD2uDy2(i,j))/settings_.re - discretization_.computeDu2Dx(i,j) - discretization_.computeDuvDy(i,j));
+                discretization_->f(i,j) = u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j));
             }
             if (j < settings_.nCells[1]){
-                discretization_.g_(i,j) = u(i,j) + dt_ * ((discretization_.computeD2vDx2(i,j) + discretization_.computeD2vDy2(i,j))/settings_.re - discretization_.computeDuvDx(i,j) - discretization_.computeDv2Dy(i,j));
+                discretization_->g(i,j) = u(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDuvDx(i,j) - discretization_->computeDv2Dy(i,j));
             }
         }
     }
@@ -112,14 +112,14 @@ void Computation::computeRightHandSide()
 {
     for (i = 1; i <= settings_.nCells[0]; i++){
         for (j = 1; j <= settings_.nCells[1]; j++){
-            discretization_.rhs_(i,j) = (1 / dt_) * ((discretization_.f_(i,j) - discretization_.f_(i-1,j)) / meshWidth_[0] + (discretization_.g_(i,j) - discretization_.g_(i,j-1)) / meshWidth_[1]);
+            discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / meshWidth_[0] + (discretization_->g(i,j) - discretization_->g(i,j-1)) / meshWidth_[1]);
         }
     }
 }
 
 void Computation::computePressure()
 {
-    pressureSolver_.solve();
+    pressureSolver_->solve();
 }
 
 void Computation::computeVelocities()
@@ -127,10 +127,10 @@ void Computation::computeVelocities()
     for (i = 1; i <= settings_.nCells[0]; i++){
         for (j = 1; j <= settings_.nCells[1]; j++){
             if (i < settings_.nCells[0]){
-                discretization_.u_(i,j) = discretization_.f(i,j) - dt_ * discretization_.computeDpDx(i,j);
+                discretization_->u(i,j) = discretization_->f(i,j) - dt_ * discretization_->computeDpDx(i,j);
             }
             if (j < settings_.nCells[1]){
-                discretization_.v_(i,j) = discretization_.g(i,j) - dt_ * discretization_.computeDpDy(i,j);
+                discretization_->v(i,j) = discretization_->g(i,j) - dt_ * discretization_->computeDpDy(i,j);
             }
         }
     }
