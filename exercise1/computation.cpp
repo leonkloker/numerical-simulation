@@ -6,11 +6,27 @@ void Computation::initialize(int argc, char* argv[])
     settings_.loadFromFile(argv[0]);
     meshWidth_[0] = Settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = Settings_.physicalSize[1]/settings_.nCells[1];
-    
+    discretization_ = Discretization(settings_.nCells, meshWidth_);
+    pressureSolver_ = PressureSolver(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations);
+    outputWriterParaview_ = OutputWriterParaview(discretization_);
+    outputWriterText_ = OutputWriter(discretization_);
 }
 
 void Computation::runSimulation()
 {
+    computeTimeStepWidth();
+    applyBoundaryValues();
+
+    for (i = 0; i <= floor(settings_.endTime/dt_)+1; i++){
+        computePreliminaryVelocities();
+        applyBoundaryValuesFG();
+        computeRightHandSide();
+        computePressure();
+        computeVelocities();
+        applyBoundaryValues();
+
+        //write the results of the current timestep into a file for visualization with the outputWriter_
+    }
 
 }
 
@@ -18,10 +34,12 @@ void Computation::computeTimeStepWidth()
 {
 
     double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (pow(meshWidth_[0],2) + pow(meshWidth_[1],2));
-    //double convectionxDt = meshWidth_[0]/u_max;
-    //double convectionyDt = meshWidth_[1]/v_max;
 
-    dt_ = diffusionDt;
+    //Assume for the driven cavity that u and v dont exceed the prescribed velocity at the top boundary -> u_max, v_max <= dirichletBcTop[0]
+    double convectionDt = meshWidth_[0]/settings_.dirichletBcTop[0];
+    convectionDt = std::min(convectionDt, meshWidth_[1]/settings_.dirichletBcTop[0]);
+
+    dt_ = std::min(convectionDt, diffusionDt);
 
     if (settings_.maximumDt < dt_){
         dt_ = settings.maximumDt;
@@ -101,10 +119,19 @@ void Computation::computeRightHandSide()
 
 void Computation::computePressure()
 {
-
+    pressureSolver_.solve();
 }
 
 void Computation::computeVelocities()
 {
-
+    for (i = 1; i <= settings_.nCells[0]; i++){
+        for (j = 1; j <= settings_.nCells[1]; j++){
+            if (i < settings_.nCells[0]){
+                discretization_.u_(i,j) = discretization_.f(i,j) - dt_ * discretization_.computeDpDx(i,j);
+            }
+            if (j < settings_.nCells[1]){
+                discretization_.v_(i,j) = discretization_.g(i,j) - dt_ * discretization_.computeDpDy(i,j);
+            }
+        }
+    }
 }
