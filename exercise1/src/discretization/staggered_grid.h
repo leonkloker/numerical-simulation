@@ -1,5 +1,6 @@
 #pragma once
-#include "fieldvariable.h"
+
+#include "storage/fieldvariable.h"
 
 class StaggeredGrid : public FieldVariable
 {
@@ -9,19 +10,19 @@ public:
   StaggeredGrid(std::array<int,2> nCells, std::array<double,2> meshWidth);
 
   //! get the mesh width, i.e. the length of a single cell in x and y direction 
-  std::array<double,2> meshWidth() const;
+  const std::array<double,2> meshWidth() const;
 
   //! get number of cells in each coordinate direction 
-  std::array<int,2> nCells() const;
+  const std::array<int,2> nCells() const;
   
   //! get a reference to field variable u
-  FieldVariable& u() const;
+  const FieldVariable& u() const;
 
   //! get a reference to field variable u
-  FieldVariable& v() const;
+  const FieldVariable& v() const;
  
   //! get a reference to field variable u
-  FieldVariable& p() const;
+  const FieldVariable& p() const;
 
   //! access value of u in element (i,j)
   double u(int i, int j) const;
@@ -63,7 +64,7 @@ public:
   int uIEnd() const;
 
   //! first valid index for u in y direction
-  int JBegin() const; 
+  int uJBegin() const; 
 
   //! one after last valid index for u in y direction
   int uJEnd() const; 	

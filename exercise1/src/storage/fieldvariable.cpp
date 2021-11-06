@@ -1,5 +1,5 @@
-#include "fieldVariable.h"
-#include "array2d.h"
+#include "storage/array2d.h"
+#include "storage/fieldvariable.h"
 #include "math.h"
 
 FieldVariable::FieldVariable(std::array< int, 2 > size, std::array< double, 2 >	origin,	std::array< double, 2 >	meshWidth): 
