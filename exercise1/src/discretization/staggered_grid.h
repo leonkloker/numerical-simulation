@@ -1,7 +1,7 @@
 #pragma once
+#include "fieldvariable.h"
 
-
-class StaggeredGrid
+class StaggeredGrid : public FieldVariable
 {
 public:
 
@@ -110,4 +110,4 @@ protected:
   
   FieldVariable g_;
 
-}
+};
