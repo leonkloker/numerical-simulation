@@ -9,8 +9,10 @@ void Settings::loadFromFile(std::string filename)
 {
    std::fstream newfile;
    newfile.open(filename,std::ios::in); //open a file to perform read operation using file object
+   
    if (newfile.is_open()){   //checking whether the file is open
       std::string parameter;
+      
       while(getline(newfile, parameter))
            { //read data from file object and put it into string.
 	   // remove whitespace at beginning of line (if there is any)
@@ -138,6 +140,7 @@ void Settings::loadFromFile(std::string filename)
            	  }
 	         }
            }
+
       newfile.close(); //close the file object.
    }
 }
@@ -146,7 +149,7 @@ void Settings::printSettings()
 {
   std::cout << "Settings: " << std::endl
     << "  physicalSize: " << physicalSize[0] << " x " << physicalSize[1] << ", nCells: " << nCells[0] << " x " << nCells[1] << std::endl
-    << "  endTime: " << endTime << " s, re: " << re << ", g: (" << g[0] << "," << g[1] << "), tau: " << tau << ", maximum dt: " << maximumDt << std::endl
+    << "  endTime: " << endTime << "s, Reynolds number: " << re << ", external forces: (" << g[0] << "," << g[1] << "), tau: " << tau << ", maximum dt: " << maximumDt << std::endl
     << "  dirichletBC: bottom: (" << dirichletBcBottom[0] << "," << dirichletBcBottom[1]  << ")"
     << ", top: ("  << dirichletBcTop[0] << "," << dirichletBcTop[1]  << ")"
     << ", left: ("  << dirichletBcLeft[0] << "," << dirichletBcLeft[1] << ")"

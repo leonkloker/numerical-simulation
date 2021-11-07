@@ -1,5 +1,5 @@
 #include "computation.h"
-#include<cmath>
+#include <cmath>
 
 void Computation::initialize(int argc, char* argv[])
 {
@@ -17,6 +17,8 @@ void Computation::runSimulation()
     computeTimeStepWidth();
     applyBoundaryValues();
 
+    double time = 0;
+
     for (i = 0; i <= floor(settings_.endTime/dt_)+1; i++){
         computePreliminaryVelocities();
         applyBoundaryValuesFG();
@@ -24,10 +26,10 @@ void Computation::runSimulation()
         computePressure();
         computeVelocities();
         applyBoundaryValues();
+	time = time + dt_;
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
     }
-
 }
 
 void Computation::computeTimeStepWidth()
