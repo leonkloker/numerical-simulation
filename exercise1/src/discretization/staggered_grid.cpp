@@ -9,7 +9,7 @@ StaggeredGrid::StaggeredGrid(std::array<int,2> nCells, std::array<double,2> mesh
   	p_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
   	rhs_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
   	f_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_);
-    	g_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
+    g_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
 }
 
 double StaggeredGrid::dx () const {

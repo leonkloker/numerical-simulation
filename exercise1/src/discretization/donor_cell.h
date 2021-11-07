@@ -1,6 +1,6 @@
 #pragma once
 
-#include "discretization/discretization.h"
+#include "discretization.h"
 
 class DonorCell : public Discretization
 {
@@ -21,4 +21,8 @@ public:
   //! compute the 1st derivative ∂ (uv) / ∂y
   virtual double computeDuvDy(int i, int j) const = 0;
 
+private:
+
+  double alpha_;
+  
 };
