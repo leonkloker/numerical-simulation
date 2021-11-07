@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include "settings.h"
+#include "src/settings/settings.h"
 
 int main(int argc, char *argv[])
 {
