@@ -7,10 +7,10 @@
 
 void Settings::loadFromFile(std::string filename)
 {
-   fstream newfile;
-   newfile.open(filename,ios::in); //open a file to perform read operation using file object
+   std::fstream newfile;
+   newfile.open(filename,std::ios::in); //open a file to perform read operation using file object
    if (newfile.is_open()){   //checking whether the file is open
-      string parameter;
+      std::string parameter;
       while(getline(newfile, parameter))
            { //read data from file object and put it into string.
 	   // remove whitespace at beginning of line (if there is any)
@@ -23,9 +23,9 @@ void Settings::loadFromFile(std::string filename)
 	      if (!parameter.find_first_not_of('#'))
 	         {
 	         int parameterNameIndex = parameter.find_first_of(" \t");
-		 string parameterName = parameter;
-	         parameterName = parameterName.erase(parameterNameIndex);
-	         string parameterValue = parameter.erase(0,parameter.find_first_of("="));
+		 std::string parameterName = parameter;
+		 parameterName = parameterName.erase(parameterNameIndex);
+		 std::string parameterValue = parameter.erase(0,parameter.find_first_of("="));
 	         parameterValue = parameter.erase(0,parameter.find_first_of(" \t")+1);
 	         if (parameter.find_first_of(" \t") != std::string::npos)
 		    {
