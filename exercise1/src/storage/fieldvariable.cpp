@@ -3,7 +3,7 @@
 #include "math.h"
 
 FieldVariable::FieldVariable(std::array< int, 2 > size, std::array< double, 2 >	origin,	std::array< double, 2 >	meshWidth): 
-Array2D(size),origin_(origin),meshWidth_(meshWidth)	
+Array2D(size), origin_(origin), meshWidth_(meshWidth)	
 {
 	/**
 	 *size      The number of entries in x and y direction.
