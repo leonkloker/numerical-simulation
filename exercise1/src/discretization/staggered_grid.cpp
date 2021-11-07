@@ -1,153 +1,127 @@
-#include "discretization/staggered_grid.h"
-#include "storage/fieldvariable.h"
+#include "staggered_grid.h"
+#include <array>
  
-StaggeredGrid::StaggeredGrid(std::array<int,2> nCells, std::array<double,2> meshWidth): 
-nCells_(nCells),meshWidth_(meshWidth)	
-{
-	/**
-	 *nCells	number of elements in x and y direction 
-	 *meshWidth The length of a single cell in x and y direction. 
-	 */
+StaggeredGrid::StaggeredGrid(std::array<int,2> nCells, std::array<double,2> meshWidth) {
+	nCells_ = nCells;
+	meshWidth_ = meshWidth;
+	u_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_);
+  	v_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
+  	p_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
+  	rhs_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
+  	f_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_);
+    g_ = FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
 }
 
-double StaggeredGrid::dx ()	const {
-	// get the mesh width in y-direction, δy 
+double StaggeredGrid::dx () const {
 	return meshWidth_[0];
 }
 
-double StaggeredGrid::dy ()	const {
-	// get the mesh width in y-direction, δy 
+double StaggeredGrid::dy () const {
 	return meshWidth_[1];
 }
 
 double & StaggeredGrid::f(int i, int j){
-	// access value of F in element (i,j) 
-
-	// access value of F in element (x,y) 
-	return interpolateAt(x,y);
+	return f_(i,j);
 } 		
 
 double & StaggeredGrid::g(int i, int j){
-	//Access value of G in element (i,j) 
-
-	// Access value of G in element (x,y) 
-	return interpolateAt(x,y);
+	return g_(i,j);
 } 		
 
 const std::array< double, 2 > StaggeredGrid::meshWidth() const {
-	// Get the mesh width, i.e. the length of a single cell in x 
-	// and y direction 
 	return meshWidth_;
 }
 
 const std::array< int, 2 > StaggeredGrid::nCells() const {
-	// Get number of cells in each coordinate direction 
 	return nCells_;
 }
 
 const FieldVariable & StaggeredGrid::p() const {
-	// Part 1/3
-	// Get a reference to field variable u 
+	const FieldVariable& p_ref = p_;
+	return p_ref; 
 }
-double StaggeredGrid::p(int	i,int j) const {
-	// Part 2/3
-	// Access value of p in element (i,j)
-
-	// Get const value of p in element (x,y)
-
+double StaggeredGrid::p(int i,int j) const {
+	return p_(i,j);
 }
 
 double & StaggeredGrid::p(int i, int j) {
-	// Part 3/3
-	// Access value of p in element (x,y) 
+	return p_(i,j);
 }
 
 int StaggeredGrid::pIBegin() const {
-	// First valid index for p in x direction 
+	return 0;
 }
 
-int StaggeredGrid::pIEnd 	( 		) 	const {
-	// One after last valid index for p in x direction 
+int StaggeredGrid::pIEnd () const {
+	return nCells_[0]+2;
 }
 
 int StaggeredGrid::pJBegin() const {
-	// First valid index for p in y direction 
+	return 0;
 }
 
 int StaggeredGrid::pJEnd() const {
-	// One after last valid index for p in y direction 
+	return nCells_[1]+2;
 }
 
 double & StaggeredGrid::rhs(int	i, int j) {
-	// Access value of rhs in element (i,j)
-
-	// Access value of p in element (x,y)
-
+	return rhs_(i,j);
 }
 
 const FieldVariable & StaggeredGrid::u () const{
-	// Part 1/3
-	// Get a reference to field variable u 
+	const FieldVariable& u_ref = u_;
+	return u_ref; 
 }
 
-double StaggeredGrid::u (int i,	int	j) const {
-	// Part 2/3
-	// Access value of u in element (i,j)
-
-	// Get const value of u in element (x,y)
-
+double StaggeredGrid::u (int i,	int j) const {
+	return u_(i,j);
 }
 
 double & StaggeredGrid::u (int i, int j) {
-	// Access value of u in element (x,y) 
+	return u_(i,j);
 } 		
 
 int StaggeredGrid::uIBegin () const {
-	// First valid index for u in x direction 
+	return 0;
 }
 
-int StaggeredGrid::uIEnd ()	const {
-	// One after last valid index for u in x direction 
+int StaggeredGrid::uIEnd () const {
+	return nCells_[0]+1;
 }
 
 int StaggeredGrid::uJBegin () const {
-	// First valid index for u in y direction 
+	return 0;
 }
 
 int StaggeredGrid::uJEnd () const {
-	// One after last valid index for u in y direction 
+	return nCells_[1]+2;
 }
 
 const FieldVariable & StaggeredGrid::v () const {
-	// Part 1/3
-	// Get a reference to field variable u 
+	const FieldVariable& v_ref = v_; 
+	return v_ref;
 }
 
-double StaggeredGrid::v (int i,	int	j) const {
-	// Part 2/3
-	// Access value of v in element (i,j)
-
-	// Get const value of v in element (x,y)
-
+double StaggeredGrid::v (int i,	int j) const {
+	return v_(i,j);
 }
 
-double & StaggeredGrid::v( int i, int j) {
-	// Part 3/3
-	// Access value of v in element (x,y) 
+double & StaggeredGrid::v(int i, int j) {
+	return v_(i,j); 
 } 	
 
 int StaggeredGrid::vIBegin () const {
-	// First valid index for v in x direction 
+	return 0;
 }
 
-int StaggeredGrid::vIEnd ()	const {
-	// One after last valid index for v in x direction 
+int StaggeredGrid::vIEnd () const {
+	return nCells_[0]+2;;
 }
 
 int StaggeredGrid::vJBegin () const {
-	// First valid index for v in y direction 
+	return 0;
 }
 
-int StaggeredGrid::vJEnd ()	const {
-	// One after last valid index for v in y direction 
+int StaggeredGrid::vJEnd () const {
+	return nCells_[1]+1;
 }
