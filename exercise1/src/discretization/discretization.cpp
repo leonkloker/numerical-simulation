@@ -1,40 +1,31 @@
+#include <cmath>
 #include "discretization.h"
 
 Discretization::Discretization(std::array<int,2> nCells, std::array<double,2> meshWidth) :
-  size_(size)
-{
-  // allocate data, initialize to 0
-  data_.resize(size_[0]*size_[1], 0.0);
+StaggeredGrid(nCells, meshWidth){}
+
+double Discretization::computeD2uDx2(int i, int j) const{
+  return (u(i+1,j) - 2 * u(i,j) + u(i-1,j))/(pow(meshWidth_[0],2));
 }
 
-//! get the size
-std::array<int,2> Array2D::size() const
-{
-  return size_;
+double Discretization::computeD2vDx2(int i, int j) const{
+  return (v(i+1,j) - 2 * v(i,j) + v(i-1,j))/(pow(meshWidth_[0],2));
 }
 
-double &Array2D::operator()(int i, int j)
-{
-  const int index = j*size_[0] + i;
-
-  // assert that indices are in range
-  assert(0 <= i && i < size_[0]);
-  assert(0 <= j && j < size_[1]);
-  assert(j*size_[0] + i < (int)data_.size());
-
-  return data_[index];
+double Discretization::computeD2uDy2(int i, int j) const{
+  return (u(i,j+1) - 2 * u(i,j) + u(i,j-1))/(pow(meshWidth_[1],2));
 }
 
-double Array2D::operator()(int i, int j) const
-{
-  const int index = j*size_[0] + i;
+double Discretization::computeD2vDy2(int i, int j) const{
+  return (v(i,j+1) - 2 * v(i,j) + v(i,j-1))/(pow(meshWidth_[1],2));
+}
 
-  // assert that indices are in range
-  assert(0 <= i && i < size_[0]);
-  assert(0 <= j && j < size_[1]);
-  assert(j*size_[0] + i < (int)data_.size());
+double Discretization::computeDpDx(int i, int j) const{
+  return (p(i+1,j) - p(i,j))/meshWidth_[0];
+}
 
-  return data_[index];
+double Discretization::computeDpDy(int i, int j) const{
+  return (p(i,j+1) - p(i,j))/meshWidth_[1];
 }
 
 

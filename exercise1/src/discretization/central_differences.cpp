@@ -1,19 +1,22 @@
 #include "central_differences.h"
+#include "discretization.h"
 #include <cmath>
 
-double CentralDifferences::computeDu2Dx (int i, int j){
-  Du2Dx = ((u(i+1,j)+u(i,j))^2 - (u(i,j)+u(i-1,j)))^2 / 4dx;
-  return Du2Dx;
+CentralDifferences::CentralDifferences(std::array<int,2> nCells, std::array<double,2> meshWidth) : 
+Discretization(nCells, meshWidth){}
+
+double CentralDifferences::computeDu2Dx (int i, int j) const{
+  return (pow(u(i+1,j)+u(i,j), 2) - pow(u(i,j)+u(i-1,j), 2)) / (4 * meshWidth_[0]);
 }
-double CentralDifferences::computeDuvDx (int i, int j){
-  DuvDx = ((u(i,j+1)+u(i,j))(v(i-1,j)+v(i,j))-(u(i,j)+u(i,j-1))(v(i+1,j-1)+v(i,j-1)))/4dx;
-  return DuvDx;
+
+double CentralDifferences::computeDuvDx (int i, int j) const{
+  return (((v(i,j+1) + v(i,j)) * (u(i-1,j+1) + u(i,j+1))) - ((v(i,j) + v(i,j-1)) * (u(i-1,j) + u(i,j)))) / (4 * meshWidth_[0]); 
 }
-double CentralDifferences::computeDuvDy (int i, int j){
-  DuvDy = ((u(i,j+1)+u(i,j))(v(i-1,j)+v(i,j))-(u(i,j)+u(i,j-1))(v(i+1,j-1)+v(i,j-1)))/4dy;
-  return DuvDy;
+
+double CentralDifferences::computeDuvDy (int i, int j) const{
+  return (((u(i,j+1) + u(i,j)) * (v(i+1,j) + v(i,j))) - ((u(i,j) + u(i,j-1)) * (v(i+1,j-1) + v(i,j-1)))) / (4 * meshWidth_[1]);
 }
-double CentralDifferences::computeDv2Dy (int i, int j){
-  Dv2Dy = ((v(i+1,j)+v(i+1,j-1))^2 - (v(i,j)+v(i,j-1)))^2 / 4dy;
-  return Dv2Dy;
+
+double CentralDifferences::computeDv2Dy (int i, int j) const{
+  return (pow(v(i,j+1) + v(i,j), 2) - pow(v(i,j) + v(i,j-1), 2)) / (4 * meshWidth_[1]);
 }
