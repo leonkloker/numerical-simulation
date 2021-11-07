@@ -4,7 +4,6 @@
 #include <string>
 #include <stdlib.h>
 #include <cstring>
-using namespace std;
 
 void Settings::loadFromFile(std::string filename)
 {
