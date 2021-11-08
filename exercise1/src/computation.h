@@ -1,8 +1,11 @@
 #pragma once
 
-#include "output_writer/output_writer.h"
+#include "output_writer/output_writer_paraview.h"
+#include "output_writer/output_writer_text.h"
 #include "settings/settings.h"
+#include "discretization/discretization.h"
 #include "solver/pressure_solver.h"
+#include <memory>
 
 /** This class handles the main simulation.
  *  It implements the time stepping scheme,
