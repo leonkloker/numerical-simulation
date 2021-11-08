@@ -7,8 +7,20 @@ project(numsim)
 # Also specify the source files.
 add_executable(${PROJECT_NAME}
    main.cpp
-   settings.cpp
-   output_writer/write_paraview_output.cpp
+   computation.cpp
+   discretization/discretization.cpp
+   discretization/central_differences.cpp
+   discretization/staggered_grid.cpp
+   discretization/donor_cell.cpp
+   output_writer/output_writer.cpp
+   output_writer/output_writer_text.cpp
+   output_writer/output_writer_paraview.cpp
+   settings/settings.cpp
+   solver/gauss_seidel.cpp
+   solver/sor.cpp
+   solver/pressure_solver.cpp
+   storage/array2d.cpp
+   storage/fieldvariable.cpp
 )
 
 # Add the project directory to include directories, to be able to include all project header files from anywhere
