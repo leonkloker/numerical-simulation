@@ -19,7 +19,7 @@ void Computation::initialize(int argc, char* argv[])
     }
 
     outputWriterParaview_ = std::make_unique<OutputWriterParaview>(OutputWriterParaview(discretization_));
-    //outputWriterText_ = std::make_unique<OutputWriter>(OutputWriter(discretization_));
+    outputWriterText_ = std::make_unique<OutputWriterText>(OutputWriterText(discretization_));
 }
 
 void Computation::runSimulation()

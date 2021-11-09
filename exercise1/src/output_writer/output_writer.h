@@ -1,6 +1,6 @@
 #pragma once
 
-#include "discretization.h"
+#include "discretization/discretization.h"
 #include <memory>
 
 // Inteface class for writing simulation data output. 

@@ -96,9 +96,9 @@ public:
 
 protected:
 
-  const std::array<int,2> StaggeredGrid::nCells_;
+  const std::array<int,2> nCells_;
  
-  const std::array<double,2> StaggeredGrid::meshWidth_;
+  const std::array<double,2> meshWidth_;
   
   FieldVariable u_;
   

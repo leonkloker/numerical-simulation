@@ -9,8 +9,13 @@
 #include <cstdlib>
 #include <iostream>
 
-void writeParaviewOutput(int fileNo)
+OutputWriterParaview::OutputWriterParaview(std::shared_ptr <Discretization> discretization){
+  discretization_ = discretization;
+}
+
+void writeFile(double currentTime)
 {
+  int fileNo_ = 1;
   // create "out" subdirectory if it does not yet exist
   int returnValue = system("mkdir -p out");
   if (returnValue != 0)
@@ -21,7 +26,7 @@ void writeParaviewOutput(int fileNo)
 
   // Assemble the filename
   std::stringstream fileName;
-  fileName << "out/output_" << std::setw(4) << setfill('0') << fileNo << "." << vtkWriter->GetDefaultFileExtension();
+  fileName << "out/output_" << std::setw(4) << setfill('0') << fileNo_ << "." << vtkWriter->GetDefaultFileExtension();
 
   std::cout << "Write file \"" << fileName.str() << "\"." << std::endl;
 
@@ -59,7 +64,7 @@ void writeParaviewOutput(int fileNo)
     for (int i = 0; i < 10; i++)
     {
       int index = j*10 + i;
-      arrayPressure->SetValue(index, i+j-fileNo*(i-j));
+      arrayPressure->SetValue(index, i+j-fileNo_*(i-j));
     }
   }
 

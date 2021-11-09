@@ -3,7 +3,10 @@
 #include <iostream>
 #include <fstream>
 
-void OutputWriterText::writeFile(double currentTime) 	
+OutputWriterText::OutputWriterText(std::shared_ptr <Discretization> discretization) : 
+OutputWriter(discretization_){}
+
+void OutputWriterText::writeFile(double currentTime)
 {
   /*
   // create "out" subdirectory if it does not yet exist
