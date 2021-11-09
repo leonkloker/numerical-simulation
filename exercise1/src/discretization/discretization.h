@@ -23,16 +23,16 @@ public:
   virtual double computeDuvDy(int i, int j) const = 0;
 
   //! compute the 2nd derivative ∂ u / ∂x^2
-  virtual double computeD2uDx2(int i, int j) const = 0;
+  virtual double computeD2uDx2(int i, int j) const;
 
   //! compute the 2nd derivative ∂ v / ∂x^2
-  virtual double computeD2vDx2(int i, int j) const = 0;
+  virtual double computeD2vDx2(int i, int j) const;
 
   //! compute the 2nd derivative ∂ u / ∂y^2
-  virtual double computeD2uDy2(int i, int j) const = 0;
+  virtual double computeD2uDy2(int i, int j) const;
 
   //! compute the 2nd derivative ∂ v / ∂y^2
-  virtual double computeD2vDy2(int i, int j) const = 0;
+  virtual double computeD2vDy2(int i, int j) const;
 
   //! compute the 1st derivative ∂ p / ∂x
   virtual double computeDpDx(int i, int j) const;

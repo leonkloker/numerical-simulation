@@ -6,12 +6,17 @@ void Computation::initialize(int argc, char* argv[])
     settings_.loadFromFile(argv[0]);
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
-    discretization_ = std::make_shared<Discretization>(Discretization(settings_.nCells, meshWidth_));
+
+    if (settings_.useDonorCell){
+        discretization_ = std::make_shared<DonorCell>(DonorCell(settings_.nCells, meshWidth_, settings_.alpha));
+    }else{
+        discretization_ = std::make_shared<CentralDifferences>(CentralDifferences(settings_.nCells, meshWidth_));
+    }
 
     if (settings_.pressureSolver == "SOR"){
-            pressureSolver_ = std::make_unique<SOR>(SOR(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
+        pressureSolver_ = std::make_unique<SOR>(SOR(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
     }else{
-            pressureSolver_ = std::make_unique<GaussSeidel>(GaussSeidel(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
+        pressureSolver_ = std::make_unique<GaussSeidel>(GaussSeidel(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
     }
 
     outputWriterParaview_ = std::make_unique<OutputWriterParaview>(OutputWriterParaview(discretization_));
@@ -32,7 +37,7 @@ void Computation::runSimulation()
         computePressure();
         computeVelocities();
         applyBoundaryValues();
-	time = time + dt_;
+	    time = time + dt_;
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
     }

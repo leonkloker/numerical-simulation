@@ -3,8 +3,8 @@
 #include "output_writer/output_writer_paraview.h"
 #include "output_writer/output_writer_text.h"
 #include "settings/settings.h"
-#include "discretization/discretization.h"
-#include "solver/pressure_solver.h"
+#include "discretization/central_differences.h"
+#include "discretization/donor_cell.h"
 #include "solver/gauss_seidel.h"
 #include "solver/sor.h"
 #include <memory>
