@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leon/Documents/Numerische-Simulation/exercise1
+CMAKE_SOURCE_DIR = /home/maksim/simtech/master/Numerische-Simulation/exercise1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leon/Documents/Numerische-Simulation/exercise1/build
+CMAKE_BINARY_DIR = /home/maksim/simtech/master/Numerische-Simulation/exercise1/build
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/numsim.dir/depend.make
@@ -59,198 +59,198 @@ include src/CMakeFiles/numsim.dir/flags.make
 
 src/CMakeFiles/numsim.dir/main.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/numsim.dir/main.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/main.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/numsim.dir/main.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/main.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/main.cpp
 
 src/CMakeFiles/numsim.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/main.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/main.cpp > CMakeFiles/numsim.dir/main.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/main.cpp > CMakeFiles/numsim.dir/main.cpp.i
 
 src/CMakeFiles/numsim.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/main.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/main.cpp -o CMakeFiles/numsim.dir/main.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/main.cpp -o CMakeFiles/numsim.dir/main.cpp.s
 
 src/CMakeFiles/numsim.dir/computation.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/computation.cpp.o: ../src/computation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/numsim.dir/computation.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/computation.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/numsim.dir/computation.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/computation.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.cpp
 
 src/CMakeFiles/numsim.dir/computation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/computation.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.cpp > CMakeFiles/numsim.dir/computation.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.cpp > CMakeFiles/numsim.dir/computation.cpp.i
 
 src/CMakeFiles/numsim.dir/computation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/computation.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.cpp -o CMakeFiles/numsim.dir/computation.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.cpp -o CMakeFiles/numsim.dir/computation.cpp.s
 
 src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o: ../src/discretization/discretization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/discretization.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/discretization.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/discretization.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/discretization.cpp
 
 src/CMakeFiles/numsim.dir/discretization/discretization.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/discretization/discretization.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/discretization.cpp > CMakeFiles/numsim.dir/discretization/discretization.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/discretization.cpp > CMakeFiles/numsim.dir/discretization/discretization.cpp.i
 
 src/CMakeFiles/numsim.dir/discretization/discretization.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/discretization/discretization.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/discretization.cpp -o CMakeFiles/numsim.dir/discretization/discretization.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/discretization.cpp -o CMakeFiles/numsim.dir/discretization/discretization.cpp.s
 
 src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o: ../src/discretization/central_differences.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/central_differences.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/central_differences.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp
 
 src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/discretization/central_differences.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp > CMakeFiles/numsim.dir/discretization/central_differences.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp > CMakeFiles/numsim.dir/discretization/central_differences.cpp.i
 
 src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/discretization/central_differences.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp -o CMakeFiles/numsim.dir/discretization/central_differences.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp -o CMakeFiles/numsim.dir/discretization/central_differences.cpp.s
 
 src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o: ../src/discretization/staggered_grid.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp
 
 src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp > CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp > CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i
 
 src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp -o CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp -o CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s
 
 src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o: ../src/discretization/donor_cell.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp
 
 src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp > CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp > CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i
 
 src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp -o CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp -o CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o: ../src/output_writer/output_writer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp > CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp > CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/output_writer/output_writer_text.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp > CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp > CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o: ../src/output_writer/output_writer_paraview.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp > CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp > CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s
 
 src/CMakeFiles/numsim.dir/settings/settings.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/settings/settings.cpp.o: ../src/settings/settings.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/CMakeFiles/numsim.dir/settings/settings.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/settings/settings.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/CMakeFiles/numsim.dir/settings/settings.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/settings/settings.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.cpp
 
 src/CMakeFiles/numsim.dir/settings/settings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/settings/settings.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.cpp > CMakeFiles/numsim.dir/settings/settings.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.cpp > CMakeFiles/numsim.dir/settings/settings.cpp.i
 
 src/CMakeFiles/numsim.dir/settings/settings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/settings/settings.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.cpp -o CMakeFiles/numsim.dir/settings/settings.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.cpp -o CMakeFiles/numsim.dir/settings/settings.cpp.s
 
 src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o: ../src/solver/gauss_seidel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp
 
 src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp > CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp > CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i
 
 src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp -o CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp -o CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s
 
 src/CMakeFiles/numsim.dir/solver/sor.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/solver/sor.cpp.o: ../src/solver/sor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object src/CMakeFiles/numsim.dir/solver/sor.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/sor.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object src/CMakeFiles/numsim.dir/solver/sor.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/sor.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.cpp
 
 src/CMakeFiles/numsim.dir/solver/sor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/solver/sor.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.cpp > CMakeFiles/numsim.dir/solver/sor.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.cpp > CMakeFiles/numsim.dir/solver/sor.cpp.i
 
 src/CMakeFiles/numsim.dir/solver/sor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/solver/sor.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.cpp -o CMakeFiles/numsim.dir/solver/sor.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.cpp -o CMakeFiles/numsim.dir/solver/sor.cpp.s
 
 src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o: ../src/solver/pressure_solver.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp
 
 src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp > CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp > CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i
 
 src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp -o CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp -o CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s
 
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.o: ../src/storage/array2d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object src/CMakeFiles/numsim.dir/storage/array2d.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/array2d.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/array2d.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object src/CMakeFiles/numsim.dir/storage/array2d.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/array2d.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/array2d.cpp
 
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/storage/array2d.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/array2d.cpp > CMakeFiles/numsim.dir/storage/array2d.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/array2d.cpp > CMakeFiles/numsim.dir/storage/array2d.cpp.i
 
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/storage/array2d.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/array2d.cpp -o CMakeFiles/numsim.dir/storage/array2d.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/array2d.cpp -o CMakeFiles/numsim.dir/storage/array2d.cpp.s
 
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o: ../src/storage/fieldvariable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o -c /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp
 
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp > CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp > CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i
 
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp -o CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp -o CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s
 
 # Object files for target numsim
 numsim_OBJECTS = \
@@ -467,8 +467,8 @@ src/numsim: /usr/lib/x86_64-linux-gnu/libfreetype.so
 src/numsim: /usr/lib/x86_64-linux-gnu/libvtkCommonCore-7.1.so.7.1p.1
 src/numsim: /usr/lib/x86_64-linux-gnu/libvtksys-7.1.so.7.1p.1
 src/numsim: src/CMakeFiles/numsim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable numsim"
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/numsim.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable numsim"
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/numsim.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/CMakeFiles/numsim.dir/build: src/numsim
@@ -476,10 +476,10 @@ src/CMakeFiles/numsim.dir/build: src/numsim
 .PHONY : src/CMakeFiles/numsim.dir/build
 
 src/CMakeFiles/numsim.dir/clean:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build/src && $(CMAKE_COMMAND) -P CMakeFiles/numsim.dir/cmake_clean.cmake
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src && $(CMAKE_COMMAND) -P CMakeFiles/numsim.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/numsim.dir/clean
 
 src/CMakeFiles/numsim.dir/depend:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leon/Documents/Numerische-Simulation/exercise1 /home/leon/Documents/Numerische-Simulation/exercise1/src /home/leon/Documents/Numerische-Simulation/exercise1/build /home/leon/Documents/Numerische-Simulation/exercise1/build/src /home/leon/Documents/Numerische-Simulation/exercise1/build/src/CMakeFiles/numsim.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/maksim/simtech/master/Numerische-Simulation/exercise1 /home/maksim/simtech/master/Numerische-Simulation/exercise1/src /home/maksim/simtech/master/Numerische-Simulation/exercise1/build /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src/CMakeFiles/numsim.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/CMakeFiles/numsim.dir/depend
 

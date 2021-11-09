@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leon/Documents/Numerische-Simulation/exercise1
+CMAKE_SOURCE_DIR = /home/maksim/simtech/master/Numerische-Simulation/exercise1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leon/Documents/Numerische-Simulation/exercise1/build
+CMAKE_BINARY_DIR = /home/maksim/simtech/master/Numerische-Simulation/exercise1/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles /home/leon/Documents/Numerische-Simulation/exercise1/build/src/CMakeFiles/progress.marks
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Documents/Numerische-Simulation/exercise1/build/CMakeFiles 0
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/src/CMakeFiles/progress.marks
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maksim/simtech/master/Numerische-Simulation/exercise1/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/numsim.dir/rule:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/numsim.dir/rule
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/numsim.dir/rule
 .PHONY : src/CMakeFiles/numsim.dir/rule
 
 # Convenience name for target.
@@ -168,7 +168,7 @@ numsim: src/CMakeFiles/numsim.dir/rule
 
 # fast build rule for target.
 numsim/fast:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/build
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/build
 .PHONY : numsim/fast
 
 computation.o: computation.cpp.o
@@ -177,7 +177,7 @@ computation.o: computation.cpp.o
 
 # target to build an object file
 computation.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.o
 .PHONY : computation.cpp.o
 
 computation.i: computation.cpp.i
@@ -186,7 +186,7 @@ computation.i: computation.cpp.i
 
 # target to preprocess a source file
 computation.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.i
 .PHONY : computation.cpp.i
 
 computation.s: computation.cpp.s
@@ -195,7 +195,7 @@ computation.s: computation.cpp.s
 
 # target to generate assembly for a file
 computation.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.s
 .PHONY : computation.cpp.s
 
 discretization/central_differences.o: discretization/central_differences.cpp.o
@@ -204,7 +204,7 @@ discretization/central_differences.o: discretization/central_differences.cpp.o
 
 # target to build an object file
 discretization/central_differences.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o
 .PHONY : discretization/central_differences.cpp.o
 
 discretization/central_differences.i: discretization/central_differences.cpp.i
@@ -213,7 +213,7 @@ discretization/central_differences.i: discretization/central_differences.cpp.i
 
 # target to preprocess a source file
 discretization/central_differences.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.i
 .PHONY : discretization/central_differences.cpp.i
 
 discretization/central_differences.s: discretization/central_differences.cpp.s
@@ -222,7 +222,7 @@ discretization/central_differences.s: discretization/central_differences.cpp.s
 
 # target to generate assembly for a file
 discretization/central_differences.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.s
 .PHONY : discretization/central_differences.cpp.s
 
 discretization/discretization.o: discretization/discretization.cpp.o
@@ -231,7 +231,7 @@ discretization/discretization.o: discretization/discretization.cpp.o
 
 # target to build an object file
 discretization/discretization.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o
 .PHONY : discretization/discretization.cpp.o
 
 discretization/discretization.i: discretization/discretization.cpp.i
@@ -240,7 +240,7 @@ discretization/discretization.i: discretization/discretization.cpp.i
 
 # target to preprocess a source file
 discretization/discretization.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.i
 .PHONY : discretization/discretization.cpp.i
 
 discretization/discretization.s: discretization/discretization.cpp.s
@@ -249,7 +249,7 @@ discretization/discretization.s: discretization/discretization.cpp.s
 
 # target to generate assembly for a file
 discretization/discretization.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.s
 .PHONY : discretization/discretization.cpp.s
 
 discretization/donor_cell.o: discretization/donor_cell.cpp.o
@@ -258,7 +258,7 @@ discretization/donor_cell.o: discretization/donor_cell.cpp.o
 
 # target to build an object file
 discretization/donor_cell.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o
 .PHONY : discretization/donor_cell.cpp.o
 
 discretization/donor_cell.i: discretization/donor_cell.cpp.i
@@ -267,7 +267,7 @@ discretization/donor_cell.i: discretization/donor_cell.cpp.i
 
 # target to preprocess a source file
 discretization/donor_cell.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i
 .PHONY : discretization/donor_cell.cpp.i
 
 discretization/donor_cell.s: discretization/donor_cell.cpp.s
@@ -276,7 +276,7 @@ discretization/donor_cell.s: discretization/donor_cell.cpp.s
 
 # target to generate assembly for a file
 discretization/donor_cell.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s
 .PHONY : discretization/donor_cell.cpp.s
 
 discretization/staggered_grid.o: discretization/staggered_grid.cpp.o
@@ -285,7 +285,7 @@ discretization/staggered_grid.o: discretization/staggered_grid.cpp.o
 
 # target to build an object file
 discretization/staggered_grid.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o
 .PHONY : discretization/staggered_grid.cpp.o
 
 discretization/staggered_grid.i: discretization/staggered_grid.cpp.i
@@ -294,7 +294,7 @@ discretization/staggered_grid.i: discretization/staggered_grid.cpp.i
 
 # target to preprocess a source file
 discretization/staggered_grid.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i
 .PHONY : discretization/staggered_grid.cpp.i
 
 discretization/staggered_grid.s: discretization/staggered_grid.cpp.s
@@ -303,7 +303,7 @@ discretization/staggered_grid.s: discretization/staggered_grid.cpp.s
 
 # target to generate assembly for a file
 discretization/staggered_grid.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s
 .PHONY : discretization/staggered_grid.cpp.s
 
 main.o: main.cpp.o
@@ -312,7 +312,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -321,7 +321,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -330,7 +330,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 output_writer/output_writer.o: output_writer/output_writer.cpp.o
@@ -339,7 +339,7 @@ output_writer/output_writer.o: output_writer/output_writer.cpp.o
 
 # target to build an object file
 output_writer/output_writer.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o
 .PHONY : output_writer/output_writer.cpp.o
 
 output_writer/output_writer.i: output_writer/output_writer.cpp.i
@@ -348,7 +348,7 @@ output_writer/output_writer.i: output_writer/output_writer.cpp.i
 
 # target to preprocess a source file
 output_writer/output_writer.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i
 .PHONY : output_writer/output_writer.cpp.i
 
 output_writer/output_writer.s: output_writer/output_writer.cpp.s
@@ -357,7 +357,7 @@ output_writer/output_writer.s: output_writer/output_writer.cpp.s
 
 # target to generate assembly for a file
 output_writer/output_writer.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
 .PHONY : output_writer/output_writer.cpp.s
 
 output_writer/output_writer_paraview.o: output_writer/output_writer_paraview.cpp.o
@@ -366,7 +366,7 @@ output_writer/output_writer_paraview.o: output_writer/output_writer_paraview.cpp
 
 # target to build an object file
 output_writer/output_writer_paraview.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o
 .PHONY : output_writer/output_writer_paraview.cpp.o
 
 output_writer/output_writer_paraview.i: output_writer/output_writer_paraview.cpp.i
@@ -375,7 +375,7 @@ output_writer/output_writer_paraview.i: output_writer/output_writer_paraview.cpp
 
 # target to preprocess a source file
 output_writer/output_writer_paraview.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i
 .PHONY : output_writer/output_writer_paraview.cpp.i
 
 output_writer/output_writer_paraview.s: output_writer/output_writer_paraview.cpp.s
@@ -384,7 +384,7 @@ output_writer/output_writer_paraview.s: output_writer/output_writer_paraview.cpp
 
 # target to generate assembly for a file
 output_writer/output_writer_paraview.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s
 .PHONY : output_writer/output_writer_paraview.cpp.s
 
 output_writer/output_writer_text.o: output_writer/output_writer_text.cpp.o
@@ -393,7 +393,7 @@ output_writer/output_writer_text.o: output_writer/output_writer_text.cpp.o
 
 # target to build an object file
 output_writer/output_writer_text.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
 .PHONY : output_writer/output_writer_text.cpp.o
 
 output_writer/output_writer_text.i: output_writer/output_writer_text.cpp.i
@@ -402,7 +402,7 @@ output_writer/output_writer_text.i: output_writer/output_writer_text.cpp.i
 
 # target to preprocess a source file
 output_writer/output_writer_text.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
 .PHONY : output_writer/output_writer_text.cpp.i
 
 output_writer/output_writer_text.s: output_writer/output_writer_text.cpp.s
@@ -411,7 +411,7 @@ output_writer/output_writer_text.s: output_writer/output_writer_text.cpp.s
 
 # target to generate assembly for a file
 output_writer/output_writer_text.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
 .PHONY : output_writer/output_writer_text.cpp.s
 
 settings/settings.o: settings/settings.cpp.o
@@ -420,7 +420,7 @@ settings/settings.o: settings/settings.cpp.o
 
 # target to build an object file
 settings/settings.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.o
 .PHONY : settings/settings.cpp.o
 
 settings/settings.i: settings/settings.cpp.i
@@ -429,7 +429,7 @@ settings/settings.i: settings/settings.cpp.i
 
 # target to preprocess a source file
 settings/settings.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.i
 .PHONY : settings/settings.cpp.i
 
 settings/settings.s: settings/settings.cpp.s
@@ -438,7 +438,7 @@ settings/settings.s: settings/settings.cpp.s
 
 # target to generate assembly for a file
 settings/settings.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.s
 .PHONY : settings/settings.cpp.s
 
 solver/gauss_seidel.o: solver/gauss_seidel.cpp.o
@@ -447,7 +447,7 @@ solver/gauss_seidel.o: solver/gauss_seidel.cpp.o
 
 # target to build an object file
 solver/gauss_seidel.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o
 .PHONY : solver/gauss_seidel.cpp.o
 
 solver/gauss_seidel.i: solver/gauss_seidel.cpp.i
@@ -456,7 +456,7 @@ solver/gauss_seidel.i: solver/gauss_seidel.cpp.i
 
 # target to preprocess a source file
 solver/gauss_seidel.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i
 .PHONY : solver/gauss_seidel.cpp.i
 
 solver/gauss_seidel.s: solver/gauss_seidel.cpp.s
@@ -465,7 +465,7 @@ solver/gauss_seidel.s: solver/gauss_seidel.cpp.s
 
 # target to generate assembly for a file
 solver/gauss_seidel.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s
 .PHONY : solver/gauss_seidel.cpp.s
 
 solver/pressure_solver.o: solver/pressure_solver.cpp.o
@@ -474,7 +474,7 @@ solver/pressure_solver.o: solver/pressure_solver.cpp.o
 
 # target to build an object file
 solver/pressure_solver.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o
 .PHONY : solver/pressure_solver.cpp.o
 
 solver/pressure_solver.i: solver/pressure_solver.cpp.i
@@ -483,7 +483,7 @@ solver/pressure_solver.i: solver/pressure_solver.cpp.i
 
 # target to preprocess a source file
 solver/pressure_solver.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i
 .PHONY : solver/pressure_solver.cpp.i
 
 solver/pressure_solver.s: solver/pressure_solver.cpp.s
@@ -492,7 +492,7 @@ solver/pressure_solver.s: solver/pressure_solver.cpp.s
 
 # target to generate assembly for a file
 solver/pressure_solver.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s
 .PHONY : solver/pressure_solver.cpp.s
 
 solver/sor.o: solver/sor.cpp.o
@@ -501,7 +501,7 @@ solver/sor.o: solver/sor.cpp.o
 
 # target to build an object file
 solver/sor.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.o
 .PHONY : solver/sor.cpp.o
 
 solver/sor.i: solver/sor.cpp.i
@@ -510,7 +510,7 @@ solver/sor.i: solver/sor.cpp.i
 
 # target to preprocess a source file
 solver/sor.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.i
 .PHONY : solver/sor.cpp.i
 
 solver/sor.s: solver/sor.cpp.s
@@ -519,7 +519,7 @@ solver/sor.s: solver/sor.cpp.s
 
 # target to generate assembly for a file
 solver/sor.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.s
 .PHONY : solver/sor.cpp.s
 
 storage/array2d.o: storage/array2d.cpp.o
@@ -528,7 +528,7 @@ storage/array2d.o: storage/array2d.cpp.o
 
 # target to build an object file
 storage/array2d.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.o
 .PHONY : storage/array2d.cpp.o
 
 storage/array2d.i: storage/array2d.cpp.i
@@ -537,7 +537,7 @@ storage/array2d.i: storage/array2d.cpp.i
 
 # target to preprocess a source file
 storage/array2d.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.i
 .PHONY : storage/array2d.cpp.i
 
 storage/array2d.s: storage/array2d.cpp.s
@@ -546,7 +546,7 @@ storage/array2d.s: storage/array2d.cpp.s
 
 # target to generate assembly for a file
 storage/array2d.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.s
 .PHONY : storage/array2d.cpp.s
 
 storage/fieldvariable.o: storage/fieldvariable.cpp.o
@@ -555,7 +555,7 @@ storage/fieldvariable.o: storage/fieldvariable.cpp.o
 
 # target to build an object file
 storage/fieldvariable.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o
 .PHONY : storage/fieldvariable.cpp.o
 
 storage/fieldvariable.i: storage/fieldvariable.cpp.i
@@ -564,7 +564,7 @@ storage/fieldvariable.i: storage/fieldvariable.cpp.i
 
 # target to preprocess a source file
 storage/fieldvariable.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i
 .PHONY : storage/fieldvariable.cpp.i
 
 storage/fieldvariable.s: storage/fieldvariable.cpp.s
@@ -573,7 +573,7 @@ storage/fieldvariable.s: storage/fieldvariable.cpp.s
 
 # target to generate assembly for a file
 storage/fieldvariable.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s
 .PHONY : storage/fieldvariable.cpp.s
 
 # Help Target
@@ -645,6 +645,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/maksim/simtech/master/Numerische-Simulation/exercise1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

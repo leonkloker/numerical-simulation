@@ -2,27 +2,28 @@
 
 #include "output_writer/output_writer.h"
 
-#include <vtkVersion.h>
 #include <vtkSmartPointer.h>
 #include <vtkXMLImageDataWriter.h>
-#include <vtkImageData.h>
-#include <vtkPointData.h>
-#include <vtkDoubleArray.h>
 
-class OutputWriterParaview : OutputWriter
+#include <memory>
+
+/** Write *.vti files that can be viewed with ParaView.
+ *  The mesh that can be visualized in ParaView corresponds to the mesh of the computational domain.
+ *  All values are given for the nodes of the mesh, i.e., the corners of each cell.
+ *  This means, values will be interpolated because the values are stored at positions given by the staggered grid.
+ */
+class OutputWriterParaview : 
+  public OutputWriter
 {
 public:
+  //! constructor
+  //! @param discretization shared pointer to the discretization object that will contain all the data to be written to the file
+  OutputWriterParaview(std::shared_ptr<Discretization> discretization);
 
-    //! discretization shared pointer to the discretization object that will contain all the data to be written to the file 
-    OutputWriterParaview(std::shared_ptr <Discretization> discretization);
-    
-    // Write current velocities to file, filename is output_<count>.txt 
-    void writeFile (double currentTime) override;
+  //! write current velocities to file, filename is output_<count>.vti
+  void writeFile(double currentTime);
 
 private:
-    //! write only current values of pressure to file, filename is pressure_<count>.txt
-    vtkSmartPointer<vtkXMLImageDataWriter> vtkWriter_;
 
-
+  vtkSmartPointer<vtkXMLImageDataWriter> vtkWriter_;   //< vtk writer to write ImageData
 };
-
