@@ -1,5 +1,4 @@
 #include "central_differences.h"
-#include <cmath>
 
 CentralDifferences::CentralDifferences(std::array<int,2> nCells, std::array<double,2> meshWidth) : 
 Discretization(nCells, meshWidth){}

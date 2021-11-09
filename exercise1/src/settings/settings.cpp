@@ -1,9 +1,4 @@
 #include "settings.h"
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <stdlib.h>
-#include <cstring>
 
 void Settings::loadFromFile(std::string filename)
 {

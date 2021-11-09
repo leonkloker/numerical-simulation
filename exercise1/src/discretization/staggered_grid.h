@@ -1,6 +1,7 @@
 #pragma once
 
 #include "storage/fieldvariable.h"
+#include <array>
 
 class StaggeredGrid
 {

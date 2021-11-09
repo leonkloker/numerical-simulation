@@ -1,6 +1,7 @@
 #pragma once
 
 #include "discretization/discretization.h"
+#include <cmath>
 
 class CentralDifferences : public Discretization
 {

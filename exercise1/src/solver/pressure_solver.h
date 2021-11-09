@@ -2,6 +2,7 @@
 
 #include "discretization/discretization.h"
 #include <memory>
+#include <cmath>
 
 class PressureSolver{
 public:

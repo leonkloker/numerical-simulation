@@ -1,6 +1,7 @@
 #pragma once
 
-#include "discretization.h"
+#include "discretization/discretization.h"
+#include <cmath>
 
 class DonorCell : public Discretization
 {

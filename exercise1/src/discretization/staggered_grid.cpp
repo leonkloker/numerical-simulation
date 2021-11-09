@@ -1,14 +1,13 @@
 #include "staggered_grid.h"
-#include <array>
  
 StaggeredGrid::StaggeredGrid(std::array<int,2> nCells, std::array<double,2> meshWidth) : nCells_(nCells), meshWidth_(meshWidth) 
 {
 	FieldVariable u_({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_);
-        FieldVariable v_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
+    FieldVariable v_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
   	FieldVariable p_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
   	FieldVariable rhs_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_);
   	FieldVariable f_({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_);
-        FieldVariable g_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
+    FieldVariable g_({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_);
 }
 
 double StaggeredGrid::dx () const {

@@ -1,7 +1,5 @@
 #include "storage/array2d.h"
 
-#include <cassert>
-
 Array2D::Array2D(std::array<int,2> size) :
   size_(size)
 {

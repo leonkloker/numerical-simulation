@@ -2,6 +2,8 @@
 
 #include "storage/array2d.h"
 #include <array>
+#include <cmath>
+
 
 /** A field variable is the discretization of a scalar function f(x) with x in the computational domain. 
  * More specifically, a scalar value is stored at discrete nodes/points. 

@@ -1,4 +1,3 @@
-#include <cmath>
 #include "discretization.h"
 
 Discretization::Discretization(std::array<int,2> nCells, std::array<double,2> meshWidth) :

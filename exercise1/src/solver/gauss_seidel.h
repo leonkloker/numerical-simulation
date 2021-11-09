@@ -1,8 +1,8 @@
 #pragma once
 
-#include "pressure_solver.h"
-#include "../discretization/discretization.h"
-
+#include "solver/pressure_solver.h"
+#include "discretization/discretization.h"
+#include <cmath>
 
 class GaussSeidel : public PressureSolver{
 public:

@@ -171,6 +171,141 @@ numsim/fast:
 	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/build
 .PHONY : numsim/fast
 
+computation.o: computation.cpp.o
+
+.PHONY : computation.o
+
+# target to build an object file
+computation.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.o
+.PHONY : computation.cpp.o
+
+computation.i: computation.cpp.i
+
+.PHONY : computation.i
+
+# target to preprocess a source file
+computation.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.i
+.PHONY : computation.cpp.i
+
+computation.s: computation.cpp.s
+
+.PHONY : computation.s
+
+# target to generate assembly for a file
+computation.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/computation.cpp.s
+.PHONY : computation.cpp.s
+
+discretization/central_differences.o: discretization/central_differences.cpp.o
+
+.PHONY : discretization/central_differences.o
+
+# target to build an object file
+discretization/central_differences.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o
+.PHONY : discretization/central_differences.cpp.o
+
+discretization/central_differences.i: discretization/central_differences.cpp.i
+
+.PHONY : discretization/central_differences.i
+
+# target to preprocess a source file
+discretization/central_differences.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.i
+.PHONY : discretization/central_differences.cpp.i
+
+discretization/central_differences.s: discretization/central_differences.cpp.s
+
+.PHONY : discretization/central_differences.s
+
+# target to generate assembly for a file
+discretization/central_differences.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.s
+.PHONY : discretization/central_differences.cpp.s
+
+discretization/discretization.o: discretization/discretization.cpp.o
+
+.PHONY : discretization/discretization.o
+
+# target to build an object file
+discretization/discretization.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o
+.PHONY : discretization/discretization.cpp.o
+
+discretization/discretization.i: discretization/discretization.cpp.i
+
+.PHONY : discretization/discretization.i
+
+# target to preprocess a source file
+discretization/discretization.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.i
+.PHONY : discretization/discretization.cpp.i
+
+discretization/discretization.s: discretization/discretization.cpp.s
+
+.PHONY : discretization/discretization.s
+
+# target to generate assembly for a file
+discretization/discretization.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/discretization.cpp.s
+.PHONY : discretization/discretization.cpp.s
+
+discretization/donor_cell.o: discretization/donor_cell.cpp.o
+
+.PHONY : discretization/donor_cell.o
+
+# target to build an object file
+discretization/donor_cell.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o
+.PHONY : discretization/donor_cell.cpp.o
+
+discretization/donor_cell.i: discretization/donor_cell.cpp.i
+
+.PHONY : discretization/donor_cell.i
+
+# target to preprocess a source file
+discretization/donor_cell.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.i
+.PHONY : discretization/donor_cell.cpp.i
+
+discretization/donor_cell.s: discretization/donor_cell.cpp.s
+
+.PHONY : discretization/donor_cell.s
+
+# target to generate assembly for a file
+discretization/donor_cell.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.s
+.PHONY : discretization/donor_cell.cpp.s
+
+discretization/staggered_grid.o: discretization/staggered_grid.cpp.o
+
+.PHONY : discretization/staggered_grid.o
+
+# target to build an object file
+discretization/staggered_grid.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o
+.PHONY : discretization/staggered_grid.cpp.o
+
+discretization/staggered_grid.i: discretization/staggered_grid.cpp.i
+
+.PHONY : discretization/staggered_grid.i
+
+# target to preprocess a source file
+discretization/staggered_grid.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.i
+.PHONY : discretization/staggered_grid.cpp.i
+
+discretization/staggered_grid.s: discretization/staggered_grid.cpp.s
+
+.PHONY : discretization/staggered_grid.s
+
+# target to generate assembly for a file
+discretization/staggered_grid.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.s
+.PHONY : discretization/staggered_grid.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -198,32 +333,248 @@ main.cpp.s:
 	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-output_writer/write_paraview_output.o: output_writer/write_paraview_output.cpp.o
+output_writer/output_writer.o: output_writer/output_writer.cpp.o
 
-.PHONY : output_writer/write_paraview_output.o
+.PHONY : output_writer/output_writer.o
 
 # target to build an object file
-output_writer/write_paraview_output.cpp.o:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/write_paraview_output.cpp.o
-.PHONY : output_writer/write_paraview_output.cpp.o
+output_writer/output_writer.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o
+.PHONY : output_writer/output_writer.cpp.o
 
-output_writer/write_paraview_output.i: output_writer/write_paraview_output.cpp.i
+output_writer/output_writer.i: output_writer/output_writer.cpp.i
 
-.PHONY : output_writer/write_paraview_output.i
+.PHONY : output_writer/output_writer.i
 
 # target to preprocess a source file
-output_writer/write_paraview_output.cpp.i:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/write_paraview_output.cpp.i
-.PHONY : output_writer/write_paraview_output.cpp.i
+output_writer/output_writer.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.i
+.PHONY : output_writer/output_writer.cpp.i
 
-output_writer/write_paraview_output.s: output_writer/write_paraview_output.cpp.s
+output_writer/output_writer.s: output_writer/output_writer.cpp.s
 
-.PHONY : output_writer/write_paraview_output.s
+.PHONY : output_writer/output_writer.s
 
 # target to generate assembly for a file
-output_writer/write_paraview_output.cpp.s:
-	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/write_paraview_output.cpp.s
-.PHONY : output_writer/write_paraview_output.cpp.s
+output_writer/output_writer.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
+.PHONY : output_writer/output_writer.cpp.s
+
+output_writer/output_writer_paraview.o: output_writer/output_writer_paraview.cpp.o
+
+.PHONY : output_writer/output_writer_paraview.o
+
+# target to build an object file
+output_writer/output_writer_paraview.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o
+.PHONY : output_writer/output_writer_paraview.cpp.o
+
+output_writer/output_writer_paraview.i: output_writer/output_writer_paraview.cpp.i
+
+.PHONY : output_writer/output_writer_paraview.i
+
+# target to preprocess a source file
+output_writer/output_writer_paraview.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.i
+.PHONY : output_writer/output_writer_paraview.cpp.i
+
+output_writer/output_writer_paraview.s: output_writer/output_writer_paraview.cpp.s
+
+.PHONY : output_writer/output_writer_paraview.s
+
+# target to generate assembly for a file
+output_writer/output_writer_paraview.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.s
+.PHONY : output_writer/output_writer_paraview.cpp.s
+
+output_writer/output_writer_text.o: output_writer/output_writer_text.cpp.o
+
+.PHONY : output_writer/output_writer_text.o
+
+# target to build an object file
+output_writer/output_writer_text.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
+.PHONY : output_writer/output_writer_text.cpp.o
+
+output_writer/output_writer_text.i: output_writer/output_writer_text.cpp.i
+
+.PHONY : output_writer/output_writer_text.i
+
+# target to preprocess a source file
+output_writer/output_writer_text.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
+.PHONY : output_writer/output_writer_text.cpp.i
+
+output_writer/output_writer_text.s: output_writer/output_writer_text.cpp.s
+
+.PHONY : output_writer/output_writer_text.s
+
+# target to generate assembly for a file
+output_writer/output_writer_text.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
+.PHONY : output_writer/output_writer_text.cpp.s
+
+settings/settings.o: settings/settings.cpp.o
+
+.PHONY : settings/settings.o
+
+# target to build an object file
+settings/settings.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.o
+.PHONY : settings/settings.cpp.o
+
+settings/settings.i: settings/settings.cpp.i
+
+.PHONY : settings/settings.i
+
+# target to preprocess a source file
+settings/settings.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.i
+.PHONY : settings/settings.cpp.i
+
+settings/settings.s: settings/settings.cpp.s
+
+.PHONY : settings/settings.s
+
+# target to generate assembly for a file
+settings/settings.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/settings/settings.cpp.s
+.PHONY : settings/settings.cpp.s
+
+solver/gauss_seidel.o: solver/gauss_seidel.cpp.o
+
+.PHONY : solver/gauss_seidel.o
+
+# target to build an object file
+solver/gauss_seidel.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o
+.PHONY : solver/gauss_seidel.cpp.o
+
+solver/gauss_seidel.i: solver/gauss_seidel.cpp.i
+
+.PHONY : solver/gauss_seidel.i
+
+# target to preprocess a source file
+solver/gauss_seidel.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.i
+.PHONY : solver/gauss_seidel.cpp.i
+
+solver/gauss_seidel.s: solver/gauss_seidel.cpp.s
+
+.PHONY : solver/gauss_seidel.s
+
+# target to generate assembly for a file
+solver/gauss_seidel.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.s
+.PHONY : solver/gauss_seidel.cpp.s
+
+solver/pressure_solver.o: solver/pressure_solver.cpp.o
+
+.PHONY : solver/pressure_solver.o
+
+# target to build an object file
+solver/pressure_solver.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o
+.PHONY : solver/pressure_solver.cpp.o
+
+solver/pressure_solver.i: solver/pressure_solver.cpp.i
+
+.PHONY : solver/pressure_solver.i
+
+# target to preprocess a source file
+solver/pressure_solver.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.i
+.PHONY : solver/pressure_solver.cpp.i
+
+solver/pressure_solver.s: solver/pressure_solver.cpp.s
+
+.PHONY : solver/pressure_solver.s
+
+# target to generate assembly for a file
+solver/pressure_solver.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.s
+.PHONY : solver/pressure_solver.cpp.s
+
+solver/sor.o: solver/sor.cpp.o
+
+.PHONY : solver/sor.o
+
+# target to build an object file
+solver/sor.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.o
+.PHONY : solver/sor.cpp.o
+
+solver/sor.i: solver/sor.cpp.i
+
+.PHONY : solver/sor.i
+
+# target to preprocess a source file
+solver/sor.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.i
+.PHONY : solver/sor.cpp.i
+
+solver/sor.s: solver/sor.cpp.s
+
+.PHONY : solver/sor.s
+
+# target to generate assembly for a file
+solver/sor.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/solver/sor.cpp.s
+.PHONY : solver/sor.cpp.s
+
+storage/array2d.o: storage/array2d.cpp.o
+
+.PHONY : storage/array2d.o
+
+# target to build an object file
+storage/array2d.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.o
+.PHONY : storage/array2d.cpp.o
+
+storage/array2d.i: storage/array2d.cpp.i
+
+.PHONY : storage/array2d.i
+
+# target to preprocess a source file
+storage/array2d.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.i
+.PHONY : storage/array2d.cpp.i
+
+storage/array2d.s: storage/array2d.cpp.s
+
+.PHONY : storage/array2d.s
+
+# target to generate assembly for a file
+storage/array2d.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/array2d.cpp.s
+.PHONY : storage/array2d.cpp.s
+
+storage/fieldvariable.o: storage/fieldvariable.cpp.o
+
+.PHONY : storage/fieldvariable.o
+
+# target to build an object file
+storage/fieldvariable.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o
+.PHONY : storage/fieldvariable.cpp.o
+
+storage/fieldvariable.i: storage/fieldvariable.cpp.i
+
+.PHONY : storage/fieldvariable.i
+
+# target to preprocess a source file
+storage/fieldvariable.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i
+.PHONY : storage/fieldvariable.cpp.i
+
+storage/fieldvariable.s: storage/fieldvariable.cpp.s
+
+.PHONY : storage/fieldvariable.s
+
+# target to generate assembly for a file
+storage/fieldvariable.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise1/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.s
+.PHONY : storage/fieldvariable.cpp.s
 
 # Help Target
 help:
@@ -238,12 +589,51 @@ help:
 	@echo "... edit_cache"
 	@echo "... install/strip"
 	@echo "... numsim"
+	@echo "... computation.o"
+	@echo "... computation.i"
+	@echo "... computation.s"
+	@echo "... discretization/central_differences.o"
+	@echo "... discretization/central_differences.i"
+	@echo "... discretization/central_differences.s"
+	@echo "... discretization/discretization.o"
+	@echo "... discretization/discretization.i"
+	@echo "... discretization/discretization.s"
+	@echo "... discretization/donor_cell.o"
+	@echo "... discretization/donor_cell.i"
+	@echo "... discretization/donor_cell.s"
+	@echo "... discretization/staggered_grid.o"
+	@echo "... discretization/staggered_grid.i"
+	@echo "... discretization/staggered_grid.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... output_writer/write_paraview_output.o"
-	@echo "... output_writer/write_paraview_output.i"
-	@echo "... output_writer/write_paraview_output.s"
+	@echo "... output_writer/output_writer.o"
+	@echo "... output_writer/output_writer.i"
+	@echo "... output_writer/output_writer.s"
+	@echo "... output_writer/output_writer_paraview.o"
+	@echo "... output_writer/output_writer_paraview.i"
+	@echo "... output_writer/output_writer_paraview.s"
+	@echo "... output_writer/output_writer_text.o"
+	@echo "... output_writer/output_writer_text.i"
+	@echo "... output_writer/output_writer_text.s"
+	@echo "... settings/settings.o"
+	@echo "... settings/settings.i"
+	@echo "... settings/settings.s"
+	@echo "... solver/gauss_seidel.o"
+	@echo "... solver/gauss_seidel.i"
+	@echo "... solver/gauss_seidel.s"
+	@echo "... solver/pressure_solver.o"
+	@echo "... solver/pressure_solver.i"
+	@echo "... solver/pressure_solver.s"
+	@echo "... solver/sor.o"
+	@echo "... solver/sor.i"
+	@echo "... solver/sor.s"
+	@echo "... storage/array2d.o"
+	@echo "... storage/array2d.i"
+	@echo "... storage/array2d.s"
+	@echo "... storage/fieldvariable.o"
+	@echo "... storage/fieldvariable.i"
+	@echo "... storage/fieldvariable.s"
 .PHONY : help
 
 

@@ -1,5 +1,4 @@
 #include "solver/gauss_seidel.h"
-#include <cmath>
 
 GaussSeidel::GaussSeidel(std::shared_ptr<Discretization>discretization, double epsilon, int maximumNumberOfIterations) :
 PressureSolver(discretization, epsilon, maximumNumberOfIterations){}

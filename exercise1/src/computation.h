@@ -8,6 +8,8 @@
 #include "solver/gauss_seidel.h"
 #include "solver/sor.h"
 #include <memory>
+#include <cmath>
+
 
 /** This class handles the main simulation.
  *  It implements the time stepping scheme,

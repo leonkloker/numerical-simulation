@@ -2,9 +2,7 @@ CXX=g++         # C++ compiler
 CXXFLAGS=-Wall  # compiler flags
 
 # source files
-SRC=main.cpp computation.cpp discretization/discretization.cpp discretization/central_differences.cpp discretization/staggered_grid.cpp
-   discretization/donor_cell.cpp output_writer/output_writer.cpp output_writer/output_writer_text.cpp output_writer/output_writer_paraview.cpp
-   settings/settings.cpp solver/gauss_seidel.cpp solver/sor.cpp solver/pressure_solver.cpp storage/array2d.cpp storage/fieldvariable.cpp
+SRC=src/main.cpp src/computation.cpp src/discretization/discretization.cpp src/discretization/central_differences.cpp src/discretization/staggered_grid.cpp src/discretization/donor_cell.cpp src/output_writer/output_writer.cpp src/output_writer/output_writer_text.cpp src/output_writer/output_writer_paraview.cpp src/settings/settings.cpp src/solver/gauss_seidel.cpp src/solver/sor.cpp src/solver/pressure_solver.cpp src/storage/array2d.cpp src/storage/fieldvariable.cpp
 
 
 all: debug release

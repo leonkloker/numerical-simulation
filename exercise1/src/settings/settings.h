@@ -2,6 +2,11 @@
 
 #include <iostream>
 #include <array>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <stdlib.h>
+#include <cstring>
 
 /** All settings that parametrize a simulation run.
  */
