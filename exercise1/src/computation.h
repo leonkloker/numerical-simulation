@@ -5,6 +5,8 @@
 #include "settings/settings.h"
 #include "discretization/discretization.h"
 #include "solver/pressure_solver.h"
+#include "solver/gauss_seidel.h"
+#include "solver/sor.h"
 #include <memory>
 
 /** This class handles the main simulation.

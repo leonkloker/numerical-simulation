@@ -7,7 +7,13 @@ void Computation::initialize(int argc, char* argv[])
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
     discretization_ = std::make_shared<Discretization>(Discretization(settings_.nCells, meshWidth_));
-    pressureSolver_ = std::make_unique<PressureSolver>(PressureSolver(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
+
+    if (settings_.pressureSolver == "SOR"){
+            pressureSolver_ = std::make_unique<SOR>(SOR(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
+    }else{
+            pressureSolver_ = std::make_unique<GaussSeidel>(GaussSeidel(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
+    }
+
     outputWriterParaview_ = std::make_unique<OutputWriterParaview>(OutputWriterParaview(discretization_));
     outputWriterText_ = std::make_unique<OutputWriter>(OutputWriter(discretization_));
 }
