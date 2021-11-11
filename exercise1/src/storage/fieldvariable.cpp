@@ -1,4 +1,5 @@
 #include "storage/fieldvariable.h"
+#include <cmath>
 
 FieldVariable::FieldVariable(std::array< int, 2 > size, std::array< double, 2 >	origin,	std::array< double, 2 >	meshWidth): 
 Array2D(size), origin_(origin), meshWidth_(meshWidth)	
@@ -8,6 +9,18 @@ Array2D(size), origin_(origin), meshWidth_(meshWidth)
  	 *origin    Cartesian coordinates of the point with (i,j) = (0,0), this is different from (0,0) for the u,v and p field variables.
 	 *meshWidth The length of a single cell in x and y direction. 
 	 */
+}
+
+double FieldVariable::max() const {
+	
+	double max_value = 0;
+
+	for(const double &value : data_){
+		if (std::abs(value) > max_value){
+			max_value = std::abs(value);
+		}
+	}
+	return max_value;
 }
 
 double FieldVariable::interpolateAt(double x, double y)	const

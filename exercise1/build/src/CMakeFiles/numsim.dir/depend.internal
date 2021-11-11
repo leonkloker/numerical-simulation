@@ -8,15 +8,15 @@ src/CMakeFiles/numsim.dir/computation.cpp.o
  ../src/solver/pressure_solver.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.h
  /usr/include/vtk-7.1/vtkABI.h
  /usr/include/vtk-7.1/vtkAlgorithm.h
  /usr/include/vtk-7.1/vtkAtomic.h
@@ -54,26 +54,26 @@ src/CMakeFiles/numsim.dir/discretization/central_differences.cpp.o
  ../src/discretization/staggered_grid.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.h
 src/CMakeFiles/numsim.dir/discretization/discretization.cpp.o
  ../src/discretization/staggered_grid.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/discretization.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/discretization.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/discretization.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/discretization.h
 src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
 src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/staggered_grid.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/staggered_grid.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/staggered_grid.h
 src/CMakeFiles/numsim.dir/main.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
@@ -81,15 +81,15 @@ src/CMakeFiles/numsim.dir/main.cpp.o
  ../src/solver/pressure_solver.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/computation.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/central_differences.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/main.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/computation.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/central_differences.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/discretization/donor_cell.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/main.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.h
  /usr/include/vtk-7.1/vtkABI.h
  /usr/include/vtk-7.1/vtkAlgorithm.h
  /usr/include/vtk-7.1/vtkAtomic.h
@@ -128,7 +128,7 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o
  ../src/output_writer/output_writer.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer.cpp
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
@@ -136,7 +136,7 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview.cpp.o
  ../src/output_writer/output_writer_paraview.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_paraview.cpp
  /usr/include/vtk-7.1/vtkABI.h
  /usr/include/vtk-7.1/vtkAOSDataArrayTemplate.h
  /usr/include/vtk-7.1/vtkAbstractArray.h
@@ -203,10 +203,10 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
  ../src/output_writer/output_writer_text.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/output_writer/output_writer_text.cpp
 src/CMakeFiles/numsim.dir/settings/settings.cpp.o
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/settings/settings.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/settings/settings.h
 src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
@@ -214,26 +214,26 @@ src/CMakeFiles/numsim.dir/solver/gauss_seidel.cpp.o
  ../src/solver/pressure_solver.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp
 src/CMakeFiles/numsim.dir/solver/pressure_solver.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/pressure_solver.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/pressure_solver.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/pressure_solver.h
 src/CMakeFiles/numsim.dir/solver/sor.cpp.o
  ../src/discretization/discretization.h
  ../src/discretization/staggered_grid.h
  ../src/solver/pressure_solver.h
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.cpp
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/solver/sor.h
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/sor.h
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.o
  ../src/storage/array2d.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/array2d.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/array2d.cpp
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o
  ../src/storage/array2d.h
  ../src/storage/fieldvariable.h
- /home/maksim/simtech/master/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp
+ /home/leon/Documents/Numerische-Simulation/exercise1/src/storage/fieldvariable.cpp

@@ -2,7 +2,7 @@
 
 void Computation::initialize(int argc, char* argv[])
 {
-    settings_.loadFromFile(argv[0]);
+    settings_.loadFromFile(argv[1]);
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
 
@@ -24,34 +24,41 @@ void Computation::initialize(int argc, char* argv[])
 
 void Computation::runSimulation()
 {
-    computeTimeStepWidth();
+    double time = 0;
+    outputWriterParaview_->writeFile(time);
     applyBoundaryValues();
 
-    double time = 0;
-
-    for (int i = 0; i <= floor(settings_.endTime/dt_)+1; i++){
-        computePreliminaryVelocities();
+    while (time < settings_.endTime){
+        computeTimeStepWidth();
         applyBoundaryValuesFG();
+        computePreliminaryVelocities();
         computeRightHandSide();
         computePressure();
         computeVelocities();
         applyBoundaryValues();
+
+        if (std::fmod(time, 0.1) > std::fmod(time + dt_, 0.1)){
+            std::cout << "Current time: " << time << std::endl;
+        }
+
 	    time = time + dt_;
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
+        outputWriterParaview_->writeFile(time);
+        outputWriterText_->writeFile(time);
     }
 }
 
 void Computation::computeTimeStepWidth()
 {
 
-    double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (pow(meshWidth_[0],2) + pow(meshWidth_[1],2));
+    double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));
 
     //Assume for the driven cavity that u and v dont exceed the prescribed velocity at the top boundary -> u_max, v_max <= dirichletBcTop[0]
-    double convectionDt = meshWidth_[0]/settings_.dirichletBcTop[0];
-    convectionDt = std::min(convectionDt, meshWidth_[1]/settings_.dirichletBcTop[0]);
+    double convectionDt = meshWidth_[0]/(discretization_->u().max());
+    convectionDt = std::min(convectionDt, meshWidth_[1]/(discretization_->v().max()));
 
-    dt_ = std::min(convectionDt, diffusionDt);
+    dt_ = settings_.tau * std::min(convectionDt, diffusionDt);
 
     if (settings_.maximumDt < dt_){
         dt_ = settings_.maximumDt;
@@ -70,14 +77,14 @@ void Computation::applyBoundaryValues()
         }
     }
 
-    for (int j = 0; j <= settings_.nCells[1]; j++){
-        discretization_->v(0,j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(1,j);
-        discretization_->v(settings_.nCells[1]+1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(settings_.nCells[1],j);
-        
-        if (j > 0){
-            discretization_->u(0,j) = settings_.dirichletBcLeft[0];
-            discretization_->u(settings_.nCells[0],j) = settings_.dirichletBcRight[0];
+    for (int j = 0; j <= settings_.nCells[1]+1; j++){
+        if (j < settings_.nCells[1]+1){
+            discretization_->v(0,j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(1,j);
+            discretization_->v(settings_.nCells[1]+1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(settings_.nCells[1],j);
         }
+
+        discretization_->u(0,j) = settings_.dirichletBcLeft[0];
+        discretization_->u(settings_.nCells[0],j) = settings_.dirichletBcRight[0];
     }
 }
 
@@ -109,15 +116,13 @@ void Computation::computePreliminaryVelocities()
     for (int i = 1; i <= settings_.nCells[0]; i++){
         for (int j = 1; j <= settings_.nCells[1]; j++){
             if (i < settings_.nCells[0]){
-                discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j));
+                discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
             }
             if (j < settings_.nCells[1]){
-                discretization_->g(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDuvDx(i,j) - discretization_->computeDv2Dy(i,j));
+                discretization_->g(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDuvDx(i,j) - discretization_->computeDv2Dy(i,j) + settings_.g[1]);
             }
         }
     }
-
-    applyBoundaryValuesFG();
 }
 
 void Computation::computeRightHandSide()

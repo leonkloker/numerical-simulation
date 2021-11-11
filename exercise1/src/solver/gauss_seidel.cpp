@@ -1,4 +1,5 @@
 #include "solver/gauss_seidel.h"
+#include <iostream>
 
 GaussSeidel::GaussSeidel(std::shared_ptr<Discretization>discretization, double epsilon, int maximumNumberOfIterations) :
 PressureSolver(discretization, epsilon, maximumNumberOfIterations){}
@@ -12,7 +13,7 @@ void GaussSeidel::solve(){
   double current_error = initial_error;
   int iteration = 0;
 
-  while (current_error > epsilon_ * initial_error && iteration <= maximumNumberOfIterations_){
+  while (current_error > epsilon_ *initial_error && iteration <= maximumNumberOfIterations_){
       iterationStep(dx2, dy2, factor);
       setBoundaryValues();
       current_error = getResidual(dx2, dy2);

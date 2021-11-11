@@ -18,6 +18,9 @@ class FieldVariable : public Array2D
     //! Get the value at the Cartesian coordinate (x,y). The value is linearly interpolated between stored points. 
     double interpolateAt (double x, double y) const;
 
+    //! return the absolute maximum value in data_
+    double max () const;
+
   private:
     const std::array< double, 2 > origin_; // Cartesian coordinates of the point with (i,j) = (0,0), this is different from (0,0) for the u,v and p field variables. 
     const std::array< double, 2 > meshWidth_; // The length of a single cell in x and y direction.
