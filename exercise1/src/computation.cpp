@@ -3,6 +3,7 @@
 void Computation::initialize(int argc, char* argv[])
 {
     settings_.loadFromFile(argv[1]);
+    settings_.printSettings();
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
 
