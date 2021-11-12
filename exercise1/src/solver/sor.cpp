@@ -14,11 +14,12 @@ void SOR::solve(){
   int iteration = 0;
 
   while (current_error > epsilon_ * initial_error && iteration <= maximumNumberOfIterations_){
-      iterationStep(dx2, dy2, factor);
       setBoundaryValues();
+      iterationStep(dx2, dy2, factor);
       current_error = getResidual(dx2, dy2);
       iteration++;
   }
+  setBoundaryValues();
 }
 
 void SOR::iterationStep(double dx2, double dy2, double factor){

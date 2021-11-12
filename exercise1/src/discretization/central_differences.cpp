@@ -8,7 +8,7 @@ double CentralDifferences::computeDu2Dx (int i, int j) const{
 }
 
 double CentralDifferences::computeDuvDx (int i, int j) const{
-  return (((v(i,j+1) + v(i,j)) * (u(i-1,j+1) + u(i,j+1))) - ((v(i,j) + v(i,j-1)) * (u(i-1,j) + u(i,j)))) / (4 * meshWidth_[0]); 
+  return (((v(i,j) + v(i+1,j)) * (u(i,j+1) + u(i,j))) - ((v(i,j) + v(i-1,j)) * (u(i-1,j) + u(i-1,j+1)))) / (4 * meshWidth_[0]);
 }
 
 double CentralDifferences::computeDuvDy (int i, int j) const{

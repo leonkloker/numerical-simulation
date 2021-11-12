@@ -27,9 +27,9 @@ void Computation::runSimulation()
     double time = 0;
     outputWriterParaview_->writeFile(time);
     applyBoundaryValues();
+    computeTimeStepWidth();
 
-    while (time < settings_.endTime){
-        computeTimeStepWidth();
+    while (time + dt_ < settings_.endTime){
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
         computeRightHandSide();
@@ -37,21 +37,33 @@ void Computation::runSimulation()
         computeVelocities();
         applyBoundaryValues();
 
-        if (std::fmod(time, 0.1) > std::fmod(time + dt_, 0.1)){
-            std::cout << "Current time: " << time << std::endl;
-        }
-
-	    time = time + dt_;
+        time = time + dt_;
+        computeTimeStepWidth();
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
         outputWriterParaview_->writeFile(time);
         outputWriterText_->writeFile(time);
+
+    }
+
+    dt_ = settings_.endTime - time;
+
+    if (dt_ > 0.00001){
+        applyBoundaryValuesFG();
+        computePreliminaryVelocities();
+        computeRightHandSide();
+        computePressure();
+        computeVelocities();
+        applyBoundaryValues();
+
+	    time = settings_.endTime;
+
+        outputWriterParaview_->writeFile(time);
     }
 }
 
 void Computation::computeTimeStepWidth()
 {
-
     double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));
 
     //Assume for the driven cavity that u and v dont exceed the prescribed velocity at the top boundary -> u_max, v_max <= dirichletBcTop[0]

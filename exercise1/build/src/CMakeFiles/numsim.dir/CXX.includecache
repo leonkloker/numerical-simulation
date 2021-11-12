@@ -207,8 +207,6 @@ cstring
 /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.cpp
 solver/gauss_seidel.h
 /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/solver/gauss_seidel.h
-iostream
--
 
 /home/leon/Documents/Numerische-Simulation/exercise1/src/solver/gauss_seidel.h
 solver/pressure_solver.h
