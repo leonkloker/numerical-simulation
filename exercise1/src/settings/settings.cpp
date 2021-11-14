@@ -15,6 +15,10 @@ void Settings::loadFromFile(std::string filename)
 	   // if line does not contain a '=' sign, skip line
 	   // parse parameter name
 	   // remove trailing spaces from parameterName
+      // parse value
+		// remove whitespace at beginning of value
+	   // remove comments at end of value
+  	   // remove whitespace at end of value
 	   if (parameter.find_first_of(" \t") != std::string::npos)
 	      {
 	      if (!parameter.find_first_not_of('#'))
@@ -29,10 +33,7 @@ void Settings::loadFromFile(std::string filename)
   	             parameterValue = parameter.erase(parameter.find_first_of(" "));
 	            }
 	       
-		 // parse value
-		 // remove whitespace at beginning of value
-	         // remove comments at end of value
-  	         // remove whitespace at end of value
+		 
 	         // parse actual value and set corresponding parameter
 	  	 
 	         if (parameterName == "physicalSizeX")

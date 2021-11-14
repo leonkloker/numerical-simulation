@@ -4,7 +4,7 @@
 
 #include <memory>
 
-/** Inteface class for writing simulation data output.
+/** Interface class for writing simulation data output.
  */
 class OutputWriter
 {

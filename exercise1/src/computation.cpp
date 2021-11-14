@@ -2,17 +2,21 @@
 
 void Computation::initialize(int argc, char* argv[])
 {
+    //Load the seetings from the parameter file
     settings_.loadFromFile(argv[1]);
-    settings_.printSettings();
+
+    //calculate dx and dy
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
 
+    //Set up the discretization scheme
     if (settings_.useDonorCell){
         discretization_ = std::make_shared<DonorCell>(DonorCell(settings_.nCells, meshWidth_, settings_.alpha));
     }else{
         discretization_ = std::make_shared<CentralDifferences>(CentralDifferences(settings_.nCells, meshWidth_));
     }
 
+    //Set up the solver for the pressure poisson equation
     if (settings_.pressureSolver == "SOR"){
         pressureSolver_ = std::make_unique<SOR>(SOR(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
     }else{
@@ -25,11 +29,14 @@ void Computation::initialize(int argc, char* argv[])
 
 void Computation::runSimulation()
 {
+    //initialize time and fieldvariables
     double time = 0;
-    outputWriterParaview_->writeFile(time);
     applyBoundaryValues();
     computeTimeStepWidth();
+    outputWriterParaview_->writeFile(time);
+    outputWriterText_->writeFile(time);
 
+    //run the integrator of the Navier-Stokes equations
     while (time + dt_ < settings_.endTime){
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
@@ -44,9 +51,9 @@ void Computation::runSimulation()
         //write the results of the current timestep into a file for visualization with the outputWriter_
         outputWriterParaview_->writeFile(time);
         outputWriterText_->writeFile(time);
-
     }
 
+    //adjust the value of dt such that endTime is reached exactly
     dt_ = settings_.endTime - time;
 
     if (dt_ > 0.00001){
@@ -65,14 +72,17 @@ void Computation::runSimulation()
 
 void Computation::computeTimeStepWidth()
 {
+    //Stability limit of the diffusion operator
     double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));
 
-    //Assume for the driven cavity that u and v dont exceed the prescribed velocity at the top boundary -> u_max, v_max <= dirichletBcTop[0]
+    //Stability limit of the convection operator
     double convectionDt = meshWidth_[0]/(discretization_->u().max());
     convectionDt = std::min(convectionDt, meshWidth_[1]/(discretization_->v().max()));
 
+    //Find dt such that everything is stable
     dt_ = settings_.tau * std::min(convectionDt, diffusionDt);
 
+    //dt is not allowed to exceed maximumDt
     if (settings_.maximumDt < dt_){
         dt_ = settings_.maximumDt;
     }

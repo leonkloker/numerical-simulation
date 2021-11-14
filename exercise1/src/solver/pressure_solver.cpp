@@ -5,12 +5,12 @@ discretization_(discretization), epsilon_(epsilon), maximumNumberOfIterations_(m
 
 void PressureSolver::setBoundaryValues(){
 
-  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+  for (int i = discretization_->pIBegin(); i < discretization_->pIEnd(); i++){
     discretization_->p(i,discretization_->pJBegin()) = discretization_->p(i,discretization_->pJBegin()+1);
     discretization_->p(i,discretization_->pJEnd()-1) = discretization_->p(i,discretization_->pJEnd()-2);
   }
 
-  for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+  for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
     discretization_->p(discretization_->pIBegin(),j) = discretization_->p(discretization_->pIBegin()+1,j);
     discretization_->p(discretization_->pIEnd()-1,j) = discretization_->p(discretization_->pIEnd()-2,j);
   }
@@ -25,6 +25,5 @@ double PressureSolver::getResidual(double dx2, double dy2){
     }
   }
 
-  int N = discretization_->nCells()[0] * discretization_->nCells()[1];
-  return pow(l2 / N, 0.5);
+  return pow(l2, 0.5);
 }
