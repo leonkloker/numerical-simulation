@@ -90,68 +90,69 @@ void Computation::computeTimeStepWidth()
 
 void Computation::applyBoundaryValues()
 {
-    for (int i = 0; i <= settings_.nCells[0]; i++){
-        discretization_->u(i,0) = 2 * settings_.dirichletBcBottom[0] - discretization_->u(i,1);
-        discretization_->u(i,settings_.nCells[1]+1) = 2 * settings_.dirichletBcTop[0] - discretization_->u(i,settings_.nCells[1]);
-        
-        if (i > 0){
-            discretization_->v(i,0) = settings_.dirichletBcBottom[1];
-            discretization_->v(i,settings_.nCells[1]) = settings_.dirichletBcTop[1];
-        }
-    }
+    for (int i = discretization_->uIBegin(); i < discretization_->uIEnd(); i++){
+        discretization_->u(i,discretization_->uJBegin()) = 2 * settings_.dirichletBcBottom[0] - discretization_->u(i,discretization_->uJBegin()+1);
+        discretization_->u(i,discretization_->uJEnd()-1) = 2 * settings_.dirichletBcTop[0] - discretization_->u(i,discretization_->uJEnd()-2);
+    }  
 
-    for (int j = 0; j <= settings_.nCells[1]+1; j++){
-        if (j < settings_.nCells[1]+1){
-            discretization_->v(0,j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(1,j);
-            discretization_->v(settings_.nCells[1]+1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(settings_.nCells[1],j);
-        }
+    for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+        discretization_->v(i,discretization_->vJBegin()) = settings_.dirichletBcBottom[1];
+        discretization_->v(i,discretization_->vJEnd()-1) = settings_.dirichletBcTop[1];
+    }  
 
-        discretization_->u(0,j) = settings_.dirichletBcLeft[0];
-        discretization_->u(settings_.nCells[0],j) = settings_.dirichletBcRight[0];
+    for (int j = discretization_->uJBegin(); j < discretization_->uJEnd(); j++){
+        discretization_->u(discretization_->uIBegin(),j) = settings_.dirichletBcLeft[0];
+        discretization_->u(discretization_->uIEnd()-1,j) = settings_.dirichletBcRight[0];
+    } 
+    
+    for (int j = discretization_->vJBegin(); j < discretization_->vJEnd(); j++){
+        discretization_->v(discretization_->vIBegin(),j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(discretization_->vIBegin()+1,j);
+        discretization_->v(discretization_->vIEnd()-1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(discretization_->vIEnd()-2,j);
     }
 }
 
 void Computation::applyBoundaryValuesFG()
 {
-    for (int i = 0; i <= settings_.nCells[0]; i++){
-        discretization_->f(i,0) = discretization_->u(i,0);
-        discretization_->f(i,settings_.nCells[1]+1) = discretization_->u(i,settings_.nCells[1]+1);
-        
-        if (i > 0){
-            discretization_->g(i,0) = discretization_->v(i,0);
-            discretization_->g(i,settings_.nCells[1]) = discretization_->v(i,settings_.nCells[1]);
-        }
-    }
+    for (int i = discretization_->uIBegin(); i < discretization_->uIEnd(); i++){
+        discretization_->f(i,discretization_->uJBegin()) = discretization_->u(i,discretization_->uJBegin());
+        discretization_->f(i,discretization_->uJEnd()-1) = discretization_->u(i,discretization_->uJEnd()-1);
+    }  
 
-    for (int j = 0; j <= settings_.nCells[1]; j++){
-        discretization_->g(0,j) = discretization_->v(0,j);
-        discretization_->g(settings_.nCells[1]+1,j) = discretization_->v(settings_.nCells[1]+1,j);
-        
-        if (j > 0){
-            discretization_->f(0,j) = discretization_->u(0,j);
-            discretization_->f(settings_.nCells[0],j) = discretization_->u(settings_.nCells[0],j);
-        }
+    for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+        discretization_->g(i,discretization_->vJBegin()) = discretization_->v(i,discretization_->vJBegin());
+        discretization_->g(i,discretization_->vJEnd()-1) = discretization_->v(i,discretization_->vJEnd()-1);
+    }  
+
+    for (int j = discretization_->uJBegin(); j < discretization_->uJEnd(); j++){
+        discretization_->f(discretization_->uIBegin(),j) = discretization_->u(discretization_->uIBegin(),j);
+        discretization_->f(discretization_->uIEnd()-1,j) = discretization_->u(discretization_->uIEnd()-1,j);
+    } 
+    
+    for (int j = discretization_->vJBegin(); j < discretization_->vJEnd(); j++){
+        discretization_->g(discretization_->vIBegin(),j) = discretization_->v(discretization_->vIBegin(),j);
+        discretization_->g(discretization_->vIEnd()-1,j) = discretization_->v(discretization_->vIEnd()-1,j);
     }
 }
 
 void Computation::computePreliminaryVelocities()
 {
-    for (int i = 1; i <= settings_.nCells[0]; i++){
-        for (int j = 1; j <= settings_.nCells[1]; j++){
-            if (i < settings_.nCells[0]){
-                discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
-            }
-            if (j < settings_.nCells[1]){
-                discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDuvDx(i,j) - discretization_->computeDv2Dy(i,j) + settings_.g[1]);
-            }
+    for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd()-1; i++){
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
+        }
+    }
+
+    for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd()-1; j++){
+            discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDv2Dy(i,j) - discretization_->computeDuvDx(i,j) + settings_.g[1]);
         }
     }
 }
 
 void Computation::computeRightHandSide()
 {
-    for (int i = 1; i <= settings_.nCells[0]; i++){
-        for (int j = 1; j <= settings_.nCells[1]; j++){
+    for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
+        for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
             discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / meshWidth_[0] + (discretization_->g(i,j) - discretization_->g(i,j-1)) / meshWidth_[1]);
         }
     }
@@ -164,14 +165,15 @@ void Computation::computePressure()
 
 void Computation::computeVelocities()
 {
-    for (int i = 1; i <= settings_.nCells[0]; i++){
-        for (int j = 1; j <= settings_.nCells[1]; j++){
-            if (i < settings_.nCells[0]){
+    for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd()-1; i++){
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
                 discretization_->u(i,j) = discretization_->f(i,j) - dt_ * discretization_->computeDpDx(i,j);
-            }
-            if (j < settings_.nCells[1]){
+        }
+    }
+
+    for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd()-1; j++){
                 discretization_->v(i,j) = discretization_->g(i,j) - dt_ * discretization_->computeDpDy(i,j);
-            }
         }
     }
 }
