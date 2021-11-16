@@ -15,12 +15,11 @@ void SOR::solve(){
   int N = discretization_->nCells()[0] * discretization_->nCells()[1];
 
   while (pow(current_error, 2)/N > pow(epsilon_, 2) && iteration < maximumNumberOfIterations_){
-      setBoundaryValues();
       iterationStep(dx2, dy2, factor);
       current_error = getResidual(dx2, dy2);
       iteration++;
+      setBoundaryValues();
   }
-  setBoundaryValues();
 }
 
 void SOR::iterationStep(double dx2, double dy2, double factor){

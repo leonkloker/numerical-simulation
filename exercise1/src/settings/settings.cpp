@@ -24,14 +24,15 @@ void Settings::loadFromFile(std::string filename)
 	      if (!parameter.find_first_not_of('#'))
 	         {
 	         int parameterNameIndex = parameter.find_first_of(" \t");
-		 std::string parameterName = parameter;
-		 parameterName = parameterName.erase(parameterNameIndex);
-		 std::string parameterValue = parameter.erase(0,parameter.find_first_of("="));
+		      std::string parameterName = parameter;
+		      parameterName = parameterName.erase(parameterNameIndex);
+		      std::string parameterValue = parameter.erase(0,parameter.find_first_of("="));
 	         parameterValue = parameter.erase(0,parameter.find_first_of(" \t")+1);
-	         if (parameter.find_first_of(" \t") != std::string::npos)
-		    {
-  	             parameterValue = parameter.erase(parameter.find_first_of(" "));
-	            }
+	         
+            if (parameter.find_first_of(" \t") != std::string::npos)
+		      {
+  	            parameterValue = parameter.erase(parameter.find_first_of(" "));
+	         }
 	       
 		 
 	         // parse actual value and set corresponding parameter
@@ -102,7 +103,11 @@ void Settings::loadFromFile(std::string filename)
                     }
 		 else if (parameterName == "useDonorCell")
                     {
-                     useDonorCell = parameterValue.c_str();
+                     if (parameterValue == "True" || parameterValue == "true"){
+                        useDonorCell = true;
+                     }else{
+                        useDonorCell = false;
+                     }
                     }
 		 else if (parameterName == "alpha")
                     {
@@ -150,6 +155,6 @@ void Settings::printSettings()
     << ", top: ("  << dirichletBcTop[0] << "," << dirichletBcTop[1]  << ")"
     << ", left: ("  << dirichletBcLeft[0] << "," << dirichletBcLeft[1] << ")"
     << ", right: ("  << dirichletBcRight[0] << "," << dirichletBcRight[1] << ")" << std::endl
-    << "  useDonorCell: " << std::boolalpha << useDonorCell << ", alpha: " << alpha << std::endl
+    << "  useDonorCell: " << useDonorCell << ", alpha: " << alpha << std::endl
     << "  pressureSolver: " << pressureSolver << ", omega: " << omega << ", epsilon: " << epsilon << ", maximumNumberOfIterations: " << maximumNumberOfIterations << std::endl;
 }

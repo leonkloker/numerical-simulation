@@ -4,6 +4,7 @@ void Computation::initialize(int argc, char* argv[])
 {
     //Load the seetings from the parameter file
     settings_.loadFromFile(argv[1]);
+    settings_.printSettings();
 
     //calculate dx and dy
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
@@ -31,22 +32,18 @@ void Computation::runSimulation()
 {
     //initialize time and fieldvariables
     double time = 0;
-    applyBoundaryValues();
-    computeTimeStepWidth();
-    outputWriterParaview_->writeFile(time);
-    outputWriterText_->writeFile(time);
 
     //run the integrator of the Navier-Stokes equations
     while (time + dt_ < settings_.endTime){
+        applyBoundaryValues();
+        computeTimeStepWidth();
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
         computeRightHandSide();
         computePressure();
         computeVelocities();
-        applyBoundaryValues();
 
         time = time + dt_;
-        computeTimeStepWidth();
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
         outputWriterParaview_->writeFile(time);
@@ -153,7 +150,7 @@ void Computation::computeRightHandSide()
 {
     for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
         for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
-            discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / meshWidth_[0] + (discretization_->g(i,j) - discretization_->g(i,j-1)) / meshWidth_[1]);
+            discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / discretization_->dx() + (discretization_->g(i,j) - discretization_->g(i,j-1)) / discretization_->dy());
         }
     }
 }
