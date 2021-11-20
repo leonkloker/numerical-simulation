@@ -19,19 +19,19 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
-  /*using std::chrono::high_resolution_clock;
+  using std::chrono::high_resolution_clock;
   using std::chrono::duration_cast;
   using std::chrono::duration;
   using std::chrono::milliseconds;
-  auto t1 = high_resolution_clock::now();*/
+  auto t1 = high_resolution_clock::now();
 
   Computation simulation;
   simulation.initialize(argc, argv);
   simulation.runSimulation();
 
-  //auto t2 = high_resolution_clock::now();
-  //duration<double, std::milli> ms_double = t2 - t1;
-  //std::cout << ms_double.count();
+  auto t2 = high_resolution_clock::now();
+  duration<double, std::milli> ms_double = t2 - t1;
+  std::cout << ms_double.count();
   
   return EXIT_SUCCESS;
 }

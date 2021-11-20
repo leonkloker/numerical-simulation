@@ -13,7 +13,7 @@ void GaussSeidel::solve(){
   int iteration = 0;
   int N = discretization_->nCells()[0] * discretization_->nCells()[1];
 
-  while (pow(current_error, 2)/N > pow(epsilon_, 2) && iteration < maximumNumberOfIterations_){
+  while (current_error/pow(N, 0.5) > epsilon_ && iteration < maximumNumberOfIterations_){
       setBoundaryValues();
       iterationStep(dx2, dy2, factor);
       current_error = getResidual(dx2, dy2);
