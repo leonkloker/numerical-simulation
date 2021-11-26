@@ -1,3 +1,5 @@
+Runtime of the driven cavity example in ms using default settings and varying the number of cells in x and y direction
+
 10x10 = 100 : 306.705
 10x15 = 150 : 406.571
 10x20 = 200 : 455.484
