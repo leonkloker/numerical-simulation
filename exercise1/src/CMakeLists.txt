@@ -26,6 +26,22 @@ add_executable(${PROJECT_NAME}
 # Add the project directory to include directories, to be able to include all project header files from anywhere
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
 
+# Search for the external package "MPI"
+find_package(MPI REQUIRED)
+
+include_directories(${MPI_INCLUDE_PATH})
+target_link_libraries(${PROJECT_NAME} ${MPI_LIBRARIES})
+
+if(MPI_COMPILE_FLAGS)
+  set_target_properties(${PROJECT_NAME} PROPERTIES
+    COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
+endif()
+
+if(MPI_LINK_FLAGS)
+  set_target_properties(${PROJECT_NAME} PROPERTIES
+    LINK_FLAGS "${MPI_LINK_FLAGS}")
+endif()
+
 # Search for the external package "VTK"
 find_package(VTK)
 
