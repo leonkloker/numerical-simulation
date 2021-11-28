@@ -57,6 +57,7 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 		boundaries_[3] = true;
 		neighbours_[3] = -1;
 	}
+	
 	if((rank_ + 1) % partitionSize_[0] == 0){
 		boundaries_[1] = true;
 		neighbours_[1] = -1;
@@ -66,8 +67,57 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 		boundaries_[0] = true;
 		neighbours_[0] = -1;
 	}
+
 	if(rank_ < partitionSize_[0]){
 		boundaries_[2] = true;
 		neighbours_[2] = -1;
 	}
+}
+
+std::array<int,2> Partitioning::nCells() const{
+	return nCells_;
+}
+
+std::array<int,4> Partitioning::neighbours() const{
+	return neighbours_;
+}
+
+int Partitioning::neighbourTop() const{
+	return neighbours_[0];
+}
+  
+int Partitioning::neighbourRight() const{
+	return neighbours_[1];
+}
+
+int Partitioning::neighbourBottom() const{
+	return neighbours_[2];
+}
+
+int Partitioning::neighbourLeft() const{
+	return neighbours_[3];
+}
+
+bool Partitioning::boundaryTop() const{
+	return boundaries_[0];
+}
+
+bool Partitioning::boundaryRight() const{
+	return boundaries_[1];
+}
+
+bool Partitioning::boundaryBottom() const{
+	return boundaries_[2];
+}
+
+bool Partitioning::boundaryLeft() const{
+	return boundaries_[3];
+}
+
+std::array<bool, 4> Partitioning::boundaries() const{
+	return boundaries_;
+}
+
+int Partitioning::rank() const{
+	return rank_;
 }

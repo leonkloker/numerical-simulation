@@ -8,47 +8,36 @@ class Partitioning
 {
 public:
 
-  //! construct the object with given number of cells in x and y direction
+  //! Partition the domain consisting of nGlobalCells cells in x and y direction into world_size subdomain
   Partitioning(std::array<int,2> nGlobalCells, int world_rank, int world_size);
 
-  //! get number of cells in each coordinate direction 
-  const std::array<int,2> nCells() const;
+  //! get number of cells in the subdomain of this process
+  std::array<int, 2> nCells() const;
+
+  //! get the rank of the neighbouring subdomains
+  std::array<int, 4> neighbours() const;
+
+  int neighbourTop() const;
   
-  //! first valid index for u in x direction
-  int	uIBegin() const;
+  int neighbourRight() const;
 
-  //! one after last valid index for u in x direction
-  int uIEnd() const;
+  int neighbourBottom() const;
 
-  //! first valid index for u in y direction
-  int uJBegin() const; 
+  int neighbourLeft() const;
 
-  //! one after last valid index for u in y direction
-  int uJEnd() const; 	
+  bool boundaryTop() const;
 
-  //! first valid index for v in x direction
-  int vIBegin() const;
+  bool boundaryRight() const;
 
-  //! one after last valid index for v in x direction
-  int	vIEnd() const;
+  bool boundaryBottom() const;
 
-  //! first valid index for v in y direction
-  int	vJBegin() const;
+  bool boundaryLeft() const;
 
-  //! one after last valid index for v in y direction
-  int vJEnd() const;
+  //! get the boundary type (false = inner, true = outer / global boundary) of the 4 boundaries of this subdomain
+  std::array<bool, 4> boundaries() const;
 
-  //! first valid index for p in x direction
-  int pIBegin() const;
-
-  //! one after last valid index for p in x direction
-  int pIEnd() const;
-
-  //! first valid index for p in y direction
-  int pJBegin() const;
-
-  //! one after last valid index for p in y direction
-  int pJEnd() const;
+  //! get the rank of the process which handles this subdomain
+  int rank() const;
 
 private:
 

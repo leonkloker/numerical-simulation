@@ -44,6 +44,8 @@ private:
 
   Settings settings_;
 
+  std::unique_ptr<Partitioning> partition_;
+
   std::shared_ptr<Discretization> discretization_;
 
   std::unique_ptr<PressureSolver> pressureSolver_;
