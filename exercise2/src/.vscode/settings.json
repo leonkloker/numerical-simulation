@@ -48,6 +48,16 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "complex": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "ratio": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }
