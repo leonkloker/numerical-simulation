@@ -11,6 +11,10 @@ Array2D(size), origin_(origin), meshWidth_(meshWidth)
 	 */
 }
 
+void FieldVariable::setToZero(){
+	std::fill(data_.begin(), data_.end(), 0);
+}
+
 double FieldVariable::max() const {
 	
 	double max_value = 0;
@@ -46,4 +50,8 @@ double FieldVariable::interpolateAt(double x, double y)	const
 	double res = (j_top - y_grid) * value1 + (y_grid - j_bottom)*value2;
 
 	return res;
+}
+
+std::vector<double> FieldVariable::data(){
+  return data_;
 }

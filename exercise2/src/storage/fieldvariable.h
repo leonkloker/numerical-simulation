@@ -21,6 +21,10 @@ class FieldVariable : public Array2D
     //! return the absolute maximum value in data_
     double max () const;
 
+    void setToZero();
+    
+    std::vector<double> data();
+
   private:
     const std::array< double, 2 > origin_; // Cartesian coordinates of the point with (i,j) = (0,0), this is different from (0,0) for the u,v and p field variables. 
     const std::array< double, 2 > meshWidth_; // The length of a single cell in x and y direction.

@@ -1,6 +1,6 @@
 #include "output_writer/output_writer_paraview_parallel.h"
 
-#include "storage/field_variable.h"
+#include "storage/fieldvariable.h"
 #include "discretization/discretization.h"
 
 #include <vtkImageData.h>
@@ -8,7 +8,7 @@
 #include <vtkPointData.h>
 #include <mpi.h>
 
-OutputWriterParaviewParallel::OutputWriterParaviewParallel(std::shared_ptr<Discretization> discretization, const Partitioning &partitioning) :
+OutputWriterParaviewParallel::OutputWriterParaviewParallel(std::shared_ptr<Discretization> discretization, Partitioning partitioning) :
    OutputWriter(discretization, partitioning),
 
   nCellsGlobal_(partitioning_.nCellsGlobal()),
@@ -44,11 +44,11 @@ void OutputWriterParaviewParallel::gatherData()
   int iEnd = nCells[0];
 
   // add right-most points at ranks with right boundary
-  if (partitioning_.ownPartitionContainsRightBoundary())
+  if (partitioning_.boundaryRight())
     iEnd += 1;
 
   // add right-most points at ranks with top boundary
-  if (partitioning_.ownPartitionContainsTopBoundary())
+  if (partitioning_.boundaryTop())
     jEnd += 1;
 
   std::array<int,2> nodeOffset = partitioning_.nodeOffset();
@@ -75,9 +75,9 @@ void OutputWriterParaviewParallel::gatherData()
   }
 
   // sum up values from all ranks, not set values are zero
-  MPI_Reduce(u_.data(), uGlobal_.data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  MPI_Reduce(v_.data(), vGlobal_.data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  MPI_Reduce(p_.data(), pGlobal_.data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(u_.data().data(), uGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(v_.data().data(), vGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(p_.data().data(), pGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
 }
 
@@ -87,7 +87,7 @@ void OutputWriterParaviewParallel::writeFile(double currentTime)
   gatherData();
 
   // only continue to write the file on rank 0
-  if (partitioning_.ownRankNo() != 0)
+  if (partitioning_.rank() != 0)
   {
     return;
   }

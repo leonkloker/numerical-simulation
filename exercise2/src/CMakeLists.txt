@@ -7,18 +7,17 @@ project(numsim)
 # Also specify the source files.
 add_executable(${PROJECT_NAME}
    main.cpp
-   computation.cpp
+   computation_parallel.cpp
    discretization/discretization.cpp
    discretization/central_differences.cpp
    discretization/staggered_grid.cpp
    discretization/donor_cell.cpp
+   partitioning/partitioning.cpp
    output_writer/output_writer.cpp
-   output_writer/output_writer_text.cpp
-   output_writer/output_writer_paraview.cpp
+   output_writer/output_writer_text_parallel.cpp
+   output_writer/output_writer_paraview_parallel.cpp
    settings/settings.cpp
-   solver/gauss_seidel.cpp
-   solver/sor.cpp
-   solver/pressure_solver.cpp
+   solver/sor_parallel.cpp
    storage/array2d.cpp
    storage/fieldvariable.cpp
 )

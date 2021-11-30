@@ -8,6 +8,8 @@ class Partitioning
 {
 public:
 
+  Partitioning();
+
   //! Partition the domain consisting of nGlobalCells cells in x and y direction into world_size subdomain
   Partitioning(std::array<int,2> nGlobalCells, int world_rank, int world_size);
 
@@ -15,7 +17,7 @@ public:
   std::array<int, 2> nCells() const;
 
   //! get number of cells in entire domain
-  std::array<int, 2> nGlobalCells() const;
+  std::array<int, 2> nCellsGlobal() const;
 
   //! get the rank of the neighbouring subdomains
   std::array<int, 4> neighbours() const;
@@ -36,8 +38,12 @@ public:
 
   bool boundaryLeft() const;
 
+  bool group() const;
+
   //! get the boundary type (false = inner, true = outer / global boundary) of the 4 boundaries of this subdomain
   std::array<bool, 4> boundaries() const;
+
+  std::array<int, 2> nodeOffset(); 
 
   //! get the rank of the process which handles this subdomain
   int rank() const;
@@ -46,10 +52,10 @@ private:
 
   // boolean representing the group of the pressure solver the subdomain is contained in 
   // true for start in bottom left cell, false for opposite pattern
-  bool group;
+  bool group_;
 
   // number of cells in entire domain
-  std::array<int,2> nGlobalCells_;
+  std::array<int,2> nCellsGlobal_;
 
   // number of cells in x and y direction in current subdomain
   std::array<int,2> nCells_;
@@ -67,4 +73,6 @@ private:
 
   // rank of the current process
   int rank_;
+
+  std::array<int,2> nodeOffset_;
 };

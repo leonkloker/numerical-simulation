@@ -1,6 +1,6 @@
 #pragma once
 
-#include "discretization/partitioning.h"
+#include "partitioning/partitioning.h"
 #include "output_writer/output_writer_paraview_parallel.h"
 #include "output_writer/output_writer_text_parallel.h"
 #include "settings/settings.h"
@@ -18,6 +18,8 @@
 class ComputationParallel
 {
 public:
+
+  ComputationParallel();
 
   //! initialize the computation object, parse the settings from file that is given as the only command line argument
   void initialize(int argc, char* argv[]);
@@ -55,20 +57,29 @@ private:
   //! preliminary velocities, F,G and the pressure, p
   void computeVelocities();
 
+  //! Struct which contains all the relevant parameters for the simulation
   Settings settings_;
 
-  std::shared_ptr<Partitioning> partition_;
+  //! Manages the division of the global domain in subdomains and stores 
+  //! all the relevant data needed for parallel computations
+  Partitioning partition_;
 
+  //! Discretization scheme of the Navier Stokes equations 
   std::shared_ptr<Discretization> discretization_;
 
+  //! Class which is responsible for solving the pressure Poisson equation via SOR in a parallel fashion
   std::unique_ptr<SORParallel> pressureSolver_;
 
-  std::unique_ptr<OutputWriterParaview> outputWriterParaview_;
+  //! Writes the values of u, v and p in a vtk file for each timestep
+  std::unique_ptr<OutputWriterParaviewParallel> outputWriterParaview_;
 
-  std::unique_ptr<OutputWriterText> outputWriterText_;
+  //! Writes the values of u, v, f, g, rhs and p in a text file for each timestep
+  std::unique_ptr<OutputWriterTextParallel> outputWriterText_;
 
+  //! Mesh width of the discretization scheme in both spatial directions
   std::array<double,2> meshWidth_;
 
+  //! Timestep for the time integration
   double dt_;
 };
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "output_writer/output_writer_text.h"
-#include "discretization/partitioning.h"
 
 /** Write *.txt files that are useful for debugging.
  *  All values are written to the file as they are stored in the field variables,
@@ -15,7 +14,7 @@ public:
   using OutputWriterText::OutputWriterText;
 
   //! write current velocities to file, filename is output_<count>.<rankNo>.txt
-  void writeFile(double currentTime);
+  void writeFile(double currentTime) override;
 
   //! write only current values of pressure to file, filename is pressure_<count>.<rankNo>.txt
   void writePressureFile();

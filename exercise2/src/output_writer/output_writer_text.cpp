@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iomanip>
 
-void OutputWriterText::writeFile(double currentTime)
+void OutputWriterText::writeFile(double currentTime) 
 {
   // Assemble the filename
   std::stringstream fileName;

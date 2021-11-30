@@ -1,14 +1,16 @@
 #include "partitioning.h"
  
-Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int world_size){
+Partitioning::Partitioning(){}
+
+Partitioning::Partitioning(std::array<int,2> nCellsGlobal, int world_rank, int world_size){
 
 	// save rank of the current process
 	rank_ = world_rank;
-	nGlobalCells_ = nGlobalCells;
+	nCellsGlobal_ = nCellsGlobal;
 
 	// find the decomposition of the global domain into world_size 
 	// subdomains such that the overall boundary between subdomains is minimal
-	int minimal_boundary = nGlobalCells[0] * nGlobalCells[1];
+	int minimal_boundary = nCellsGlobal[0] * nCellsGlobal[1];
 
 	for (double rx = 1; rx <= std::pow(world_size, 0.5); rx++){
 		int h = int(rx);
@@ -16,11 +18,11 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 
 		if (std::floor(ry) == ry){
 
-			if (nGlobalCells[0] > nGlobalCells[1]){
+			if (nCellsGlobal[0] > nCellsGlobal[1]){
 				rx = ry;
 				ry = h;
 			}
-			int current_boundary = (rx-1)*nGlobalCells[1] + (ry-1)*nGlobalCells[0];
+			int current_boundary = (rx-1)*nCellsGlobal[1] + (ry-1)*nCellsGlobal[0];
 
 			if (current_boundary < minimal_boundary){
 				partitionSize_[0] = rx;
@@ -32,19 +34,19 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 	}
 
 	// determine the size of the subdomain such that the overall grid size stays the same
-	int leftx = nGlobalCells[0] % partitionSize_[0];
-	int lefty = nGlobalCells[1] % partitionSize_[1];
+	int leftx = nCellsGlobal[0] % partitionSize_[0];
+	int lefty = nCellsGlobal[1] % partitionSize_[1];
 
 	if (rank_ % partitionSize_[0] <= leftx-1){
-		nCells_[0] = nGlobalCells[0] / partitionSize_[0] + 1;
+		nCells_[0] = nCellsGlobal[0] / partitionSize_[0] + 1;
 	}else{
-		nCells_[0] = nGlobalCells[0] / partitionSize_[0];
+		nCells_[0] = nCellsGlobal[0] / partitionSize_[0];
 	}
 
 	if (std::floor(rank_ / partitionSize_[0]) <= lefty-1){
-		nCells_[1] = nGlobalCells[1] / partitionSize_[1] + 1;
+		nCells_[1] = nCellsGlobal[1] / partitionSize_[1] + 1;
 	}else{
-		nCells_[1] = nGlobalCells[1] / partitionSize_[1];
+		nCells_[1] = nCellsGlobal[1] / partitionSize_[1];
 	}
 
 	// Determine the pattern for the red-black pressure solver
@@ -53,31 +55,33 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 
 	for (int i = 1; i <= (rank_ % partitionSize_[0]); i++){
 		if (i <= leftx){	
-			cells_to_left = cells_to_left + (nGlobalCells[0] / partitionSize_[0]) + 1;
+			cells_to_left = cells_to_left + (nCellsGlobal[0] / partitionSize_[0]) + 1;
 		}else{
-			cells_to_left = cells_to_left + (nGlobalCells[0] / partitionSize_[0]);
+			cells_to_left = cells_to_left + (nCellsGlobal[0] / partitionSize_[0]);
 		}
 	}
 
 	for (int i = 1; i <= std::floor(rank_ / partitionSize_[0]); i++){
 		if (i <= lefty){	
-			cells_to_bottom = cells_to_bottom + (nGlobalCells[1] / partitionSize_[1]) + 1;
+			cells_to_bottom = cells_to_bottom + (nCellsGlobal[1] / partitionSize_[1]) + 1;
 		}else{
-			cells_to_bottom = cells_to_bottom + (nGlobalCells[1] / partitionSize_[1]);
+			cells_to_bottom = cells_to_bottom + (nCellsGlobal[1] / partitionSize_[1]);
 		}
 	}
 
+	nodeOffset_ = {cells_to_left, cells_to_bottom};
+
 	if (cells_to_bottom % 2 == 0){
 		if (cells_to_left % 2 == 0){
-			group = true;
+			group_ = true;
 		}else{
-			group = false;
+			group_ = false;
 		}
 	}else{
 		if (cells_to_left % 2 == 0){
-			group = false;
+			group_ = false;
 		}else{
-			group = true;
+			group_ = true;
 		}
 	}
 
@@ -115,10 +119,13 @@ std::array<int,2> Partitioning::nCells() const{
 	return nCells_;
 }
 
-std::array<int, 2> Partitioning::nGlobalCells() const{
-	return nGlobalCells_;
+std::array<int, 2> Partitioning::nCellsGlobal() const{
+	return nCellsGlobal_;
 }
 
+std::array<int,2> Partitioning::nodeOffset(){
+	return nodeOffset_;
+}
 
 std::array<int,4> Partitioning::neighbours() const{
 	return neighbours_;
@@ -162,4 +169,8 @@ std::array<bool, 4> Partitioning::boundaries() const{
 
 int Partitioning::rank() const{
 	return rank_;
+}
+
+bool Partitioning::group() const{
+	return group_;
 }
