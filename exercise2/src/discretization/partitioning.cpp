@@ -4,6 +4,7 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 
 	// save rank of the current process
 	rank_ = world_rank;
+	nGlobalCells_ = nGlobalCells;
 
 	// find the decomposition of the global domain into world_size 
 	// subdomains such that the overall boundary between subdomains is minimal
@@ -46,6 +47,40 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 		nCells_[1] = nGlobalCells[1] / partitionSize_[1];
 	}
 
+	// Determine the pattern for the red-black pressure solver
+	int cells_to_left = 0;
+	int cells_to_bottom = 0;
+
+	for (int i = 1; i <= (rank_ % partitionSize_[0]); i++){
+		if (i <= leftx){	
+			cells_to_left = cells_to_left + (nGlobalCells[0] / partitionSize_[0]) + 1;
+		}else{
+			cells_to_left = cells_to_left + (nGlobalCells[0] / partitionSize_[0]);
+		}
+	}
+
+	for (int i = 1; i <= std::floor(rank_ / partitionSize_[0]); i++){
+		if (i <= lefty){	
+			cells_to_bottom = cells_to_bottom + (nGlobalCells[1] / partitionSize_[1]) + 1;
+		}else{
+			cells_to_bottom = cells_to_bottom + (nGlobalCells[1] / partitionSize_[1]);
+		}
+	}
+
+	if (cells_to_bottom % 2 == 0){
+		if (cells_to_left % 2 == 0){
+			group = true;
+		}else{
+			group = false;
+		}
+	}else{
+		if (cells_to_left % 2 == 0){
+			group = false;
+		}else{
+			group = true;
+		}
+	}
+
 	// find the rank of the neighbouring subdomains as well as adjacent global boundaries
 	neighbours_[0] = rank_ + partitionSize_[0]; 
 	neighbours_[1] = rank_ + 1;
@@ -72,11 +107,18 @@ Partitioning::Partitioning(std::array<int,2> nGlobalCells, int world_rank, int w
 		boundaries_[2] = true;
 		neighbours_[2] = -1;
 	}
+
+
 }
 
 std::array<int,2> Partitioning::nCells() const{
 	return nCells_;
 }
+
+std::array<int, 2> Partitioning::nGlobalCells() const{
+	return nGlobalCells_;
+}
+
 
 std::array<int,4> Partitioning::neighbours() const{
 	return neighbours_;

@@ -14,6 +14,9 @@ public:
   //! get number of cells in the subdomain of this process
   std::array<int, 2> nCells() const;
 
+  //! get number of cells in entire domain
+  std::array<int, 2> nGlobalCells() const;
+
   //! get the rank of the neighbouring subdomains
   std::array<int, 4> neighbours() const;
 
@@ -40,6 +43,13 @@ public:
   int rank() const;
 
 private:
+
+  // boolean representing the group of the pressure solver the subdomain is contained in 
+  // true for start in bottom left cell, false for opposite pattern
+  bool group;
+
+  // number of cells in entire domain
+  std::array<int,2> nGlobalCells_;
 
   // number of cells in x and y direction in current subdomain
   std::array<int,2> nCells_;

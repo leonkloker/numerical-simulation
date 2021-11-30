@@ -1,17 +1,18 @@
 #include "computation_parallel.h"
 #include <mpi.h>
+#include <vector>
 
 void ComputationParallel::initialize(int argc, char* argv[])
 {
-    //Load the settings from the parameter file
+    // Load the settings from the parameter file
     settings_.loadFromFile(argv[1]);
     settings_.printSettings();
 
-    //calculate dx and dy
+    // Calculate dx and dy
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
 
-    //Initialize the communicator
+    // Initialize the communicator
     MPI_Init(NULL,NULL);
 
     int world_rank;
@@ -19,24 +20,23 @@ void ComputationParallel::initialize(int argc, char* argv[])
     int world_size;
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-    partition_ = std::make_unique<Partitioning>(Partitioning(settings.nCells_, world_rank, world_size));
+    partition_ = std::make_shared<Partitioning>(Partitioning(settings.nCells_, world_rank, world_size));
 
-    //Set up the discretization scheme
+    // Set up the discretization scheme
     if (settings_.useDonorCell){
         discretization_ = std::make_shared<DonorCell>(DonorCell(partition_->nCells(), meshWidth_, settings_.alpha));
     }else{
         discretization_ = std::make_shared<CentralDifferences>(CentralDifferences(partition_->nCells(), meshWidth_));
     }
 
-    //Set up the solver for the pressure poisson equation
+    // Set up the solver for the pressure poisson equation
     if (settings_.pressureSolver == "SOR"){
-        pressureSolver_ = std::make_unique<SOR>(SOR(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
-    }else{
-        pressureSolver_ = std::make_unique<GaussSeidel>(GaussSeidel(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations));
+        pressureSolver_ = std::make_unique<SORParallel>(SORParallel(discretization_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega));
     }
 
-    outputWriterParaview_ = std::make_unique<OutputWriterParaview>(OutputWriterParaview(discretization_));
-    outputWriterText_ = std::make_unique<OutputWriterText>(OutputWriterText(discretization_));
+    // Initialize the outputwriters
+    outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(OutputWriterParaviewParallel(discretization_));
+    outputWriterText_ = std::make_unique<OutputWriterTextParallel>(OutputWriterTextParallel(discretization_));
 }
 
 void ComputationParallel::runSimulation()
@@ -50,9 +50,11 @@ void ComputationParallel::runSimulation()
         computeTimeStepWidth();
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
+        exchangePreliminaryVelocities();
         computeRightHandSide();
         computePressure();
         computeVelocities();
+        exchangeVelocities();
 
         time = time + dt_;
 
@@ -80,27 +82,28 @@ void ComputationParallel::runSimulation()
 
 void ComputationParallel::computeTimeStepWidth()
 {
-    //Stability limit of the diffusion operator
+    // Stability limit of the diffusion operator
     double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
 
-    //Stability limit of the convection operator
+    // Stability limit of the convection operator
     double convectionDt = meshWidth_[0]/(discretization_->u().max());
-    convectionDt = std::min(convectionDt, meshWidth_[1]/(discretization_->v().max()));
+    convectionDt = std::min(convectionDt, meshWidth_[1]/(partition_->nCells()[0]discretization_->v().max()));
 
-    //Find dt such that everything is stable
+    // Introduce the safety factor tau such that everything is stable
     dt_ = settings_.tau * std::min(convectionDt, diffusionDt);
 
-    //dt is not allowed to exceed maximumDt
+    // dt is not allowed to exceed maximumDt
     if (settings_.maximumDt < dt_){
         dt_ = settings_.maximumDt;
     }
 
+    // Get the minimal dt of all processes
     MPI_Allreduce(&dt_, &dt_, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
 }
 
 void ComputationParallel::applyBoundaryValues()
 {   
-
+    // Apply the Drichlet boundary values at the bottom and top if there is a global boundary
     for (int i = discretization_->uIBegin(); i < discretization_->uIEnd(); i++){
         if (partition_->boundaryBottom()){
             discretization_->u(i,discretization_->uJBegin()) = 2 * settings_.dirichletBcBottom[0] - discretization_->u(i,discretization_->uJBegin()+1);
@@ -179,16 +182,75 @@ void ComputationParallel::applyBoundaryValuesFG()
 
 void ComputationParallel::computePreliminaryVelocities()
 {
-    for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd() - partition_->boundaryRight(); i++){
-        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+    for (int i = discretization_->uIBegin() + 1; i < discretization_->uIEnd() - partition_->boundaryRight(); i++){
+        for (int j = discretization_->uJBegin() + 1; j < discretization_->uJEnd() - 1; j++){
             discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
         }
     }
 
-    for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
-        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd() - partition_->boundaryTop(); j++){
+    for (int i = discretization_->vIBegin() + 1; i < discretization_->vIEnd() - 1; i++){
+        for (int j = discretization_->vJBegin() + 1; j < discretization_->vJEnd() - partition_->boundaryTop(); j++){
             discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDv2Dy(i,j) - discretization_->computeDuvDx(i,j) + settings_.g[1]);
         }
+    }
+}
+
+void ComputationParallel::exchangePreliminaryVelocities()
+{
+    MPI_REQUEST sendRequestTop;
+
+    if (!partition_->boundaryTop()){
+        std::vector<double> sendBufferTop(partition_->nCells()[0], 0);
+        
+        for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
+            sendBufferTop[i-1] = discretization_->g(i,discretization_->vJEnd());
+        }    
+        MPI_Isend(sendBufferTop.data(), partition_->nCells()[0], MPI_DOUBLE, partition_->neighbourTop(), 0, MPI_COMM_WORLD, &sendRequestTop);
+    }
+
+    MPI_REQUEST sendRequestRight;
+
+    if (!partition_->boundaryRight()){
+        std::vector<double> sendBufferRight(partition_->nCells()[1], 0);
+        
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            sendBufferRight[j-1] = discretization_->f(discretization_->uIEnd()-1, j);
+        }    
+        MPI_Isend(sendBufferRight.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
+    }
+
+    if (!partition_->boundaryBottom()){
+        std::vector<double> receiveBufferBottom(partition_->nCells()[0], 0);
+
+        MPI_REQUEST receiveRequestBottom;
+        MPI_Irecv(receiveBufferBottom.data(), partition_->nCells()[0], MPI_DOUBLE, partition_->neighbourBottom(), 0, MPI_COMM_WORLD, &receiveRequestBottom);
+        
+        MPI_Wait(&receiveRequestBottom, MPI_STATUS_IGNORE);
+
+        for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
+            discretization_->g(i,discretization_->vJBegin()) = receiveBufferBottom[i-1];
+        }
+    }
+
+    if (!partition_->boundaryLeft()){
+        std::vector<double> receiveBufferLeft(partition_->nCells()[1], 0);
+
+        MPI_REQUEST receiveRequestLeft;
+        MPI_Irecv(receiveBufferLeft.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeft);
+
+        MPI_Wait(&receiveRequestLeft, MPI_STATUS_IGNORE);
+        
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            discretization_->f(discretization_->uIBegin(),j) = receiveBufferLeft[j-1];
+        }
+    }
+
+    if (!partition_->boundaryTop()){
+        MPI_Wait(&SendRequestTop, MPI_STATUS_IGNORE);
+    }
+
+    if (!partition_->boundaryRight()){
+        MPI_Wait(&SendRequestRight, MPI_STATUS_IGNORE);
     }
 }
 
@@ -208,15 +270,246 @@ void ComputationParallel::computePressure()
 
 void ComputationParallel::computeVelocities()
 {
-    for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd()-1; i++){
+    for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd()-partition_->boundaryRight(); i++){
         for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
                 discretization_->u(i,j) = discretization_->f(i,j) - dt_ * discretization_->computeDpDx(i,j);
         }
     }
 
     for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
-        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd()-1; j++){
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd()-partition_->boundaryTop(); j++){
                 discretization_->v(i,j) = discretization_->g(i,j) - dt_ * discretization_->computeDpDy(i,j);
         }
     }
+}
+
+void ComputationParallel::exchangeVelocities()
+{
+    ///////////////////////////////
+    /// Horizontal value update ///
+    ///////////////////////////////
+
+    // Send u values to the right
+    MPI_REQUEST sendRequestRightU;
+
+    if (!partition_->boundaryRight()){
+        std::vector<double> sendBufferRightU(partition_->nCells()[1], 0);
+        
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            sendBufferRightU[j-1] = discretization_->u(discretization_->uIEnd()-1, j);
+        }    
+        MPI_Isend(sendBufferRightU.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRightU);
+    }
+
+    // Send u values to the left
+    MPI_REQUEST sendRequestLeftU;
+
+    if (!partition_->boundaryLeft()){
+        std::vector<double> sendBufferLeftU(partition_->nCells()[1], 0);
+        
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            sendBufferLeftU[j-1] = discretization_->u(discretization_->uIBegin()+1, j);
+        }    
+        MPI_Isend(sendBufferLeftU.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeftU);
+    }
+
+    // Send v values to the right
+    MPI_REQUEST sendRequestRightV;
+
+    if (!partition_->boundaryRight()){
+        std::vector<double> sendBufferRightV(partition_->nCells()[1], 0);
+        
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd(); j++){
+            sendBufferRightV[j-1] = discretization_->v(discretization_->vIEnd()-2,j);
+        }    
+        MPI_Isend(sendBufferRightV.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourRight(), 1, MPI_COMM_WORLD, &sendRequestRightV);
+    }
+
+    // Send v values to the left
+    MPI_REQUEST sendRequestLeftV;
+
+    if (!partition_->boundaryLeft()){
+        std::vector<double> sendBufferLeftV(partition_->nCells()[1], 0);
+        
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd(); j++){
+            sendBufferLeftV[j-1] = discretization_->v(discretization_->vIBegin()+1,j);
+        }    
+        MPI_Isend(sendBufferLeftV.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourLeft(), 1, MPI_COMM_WORLD, &sendRequestLeftV);
+    }
+
+    // Receive u values from the left
+    if (!partition_->boundaryLeft()){
+        std::vector<double> receiveBufferLeftU(partition_->nCells()[1], 0);
+
+        MPI_REQUEST receiveRequestLeftU;
+        MPI_Irecv(receiveBufferLeftU.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeftU);
+        
+        MPI_Wait(&receiveRequestLeftU, MPI_STATUS_IGNORE);
+
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            discretization_->u(discretization_->uIBegin(),j) = receiveBufferLeftU[j-1];
+        }
+    }
+
+    // Receive u values from the right
+    if (!partition_->boundaryRight()){
+        std::vector<double> receiveBufferRightU(partition_->nCells()[1], 0);
+
+        MPI_REQUEST receiveRequestRightU;
+        MPI_Irecv(receiveBufferRightU.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourRight(), 0, MPI_COMM_WORLD, &receiveRequestRightU);
+        
+        MPI_Wait(&receiveRequestRightU, MPI_STATUS_IGNORE);
+
+        for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
+            discretization_->u(discretization_->uIEnd(),j) = receiveBufferRightU[j-1];
+        }
+    }
+
+    // Receive v values from the left
+    if (!partition_->boundaryLeft()){
+        std::vector<double> receiveBufferLeftV(partition_->nCells()[1], 0);
+
+        MPI_REQUEST receiveRequestLeftV;
+        MPI_Irecv(receiveBufferLeftV.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourLeft(), 1, MPI_COMM_WORLD, &receiveRequestLeftV);
+        
+        MPI_Wait(&receiveRequestLeftV, MPI_STATUS_IGNORE);
+
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd(); j++){
+            discretization_->v(discretization_->vIBegin(),j) = receiveBufferLeftV[j-1];
+        }
+    }
+
+    // Receive v values from the right
+    if (!partition_->boundaryRight()){
+        std::vector<double> receiveBufferRightV(partition_->nCells()[1], 0);
+
+        MPI_REQUEST receiveRequestRightV;
+        MPI_Irecv(receiveBufferRightV.data(), partition_->nCells()[1], MPI_DOUBLE, partition_->neighbourRight(), 1, MPI_COMM_WORLD, &receiveRequestRightV);
+        
+        MPI_Wait(&receiveRequestRightV, MPI_STATUS_IGNORE);
+
+        for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd(); j++){
+            discretization_->v(discretization_->vIEnd()-1,j) = receiveBufferRightV[j-1];
+        }
+    }
+
+    // wait until horizontal exchange of velocities is finished
+    MPI_Wait(&sendRequestRightU, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestLeftU, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestRightV, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestLeftV, MPI_STATUS_IGNORE);
+
+    /////////////////////////////
+    /// Vertical value update ///
+    /////////////////////////////
+    
+    // Send u values to the top
+    MPI_REQUEST sendRequestTopU;
+
+    if (!partition_->boundaryTop()){
+        std::vector<double> sendRequestTopU(partition_->nCells()[0]+2, 0);
+        
+        for (int i = discretization_->uIBegin(); i < discretization_->uIEnd()+1; i++){
+            sendRequestTopU[i] = discretization_->u(i, discretization_->uJEnd()-2);
+        }    
+        MPI_Isend(sendRequestTopU.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourTop(), 0, MPI_COMM_WORLD, &sendRequestTopU);
+    }
+
+    // Send u values to the bottom
+    MPI_REQUEST sendRequestBottomU;
+
+    if (!partition_->boundaryBottom()){
+        std::vector<double> sendBufferBottomU(partition_->nCells()[0]+2, 0);
+        
+        for (int i = discretization_->uIBegin(); i < discretization_->uIEnd()+1; i++){
+            sendBufferBottomU[i] = discretization_->u(i, discretization_->uJBegin()+1);
+        }    
+        MPI_Isend(sendBufferBottomU.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourBottom(), 0, MPI_COMM_WORLD, &sendRequestBottomU);
+    }
+
+    // Send v values to the top
+    MPI_REQUEST sendRequestTopV;
+
+    if (!partition_->boundaryTop()){
+        std::vector<double> sendBufferTopV(partition_->nCells()[0]+2, 0);
+        
+        for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+            sendBufferTopV[i] = discretization_->v(i, discretization_->vJEnd()-1);
+        }    
+        MPI_Isend(sendBufferTopV.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourTop(), 1, MPI_COMM_WORLD, &sendRequestTopV);
+    }
+
+    // Send v values to the bottom
+    MPI_REQUEST sendRequestBottomV;
+
+    if (!partition_->boundaryBottom()){
+        std::vector<double> sendBufferBottomV(partition_->nCells()[0]+2, 0);
+        
+        for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+            sendBufferLeftV[i] = discretization_->v(i, discretization_->vIBegin()+1);
+        }    
+        MPI_Isend(sendBufferBottomV.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourBottom(), 1, MPI_COMM_WORLD, &sendRequestBottomV);
+    }
+
+    // Receive u values from the top
+    if (!partition_->boundaryTop()){
+        std::vector<double> receiveBufferTopU(partition_->nCells()[0]+2, 0);
+
+        MPI_REQUEST receiveRequestTopU;
+        MPI_Irecv(receiveBufferTopU.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourTop(), 0, MPI_COMM_WORLD, &receiveRequestTopU);
+        
+        MPI_Wait(&receiveRequestTopU, MPI_STATUS_IGNORE);
+
+        for (int i = discretization_->uIBegin(); i < discretization_->uIEnd()+1; i++){
+            discretization_->u(i, discretization_->uJEnd()-1) = receiveBufferTopU[i];
+        }
+    }
+
+    // Receive u values from the bottom
+    if (!partition_->boundaryBottom()){
+        std::vector<double> receiveBufferBottomU(partition_->nCells()[0]+2, 0);
+
+        MPI_REQUEST receiveRequestBottomU;
+        MPI_Irecv(receiveBufferBottomU.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourBottom(), 0, MPI_COMM_WORLD, &receiveRequestBottomU);
+        
+        MPI_Wait(&receiveRequestBottomU, MPI_STATUS_IGNORE);
+
+        for (int i = discretization_->uIBegin(); i < discretization_->uIEnd()+1; i++){
+            discretization_->u(i,discretization_->uJBegin()) = receiveBufferBottomU[i];
+        }
+    }
+
+    // Receive v values from the top
+    if (!partition_->boundaryTop()){
+        std::vector<double> receiveBufferTopV(partition_->nCells()[0]+2, 0);
+
+        MPI_REQUEST receiveRequestTopV;
+        MPI_Irecv(receiveBufferTopV.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourTop(), 1, MPI_COMM_WORLD, &receiveRequestTopV);
+        
+        MPI_Wait(&receiveRequestTopV, MPI_STATUS_IGNORE);
+
+        for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+            discretization_->v(i,discretization_->vJEnd()) = receiveBufferTopV[i];
+        }
+    }
+
+    // Receive v values from the bottom
+    if (!partition_->boundaryBottom()){
+        std::vector<double> receiveBufferBottomV(partition_->nCells()[0]+2, 0);
+
+        MPI_REQUEST receiveRequestBottomV;
+        MPI_Irecv(receiveBufferBottomV.data(), partition_->nCells()[0]+2, MPI_DOUBLE, partition_->neighbourBottom(), 1, MPI_COMM_WORLD, &receiveRequestBottomV);
+        
+        MPI_Wait(&receiveRequestBottomV, MPI_STATUS_IGNORE);
+
+        for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
+            discretization_->v(i,discretization_->vJBegin()) = receiveBufferBottomV[i];
+        }
+    }
+
+    // wait until vertical exchange of velocities is finished
+    MPI_Wait(&sendRequestTopU, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestBottomU, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestTopV, MPI_STATUS_IGNORE);
+    MPI_Wait(&sendRequestBottomV, MPI_STATUS_IGNORE);
 }

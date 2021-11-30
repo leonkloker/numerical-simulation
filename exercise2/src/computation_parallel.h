@@ -1,14 +1,21 @@
 #pragma once
 
 #include "discretization/partitioning.h"
-#include "computation.h"
+#include "output_writer/output_writer_paraview_parallel.h"
+#include "output_writer/output_writer_text_parallel.h"
+#include "settings/settings.h"
+#include "discretization/central_differences.h"
+#include "discretization/donor_cell.h"
+#include "solver/sor_parallel.h"
+#include <memory>
+#include <cmath>
 
 
 /** This class handles the main simulation.
  *  It implements the time stepping scheme,
  *   computes all the terms and calls the pressure solver.
  */
-class ComputationParallel : public Computation
+class ComputationParallel
 {
 public:
 
@@ -32,6 +39,12 @@ private:
   //! compute the preliminary velocities, F and G
   void computePreliminaryVelocities();
 
+  //! exchange the values of f and g at the subdomain boundaries
+  void exchangePreliminaryVelocities();
+
+  //! exchange the values of u and v that are needed to calculate f and g in the next timestep
+  void exchangeVelocities();
+
   //! compute the right hand side of the Poisson equation for the pressure
   void computeRightHandSide();
 
@@ -44,11 +57,11 @@ private:
 
   Settings settings_;
 
-  std::unique_ptr<Partitioning> partition_;
+  std::shared_ptr<Partitioning> partition_;
 
   std::shared_ptr<Discretization> discretization_;
 
-  std::unique_ptr<PressureSolver> pressureSolver_;
+  std::unique_ptr<SORParallel> pressureSolver_;
 
   std::unique_ptr<OutputWriterParaview> outputWriterParaview_;
 
