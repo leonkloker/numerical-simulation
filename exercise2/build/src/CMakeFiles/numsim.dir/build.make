@@ -161,9 +161,22 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer.cpp.s
 
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: src/CMakeFiles/numsim.dir/flags.make
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/output_writer/output_writer_text.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o"
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text.cpp
+
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i"
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text.cpp > CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
+
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s"
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text.cpp -o CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
+
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o: ../src/output_writer/output_writer_text_parallel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text_parallel.cpp
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.i: cmake_force
@@ -176,7 +189,7 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.s: cmake
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o: ../src/output_writer/output_writer_paraview_parallel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_paraview_parallel.cpp
 
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.i: cmake_force
@@ -189,7 +202,7 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.s: c
 
 src/CMakeFiles/numsim.dir/settings/settings.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/settings/settings.cpp.o: ../src/settings/settings.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object src/CMakeFiles/numsim.dir/settings/settings.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object src/CMakeFiles/numsim.dir/settings/settings.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/settings/settings.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/settings/settings.cpp
 
 src/CMakeFiles/numsim.dir/settings/settings.cpp.i: cmake_force
@@ -202,7 +215,7 @@ src/CMakeFiles/numsim.dir/settings/settings.cpp.s: cmake_force
 
 src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.o: ../src/solver/sor_parallel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/solver/sor_parallel.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/solver/sor_parallel.cpp
 
 src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.i: cmake_force
@@ -215,7 +228,7 @@ src/CMakeFiles/numsim.dir/solver/sor_parallel.cpp.s: cmake_force
 
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.o: ../src/storage/array2d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object src/CMakeFiles/numsim.dir/storage/array2d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object src/CMakeFiles/numsim.dir/storage/array2d.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/array2d.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/storage/array2d.cpp
 
 src/CMakeFiles/numsim.dir/storage/array2d.cpp.i: cmake_force
@@ -228,7 +241,7 @@ src/CMakeFiles/numsim.dir/storage/array2d.cpp.s: cmake_force
 
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o: src/CMakeFiles/numsim.dir/flags.make
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o: ../src/storage/fieldvariable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/numsim.dir/storage/fieldvariable.cpp.o -c /home/leon/Documents/Numerische-Simulation/exercise2/src/storage/fieldvariable.cpp
 
 src/CMakeFiles/numsim.dir/storage/fieldvariable.cpp.i: cmake_force
@@ -249,6 +262,7 @@ numsim_OBJECTS = \
 "CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o" \
 "CMakeFiles/numsim.dir/partitioning/partitioning.cpp.o" \
 "CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o" \
+"CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o" \
 "CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o" \
 "CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o" \
 "CMakeFiles/numsim.dir/settings/settings.cpp.o" \
@@ -267,6 +281,7 @@ src/numsim: src/CMakeFiles/numsim.dir/discretization/staggered_grid.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/discretization/donor_cell.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/partitioning/partitioning.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o
+src/numsim: src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o
 src/numsim: src/CMakeFiles/numsim.dir/settings/settings.cpp.o
@@ -456,7 +471,7 @@ src/numsim: /usr/lib/x86_64-linux-gnu/libfreetype.so
 src/numsim: /usr/lib/x86_64-linux-gnu/libvtkCommonCore-7.1.so.7.1p.1
 src/numsim: /usr/lib/x86_64-linux-gnu/libvtksys-7.1.so.7.1p.1
 src/numsim: src/CMakeFiles/numsim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable numsim"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leon/Documents/Numerische-Simulation/exercise2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable numsim"
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/numsim.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

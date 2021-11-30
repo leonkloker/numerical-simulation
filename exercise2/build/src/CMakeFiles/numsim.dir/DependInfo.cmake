@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/main.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/main.cpp.o"
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/output_writer/output_writer.cpp.o"
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_paraview_parallel.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o"
+  "/home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o"
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/output_writer/output_writer_text_parallel.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o"
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/partitioning/partitioning.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/partitioning/partitioning.cpp.o"
   "/home/leon/Documents/Numerische-Simulation/exercise2/src/settings/settings.cpp" "/home/leon/Documents/Numerische-Simulation/exercise2/build/src/CMakeFiles/numsim.dir/settings/settings.cpp.o"

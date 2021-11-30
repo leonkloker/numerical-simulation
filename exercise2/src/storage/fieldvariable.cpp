@@ -52,6 +52,6 @@ double FieldVariable::interpolateAt(double x, double y)	const
 	return res;
 }
 
-std::vector<double> FieldVariable::data(){
+std::vector<double> &FieldVariable::getData(){
   return data_;
 }

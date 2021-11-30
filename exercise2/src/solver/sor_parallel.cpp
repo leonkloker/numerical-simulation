@@ -122,8 +122,12 @@ void SORParallel::exchangePressures(){
     }    
   }
 
-  MPI_Wait(&sendRequestLeft, MPI_STATUS_IGNORE);
-  MPI_Wait(&sendRequestRight, MPI_STATUS_IGNORE);
+  if (!partition_.boundaryLeft()){
+    MPI_Wait(&sendRequestLeft, MPI_STATUS_IGNORE);
+  }
+  if (!partition_.boundaryRight()){
+    MPI_Wait(&sendRequestRight, MPI_STATUS_IGNORE);
+  }
 
   // vertical update //
 
@@ -177,8 +181,12 @@ void SORParallel::exchangePressures(){
     }    
   }
 
-  MPI_Wait(&sendRequestTop, MPI_STATUS_IGNORE);
-  MPI_Wait(&sendRequestBottom, MPI_STATUS_IGNORE);
+  if (!partition_.boundaryTop()){
+    MPI_Wait(&sendRequestTop, MPI_STATUS_IGNORE);
+  }
+  if (!partition_.boundaryBottom()){
+    MPI_Wait(&sendRequestBottom, MPI_STATUS_IGNORE);
+  }
 
 }
 

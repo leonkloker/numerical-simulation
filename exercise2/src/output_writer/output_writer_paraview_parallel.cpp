@@ -75,9 +75,9 @@ void OutputWriterParaviewParallel::gatherData()
   }
 
   // sum up values from all ranks, not set values are zero
-  MPI_Reduce(u_.data().data(), uGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  MPI_Reduce(v_.data().data(), vGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  MPI_Reduce(p_.data().data(), pGlobal_.data().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(u_.getData().data(), uGlobal_.getData().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(v_.getData().data(), vGlobal_.getData().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  MPI_Reduce(p_.getData().data(), pGlobal_.getData().data(), nPointsGlobalTotal, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
 }
 
@@ -196,8 +196,8 @@ void OutputWriterParaviewParallel::writeFile(double currentTime)
   // Write the data
   vtkWriter_->SetInputData(dataSet);
   
-  //vtkWriter_->SetDataModeToAscii();     // comment this in to get ascii text files: those can be checked in an editor
-  vtkWriter_->SetDataModeToBinary();      // set file mode to binary files: smaller file sizes
+  vtkWriter_->SetDataModeToAscii();     // comment this in to get ascii text files: those can be checked in an editor
+  //vtkWriter_->SetDataModeToBinary();      // set file mode to binary files: smaller file sizes
 
   // finally write out the data
   vtkWriter_->Write();

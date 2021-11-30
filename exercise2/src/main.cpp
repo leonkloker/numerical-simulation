@@ -32,6 +32,8 @@ int main(int argc, char *argv[])
   /*auto t2 = high_resolution_clock::now();
   duration<double, std::milli> ms_double = t2 - t1;
   std::cout << ms_double.count();*/
+
+  MPI_Finalize();
   
   return EXIT_SUCCESS;
 }

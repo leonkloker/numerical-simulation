@@ -14,7 +14,7 @@ public:
   using OutputWriterText::OutputWriterText;
 
   //! write current velocities to file, filename is output_<count>.<rankNo>.txt
-  void writeFile(double currentTime) override;
+  void writeFile(double currentTime);
 
   //! write only current values of pressure to file, filename is pressure_<count>.<rankNo>.txt
   void writePressureFile();

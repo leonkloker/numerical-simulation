@@ -399,10 +399,15 @@ void ComputationParallel::exchangeVelocities()
     }
 
     // wait until horizontal exchange of velocities is finished
-    MPI_Wait(&sendRequestRightU, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestLeftU, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestRightV, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestLeftV, MPI_STATUS_IGNORE);
+
+    if (!partition_.boundaryRight()){
+        MPI_Wait(&sendRequestRightU, MPI_STATUS_IGNORE);
+        MPI_Wait(&sendRequestRightV, MPI_STATUS_IGNORE);
+    }
+    if (!partition_.boundaryLeft()){
+        MPI_Wait(&sendRequestLeftU, MPI_STATUS_IGNORE);
+        MPI_Wait(&sendRequestLeftV, MPI_STATUS_IGNORE);
+    }
 
     /////////////////////////////
     /// Vertical value update ///
@@ -512,9 +517,12 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // wait until vertical exchange of velocities is finished
-    MPI_Wait(&sendRequestTopU, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestBottomU, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestTopV, MPI_STATUS_IGNORE);
-    MPI_Wait(&sendRequestBottomV, MPI_STATUS_IGNORE);
+    if (!partition_.boundaryTop()){
+        MPI_Wait(&sendRequestTopU, MPI_STATUS_IGNORE);
+        MPI_Wait(&sendRequestTopV, MPI_STATUS_IGNORE);
+    }
+    if (!partition_.boundaryBottom()){
+        MPI_Wait(&sendRequestBottomU, MPI_STATUS_IGNORE);
+        MPI_Wait(&sendRequestBottomV, MPI_STATUS_IGNORE);
+    }
 }

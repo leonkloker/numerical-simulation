@@ -14,6 +14,7 @@ add_executable(${PROJECT_NAME}
    discretization/donor_cell.cpp
    partitioning/partitioning.cpp
    output_writer/output_writer.cpp
+   output_writer/output_writer_text.cpp
    output_writer/output_writer_text_parallel.cpp
    output_writer/output_writer_paraview_parallel.cpp
    settings/settings.cpp

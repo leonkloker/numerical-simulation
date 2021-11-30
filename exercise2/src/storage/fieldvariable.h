@@ -23,7 +23,7 @@ class FieldVariable : public Array2D
 
     void setToZero();
     
-    std::vector<double> data();
+    std::vector<double> &getData();
 
   private:
     const std::array< double, 2 > origin_; // Cartesian coordinates of the point with (i,j) = (0,0), this is different from (0,0) for the u,v and p field variables. 

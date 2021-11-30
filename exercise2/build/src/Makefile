@@ -387,6 +387,33 @@ output_writer/output_writer_paraview_parallel.cpp.s:
 	cd /home/leon/Documents/Numerische-Simulation/exercise2/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.s
 .PHONY : output_writer/output_writer_paraview_parallel.cpp.s
 
+output_writer/output_writer_text.o: output_writer/output_writer_text.cpp.o
+
+.PHONY : output_writer/output_writer_text.o
+
+# target to build an object file
+output_writer/output_writer_text.cpp.o:
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o
+.PHONY : output_writer/output_writer_text.cpp.o
+
+output_writer/output_writer_text.i: output_writer/output_writer_text.cpp.i
+
+.PHONY : output_writer/output_writer_text.i
+
+# target to preprocess a source file
+output_writer/output_writer_text.cpp.i:
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.i
+.PHONY : output_writer/output_writer_text.cpp.i
+
+output_writer/output_writer_text.s: output_writer/output_writer_text.cpp.s
+
+.PHONY : output_writer/output_writer_text.s
+
+# target to generate assembly for a file
+output_writer/output_writer_text.cpp.s:
+	cd /home/leon/Documents/Numerische-Simulation/exercise2/build && $(MAKE) -f src/CMakeFiles/numsim.dir/build.make src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.s
+.PHONY : output_writer/output_writer_text.cpp.s
+
 output_writer/output_writer_text_parallel.o: output_writer/output_writer_text_parallel.cpp.o
 
 .PHONY : output_writer/output_writer_text_parallel.o
@@ -586,6 +613,9 @@ help:
 	@echo "... output_writer/output_writer_paraview_parallel.o"
 	@echo "... output_writer/output_writer_paraview_parallel.i"
 	@echo "... output_writer/output_writer_paraview_parallel.s"
+	@echo "... output_writer/output_writer_text.o"
+	@echo "... output_writer/output_writer_text.i"
+	@echo "... output_writer/output_writer_text.s"
 	@echo "... output_writer/output_writer_text_parallel.o"
 	@echo "... output_writer/output_writer_text_parallel.i"
 	@echo "... output_writer/output_writer_text_parallel.s"

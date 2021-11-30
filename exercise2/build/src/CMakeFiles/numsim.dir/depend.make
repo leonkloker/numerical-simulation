@@ -297,6 +297,15 @@ src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o: /
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o: /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/win.h
 src/CMakeFiles/numsim.dir/output_writer/output_writer_paraview_parallel.cpp.o: /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/win_inln.h
 
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/discretization/discretization.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/discretization/staggered_grid.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/output_writer/output_writer.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/output_writer/output_writer_text.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/partitioning/partitioning.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/storage/array2d.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/storage/fieldvariable.h
+src/CMakeFiles/numsim.dir/output_writer/output_writer_text.cpp.o: ../src/output_writer/output_writer_text.cpp
+
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o: ../src/discretization/discretization.h
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o: ../src/discretization/staggered_grid.h
 src/CMakeFiles/numsim.dir/output_writer/output_writer_text_parallel.cpp.o: ../src/output_writer/output_writer.h
