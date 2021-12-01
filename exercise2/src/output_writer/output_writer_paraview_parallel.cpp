@@ -196,8 +196,8 @@ void OutputWriterParaviewParallel::writeFile(double currentTime)
   // Write the data
   vtkWriter_->SetInputData(dataSet);
   
-  vtkWriter_->SetDataModeToAscii();     // comment this in to get ascii text files: those can be checked in an editor
-  //vtkWriter_->SetDataModeToBinary();      // set file mode to binary files: smaller file sizes
+  //vtkWriter_->SetDataModeToAscii();     // comment this in to get ascii text files: those can be checked in an editor
+  vtkWriter_->SetDataModeToBinary();      // set file mode to binary files: smaller file sizes
 
   // finally write out the data
   vtkWriter_->Write();

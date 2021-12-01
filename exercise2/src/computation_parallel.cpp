@@ -62,7 +62,7 @@ void ComputationParallel::runSimulation()
 
         //write the results of the current timestep into a file for visualization with the outputWriter_
         outputWriterParaview_->writeFile(time);
-        outputWriterText_->writeFile(time);
+        // outputWriterText_->writeFile(time);
     }
 
     //adjust the value of dt such that endTime is reached exactly
@@ -204,11 +204,12 @@ void ComputationParallel::exchangePreliminaryVelocities()
 {
     MPI_Request sendRequestTop;
 
+    // send g values to top neighbour
     if (!partition_.boundaryTop()){
         std::vector<double> sendBufferTop(partition_.nCells()[0], 0);
         
         for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
-            sendBufferTop[i-1] = discretization_->g(i,discretization_->vJEnd());
+            sendBufferTop[i-1] = discretization_->g(i,discretization_->vJEnd()-1);
         }    
         MPI_Isend(sendBufferTop.data(), partition_.nCells()[0], MPI_DOUBLE, partition_.neighbourTop(), 0, MPI_COMM_WORLD, &sendRequestTop);
     }
@@ -456,7 +457,7 @@ void ComputationParallel::exchangeVelocities()
         std::vector<double> sendBufferBottomV(partition_.nCells()[0]+2, 0);
         
         for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
-            sendBufferBottomV[i] = discretization_->v(i, discretization_->vIBegin()+1);
+            sendBufferBottomV[i] = discretization_->v(i, discretization_->vJBegin()+1);
         }    
         MPI_Isend(sendBufferBottomV.data(), partition_.nCells()[0]+2, MPI_DOUBLE, partition_.neighbourBottom(), 1, MPI_COMM_WORLD, &sendRequestBottomV);
     }
