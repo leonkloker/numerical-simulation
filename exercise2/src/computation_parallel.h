@@ -57,29 +57,29 @@ private:
   //! preliminary velocities, F,G and the pressure, p
   void computeVelocities();
 
-  //! Struct which contains all the relevant parameters for the simulation
+  //! struct which contains all the relevant parameters for the simulation
   Settings settings_;
 
-  //! Manages the division of the global domain in subdomains and stores 
+  //! manages the division of the global domain in subdomains and stores 
   //! all the relevant data needed for parallel computations
   Partitioning partition_;
 
-  //! Discretization scheme of the Navier Stokes equations 
+  //! discretization scheme of the Navier Stokes equations 
   std::shared_ptr<Discretization> discretization_;
 
-  //! Class which is responsible for solving the pressure Poisson equation via SOR in a parallel fashion
+  //! object which is responsible for solving the pressure Poisson equation via SOR in a parallel fashion
   std::unique_ptr<SORParallel> pressureSolver_;
 
-  //! Writes the values of u, v and p in a vtk file for each timestep
+  //! object which writes the values of u, v and p in a vtk file for each timestep
   std::unique_ptr<OutputWriterParaviewParallel> outputWriterParaview_;
 
-  //! Writes the values of u, v, f, g, rhs and p in a text file for each timestep
+  //! object which writes the values of u, v, f, g, rhs and p in a text file for each timestep
   std::unique_ptr<OutputWriterTextParallel> outputWriterText_;
 
-  //! Mesh width of the discretization scheme in both spatial directions
+  //! mesh width of the discretization scheme in both spatial directions
   std::array<double,2> meshWidth_;
 
-  //! Timestep for the time integration
+  //! timestep for the time integration
   double dt_;
 };
 

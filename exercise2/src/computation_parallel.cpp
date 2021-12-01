@@ -6,15 +6,14 @@ ComputationParallel::ComputationParallel(){}
 
 void ComputationParallel::initialize(int argc, char* argv[])
 {
-    // Load the settings from the parameter file
+    // load the settings from the parameter file
     settings_.loadFromFile(argv[1]);
-    settings_.printSettings();
 
-    // Calculate dx and dy
+    // calculate dx and dy
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
 
-    // Initialize the communicator
+    // initialize the communicator
     MPI_Init(NULL,NULL);
 
     int world_rank;
@@ -22,52 +21,80 @@ void ComputationParallel::initialize(int argc, char* argv[])
     int world_size;
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
+    // partition the global domain into several subdomains
     partition_ = Partitioning(settings_.nCells, world_rank, world_size);
 
-    // Set up the discretization scheme
+    // set up the discretization scheme
     if (settings_.useDonorCell){
         discretization_ = std::make_shared<DonorCell>(partition_.nCells(), meshWidth_, settings_.alpha);
     }else{
         discretization_ = std::make_shared<CentralDifferences>(partition_.nCells(), meshWidth_);
     }
 
-    // Set up the solver for the pressure Poisson equation
+    // set up the solver for the pressure Poisson equation
     if (settings_.pressureSolver == "SOR"){
         pressureSolver_ = std::make_unique<SORParallel>(discretization_, partition_, settings_.epsilon, settings_.maximumNumberOfIterations, settings_.omega);
     }
 
-    // Initialize the outputwriters
+    // initialize the outputwriters
     outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(discretization_, partition_);
     outputWriterText_ = std::make_unique<OutputWriterTextParallel>(discretization_, partition_);
 }
 
 void ComputationParallel::runSimulation()
 {
-    //initialize time and fieldvariables
+    // initialize time to zero
     double time = 0;
 
-    //run the integrator of the Navier-Stokes equations
+    // write initial state as first output
+    applyBoundaryValues();
+    outputWriterParaview_->writeFile(time);
+
+    // run the integrator of the Navier-Stokes equations
     while (time + dt_ < settings_.endTime){
+
+        // apply the Dirichlet boundary values
         applyBoundaryValues();
+
+        // calculate the timestep such that the simulation is stable
         computeTimeStepWidth();
+
+        // apply the corresponding boundary values for F and G
         applyBoundaryValuesFG();
+
+        // compute F and G
         computePreliminaryVelocities();
+
+        // exchange F and G at the subdomain boundaries between neighbouring processes
         exchangePreliminaryVelocities();
+
+        // compute the right-hand side of the pressure Poisson equation
         computeRightHandSide();
+
+        // solve the pressure Poisson equation
         computePressure();
+
+        // compute U and V
         computeVelocities();
+
+        // exchange U and V at the subdomain boundaries between neighbouring processes processes
         exchangeVelocities();
 
+        // increase the time
         time = time + dt_;
 
-        //write the results of the current timestep into a file for visualization with the outputWriter_
-        outputWriterParaview_->writeFile(time);
+        // write U, V and P into a vtk file every second
+        if (fmod(time - dt_, 1) >= fmod(time, 1)){
+            outputWriterParaview_->writeFile(time);
+        }
+
         // outputWriterText_->writeFile(time);
     }
 
     //adjust the value of dt such that endTime is reached exactly
     dt_ = settings_.endTime - time;
 
+    // run one more integration step
     if (dt_ > 0.00001){
         applyBoundaryValues();
         computeTimeStepWidth();
@@ -87,14 +114,14 @@ void ComputationParallel::runSimulation()
 
 void ComputationParallel::computeTimeStepWidth()
 {
-    // Stability limit of the diffusion operator
+    // temporal stability limit of the diffusion operator
     double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
 
-    // Stability limit of the convection operator
+    // temporal stability limit of the convection operator
     double convectionDt = meshWidth_[0] / (discretization_->u().max());
     convectionDt = std::min(convectionDt, meshWidth_[1] / discretization_->v().max());
 
-    // Introduce the safety factor tau such that everything is stable
+    // introduce the safety factor tau such that everything is definitely stable
     dt_ = settings_.tau * std::min(convectionDt, diffusionDt);
 
     // dt is not allowed to exceed maximumDt
@@ -102,13 +129,13 @@ void ComputationParallel::computeTimeStepWidth()
         dt_ = settings_.maximumDt;
     }
 
-    // Get the minimal dt of all processes
+    // get the minimal dt of all processes
     MPI_Allreduce(&dt_, &dt_, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
 }
 
 void ComputationParallel::applyBoundaryValues()
 {   
-    // Apply the Drichlet boundary values at the bottom and top if there is a global boundary
+    // apply the Dirichlet boundary values of U at the bottom and top if there is a global boundary
     for (int i = discretization_->uIBegin(); i < discretization_->uIEnd(); i++){
         if (partition_.boundaryBottom()){
             discretization_->u(i,discretization_->uJBegin()) = 2 * settings_.dirichletBcBottom[0] - discretization_->u(i,discretization_->uJBegin()+1);
@@ -118,6 +145,7 @@ void ComputationParallel::applyBoundaryValues()
         }
     }  
 
+    // apply the Dirichlet boundary values of V at the bottom and top if there is a global boundary
     for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
         if (partition_.boundaryBottom()){
             discretization_->v(i,discretization_->vJBegin()) = settings_.dirichletBcBottom[1];
@@ -127,6 +155,7 @@ void ComputationParallel::applyBoundaryValues()
         }
     }  
 
+    // apply the Dirichlet boundary values of U at the left and right side if there is a global boundary
     for (int j = discretization_->uJBegin(); j < discretization_->uJEnd(); j++){
         if (partition_.boundaryLeft()){
             discretization_->u(discretization_->uIBegin(),j) = settings_.dirichletBcLeft[0];
@@ -136,6 +165,7 @@ void ComputationParallel::applyBoundaryValues()
         }
     } 
     
+    // apply the Dirichlet boundary values of V at the left and right side if there is a global boundary
     for (int j = discretization_->vJBegin(); j < discretization_->vJEnd(); j++){
         if (partition_.boundaryLeft()){
             discretization_->v(discretization_->vIBegin(),j) = 2 * settings_.dirichletBcLeft[1] - discretization_->v(discretization_->vIBegin()+1,j);
@@ -148,6 +178,7 @@ void ComputationParallel::applyBoundaryValues()
 
 void ComputationParallel::applyBoundaryValuesFG()
 {
+    // apply the Dirichlet boundary values of F at the bottom and top if there is a global boundary
     for (int i = discretization_->uIBegin(); i < discretization_->uIEnd(); i++){
         if (partition_.boundaryBottom()){
             discretization_->f(i,discretization_->uJBegin()) = discretization_->u(i,discretization_->uJBegin());
@@ -157,6 +188,7 @@ void ComputationParallel::applyBoundaryValuesFG()
         }
     }  
 
+    // apply the Dirichlet boundary values of G at the bottom and top if there is a global boundary
     for (int i = discretization_->vIBegin(); i < discretization_->vIEnd(); i++){
         if (partition_.boundaryBottom()){
             discretization_->g(i,discretization_->vJBegin()) = discretization_->v(i,discretization_->vJBegin());
@@ -166,6 +198,7 @@ void ComputationParallel::applyBoundaryValuesFG()
         }
     }  
 
+    // apply the Dirichlet boundary values of F at the left and right side if there is a global boundary
     for (int j = discretization_->uJBegin(); j < discretization_->uJEnd(); j++){
         if (partition_.boundaryLeft()){
             discretization_->f(discretization_->uIBegin(),j) = discretization_->u(discretization_->uIBegin(),j);
@@ -175,6 +208,7 @@ void ComputationParallel::applyBoundaryValuesFG()
         }
     } 
     
+    // apply the Dirichlet boundary values of G at the left and right side if there is a global boundary
     for (int j = discretization_->vJBegin(); j < discretization_->vJEnd(); j++){
         if (partition_.boundaryLeft()){
             discretization_->g(discretization_->vIBegin(),j) = discretization_->v(discretization_->vIBegin(),j);
@@ -187,12 +221,14 @@ void ComputationParallel::applyBoundaryValuesFG()
 
 void ComputationParallel::computePreliminaryVelocities()
 {
+    // calculate F in the inner part of the subdomain
     for (int i = discretization_->uIBegin() + 1; i < discretization_->uIEnd() - partition_.boundaryRight(); i++){
         for (int j = discretization_->uJBegin() + 1; j < discretization_->uJEnd() - 1; j++){
             discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
         }
     }
 
+    // calculate G in the inner part of the subdomain
     for (int i = discretization_->vIBegin() + 1; i < discretization_->vIEnd() - 1; i++){
         for (int j = discretization_->vJBegin() + 1; j < discretization_->vJEnd() - partition_.boundaryTop(); j++){
             discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDv2Dy(i,j) - discretization_->computeDuvDx(i,j) + settings_.g[1]);
@@ -204,7 +240,7 @@ void ComputationParallel::exchangePreliminaryVelocities()
 {
     MPI_Request sendRequestTop;
 
-    // send g values to top neighbour
+    // send G values at the top boundary to the top neighbour
     if (!partition_.boundaryTop()){
         std::vector<double> sendBufferTop(partition_.nCells()[0], 0);
         
@@ -216,6 +252,7 @@ void ComputationParallel::exchangePreliminaryVelocities()
 
     MPI_Request sendRequestRight;
 
+    // send F values at the right boundary to the right neighbour
     if (!partition_.boundaryRight()){
         std::vector<double> sendBufferRight(partition_.nCells()[1], 0);
         
@@ -225,6 +262,7 @@ void ComputationParallel::exchangePreliminaryVelocities()
         MPI_Isend(sendBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
     }
 
+    // receive G values at the bottom boundary from the bottom neighbour
     if (!partition_.boundaryBottom()){
         std::vector<double> receiveBufferBottom(partition_.nCells()[0], 0);
 
@@ -238,6 +276,7 @@ void ComputationParallel::exchangePreliminaryVelocities()
         }
     }
 
+    // receive F values at the left boundary from the left neighbour
     if (!partition_.boundaryLeft()){
         std::vector<double> receiveBufferLeft(partition_.nCells()[1], 0);
 
@@ -262,6 +301,7 @@ void ComputationParallel::exchangePreliminaryVelocities()
 
 void ComputationParallel::computeRightHandSide()
 {
+    // calculate the right-hand side in the inner part of the subdomain
     for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
         for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
             discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / discretization_->dx() + (discretization_->g(i,j) - discretization_->g(i,j-1)) / discretization_->dy());
@@ -271,17 +311,20 @@ void ComputationParallel::computeRightHandSide()
 
 void ComputationParallel::computePressure()
 {
+    // call solver to solve Poisson equation
     pressureSolver_->solve();
 }
 
 void ComputationParallel::computeVelocities()
 {
+    // calculate U at the new time
     for (int i = discretization_->uIBegin()+1; i < discretization_->uIEnd()-partition_.boundaryRight(); i++){
         for (int j = discretization_->uJBegin()+1; j < discretization_->uJEnd()-1; j++){
                 discretization_->u(i,j) = discretization_->f(i,j) - dt_ * discretization_->computeDpDx(i,j);
         }
     }
 
+    //Calculate V at the new time
     for (int i = discretization_->vIBegin()+1; i < discretization_->vIEnd()-1; i++){
         for (int j = discretization_->vJBegin()+1; j < discretization_->vJEnd()-partition_.boundaryTop(); j++){
                 discretization_->v(i,j) = discretization_->g(i,j) - dt_ * discretization_->computeDpDy(i,j);
@@ -292,10 +335,10 @@ void ComputationParallel::computeVelocities()
 void ComputationParallel::exchangeVelocities()
 {
     ///////////////////////////////
-    /// Horizontal value update ///
+    /// horizontal value update ///
     ///////////////////////////////
 
-    // Send u values to the right
+    // send U values to the right
     MPI_Request sendRequestRightU;
 
     if (!partition_.boundaryRight()){
@@ -307,7 +350,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferRightU.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRightU);
     }
 
-    // Send u values to the left
+    // send U values to the left
     MPI_Request sendRequestLeftU;
 
     if (!partition_.boundaryLeft()){
@@ -319,7 +362,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferLeftU.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeftU);
     }
 
-    // Send v values to the right
+    // send V values to the right
     MPI_Request sendRequestRightV;
 
     if (!partition_.boundaryRight()){
@@ -331,7 +374,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferRightV.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 1, MPI_COMM_WORLD, &sendRequestRightV);
     }
 
-    // Send v values to the left
+    // send V values to the left
     MPI_Request sendRequestLeftV;
 
     if (!partition_.boundaryLeft()){
@@ -343,7 +386,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferLeftV.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 1, MPI_COMM_WORLD, &sendRequestLeftV);
     }
 
-    // Receive u values from the left
+    // receive U values from the left
     if (!partition_.boundaryLeft()){
         std::vector<double> receiveBufferLeftU(partition_.nCells()[1], 0);
 
@@ -357,7 +400,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive u values from the right
+    // receive U values from the right
     if (!partition_.boundaryRight()){
         std::vector<double> receiveBufferRightU(partition_.nCells()[1], 0);
 
@@ -371,7 +414,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive v values from the left
+    // receive V values from the left
     if (!partition_.boundaryLeft()){
         std::vector<double> receiveBufferLeftV(partition_.nCells()[1], 0);
 
@@ -385,7 +428,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive v values from the right
+    // receive V values from the right
     if (!partition_.boundaryRight()){
         std::vector<double> receiveBufferRightV(partition_.nCells()[1], 0);
 
@@ -400,7 +443,6 @@ void ComputationParallel::exchangeVelocities()
     }
 
     // wait until horizontal exchange of velocities is finished
-
     if (!partition_.boundaryRight()){
         MPI_Wait(&sendRequestRightU, MPI_STATUS_IGNORE);
         MPI_Wait(&sendRequestRightV, MPI_STATUS_IGNORE);
@@ -411,10 +453,10 @@ void ComputationParallel::exchangeVelocities()
     }
 
     /////////////////////////////
-    /// Vertical value update ///
+    /// vertical value update ///
     /////////////////////////////
     
-    // Send u values to the top
+    // send U values to the top
     MPI_Request sendRequestTopU;
 
     if (!partition_.boundaryTop()){
@@ -426,7 +468,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferTopU.data(), partition_.nCells()[0]+2, MPI_DOUBLE, partition_.neighbourTop(), 0, MPI_COMM_WORLD, &sendRequestTopU);
     }
 
-    // Send u values to the bottom
+    // send U values to the bottom
     MPI_Request sendRequestBottomU;
 
     if (!partition_.boundaryBottom()){
@@ -438,7 +480,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferBottomU.data(), partition_.nCells()[0]+2, MPI_DOUBLE, partition_.neighbourBottom(), 0, MPI_COMM_WORLD, &sendRequestBottomU);
     }
 
-    // Send v values to the top
+    // send V values to the top
     MPI_Request sendRequestTopV;
 
     if (!partition_.boundaryTop()){
@@ -450,7 +492,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferTopV.data(), partition_.nCells()[0]+2, MPI_DOUBLE, partition_.neighbourTop(), 1, MPI_COMM_WORLD, &sendRequestTopV);
     }
 
-    // Send v values to the bottom
+    // send V values to the bottom
     MPI_Request sendRequestBottomV;
 
     if (!partition_.boundaryBottom()){
@@ -462,7 +504,7 @@ void ComputationParallel::exchangeVelocities()
         MPI_Isend(sendBufferBottomV.data(), partition_.nCells()[0]+2, MPI_DOUBLE, partition_.neighbourBottom(), 1, MPI_COMM_WORLD, &sendRequestBottomV);
     }
 
-    // Receive u values from the top
+    // receive U values from the top
     if (!partition_.boundaryTop()){
         std::vector<double> receiveBufferTopU(partition_.nCells()[0]+2, 0);
 
@@ -476,7 +518,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive u values from the bottom
+    // receive U values from the bottom
     if (!partition_.boundaryBottom()){
         std::vector<double> receiveBufferBottomU(partition_.nCells()[0]+2, 0);
 
@@ -490,7 +532,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive v values from the top
+    // receive V values from the top
     if (!partition_.boundaryTop()){
         std::vector<double> receiveBufferTopV(partition_.nCells()[0]+2, 0);
 
@@ -504,7 +546,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
-    // Receive v values from the bottom
+    // receive V values from the bottom
     if (!partition_.boundaryBottom()){
         std::vector<double> receiveBufferBottomV(partition_.nCells()[0]+2, 0);
 
@@ -518,6 +560,7 @@ void ComputationParallel::exchangeVelocities()
         }
     }
 
+    // wait until vertical exchange of velocities is finished   
     if (!partition_.boundaryTop()){
         MPI_Wait(&sendRequestTopU, MPI_STATUS_IGNORE);
         MPI_Wait(&sendRequestTopV, MPI_STATUS_IGNORE);
