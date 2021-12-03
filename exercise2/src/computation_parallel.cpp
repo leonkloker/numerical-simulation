@@ -84,7 +84,7 @@ void ComputationParallel::runSimulation()
         time = time + dt_;
 
         // write U, V and P into a vtk file every second
-        if (fmod(time - dt_, 1) >= fmod(time, 1)){
+        if (std::fmod(time - dt_, 1) >= std::fmod(time, 1)){
             outputWriterParaview_->writeFile(time);
         }
 
