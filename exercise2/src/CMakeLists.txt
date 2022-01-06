@@ -42,6 +42,12 @@ if(MPI_LINK_FLAGS)
     LINK_FLAGS "${MPI_LINK_FLAGS}")
 endif()
 
+option(PROFILE "Add flags to profile the program with gprof." OFF)
+if(PROFILE)
+  SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -pg -g")
+  SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -pg -g")
+endif()
+
 # Search for the external package "VTK"
 find_package(VTK)
 

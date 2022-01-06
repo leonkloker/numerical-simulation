@@ -10,6 +10,7 @@ void SORParallel::solve(){
   double factor = dx2 * dy2 / (2 * (dx2 + dy2));
 
   double initial_error = getGlobalResidual(dx2, dy2);
+
   double current_error = initial_error;
   int iteration = 0;
   int N = partition_.nCellsGlobal()[0] * partition_.nCellsGlobal()[1];

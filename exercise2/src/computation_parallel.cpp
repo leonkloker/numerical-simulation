@@ -43,6 +43,10 @@ void ComputationParallel::initialize(int argc, char* argv[])
 
 void ComputationParallel::runSimulation()
 {
+    using std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::duration;
+    using std::chrono::milliseconds;
     // initialize time to zero
     double time = 0;
 
@@ -56,7 +60,7 @@ void ComputationParallel::runSimulation()
         // apply the Dirichlet boundary values
         applyBoundaryValues();
 
-        // calculate the timestep such that the simulation is stable
+          // calculate the timestep such that the simulation is stable
         computeTimeStepWidth();
 
         // apply the corresponding boundary values for F and G
