@@ -1,6 +1,7 @@
 #pragma once
 
 #include "solver/pressure_solver_parallel.h"
+#include "storage/fieldvariable.h"
 #include <mpi.h>
 #include <cmath>
 #include <memory>
@@ -51,5 +52,11 @@ private:
 
   //! exchange pressure values at the boundaries of neighbouring subdomains
   void exchangePressures();
+
+  FieldVariable r_;
+
+  FieldVariable d_;
+
+  FieldVariable q_;
 
 };

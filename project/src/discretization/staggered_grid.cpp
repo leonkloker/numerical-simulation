@@ -4,9 +4,6 @@ StaggeredGrid::StaggeredGrid(std::array<int,2> nCells, std::array<double,2> mesh
 u_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_)), 
 v_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0],0}, meshWidth_)),
 p_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_)),
-r_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_)),
-d_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_)),
-q_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_)),
 rhs_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], -0.5*meshWidth[1]}, meshWidth_)),
 f_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {0, -0.5*meshWidth[1]}, meshWidth_)),
 g_(FieldVariable({nCells_[0]+2, nCells_[1]+2}, {-0.5*meshWidth[0], 0}, meshWidth_)){}
@@ -48,30 +45,6 @@ double & StaggeredGrid::p(int i, int j) {
 	return p_(i,j);
 }
 
-double StaggeredGrid::r(int i,int j) const {
-	return r_(i,j);
-}
-
-double & StaggeredGrid::r(int i, int j) {
-	return r_(i,j);
-}
-
-double StaggeredGrid::d(int i,int j) const {
-	return d_(i,j);
-}
-
-double & StaggeredGrid::d(int i, int j) {
-	return d_(i,j);
-}
-
-double StaggeredGrid::q(int i,int j) const {
-	return q_(i,j);
-}
-
-double & StaggeredGrid::q(int i, int j) {
-	return q_(i,j);
-}
-
 int StaggeredGrid::pIBegin() const {
 	return 0;
 }
@@ -85,54 +58,6 @@ int StaggeredGrid::pJBegin() const {
 }
 
 int StaggeredGrid::pJEnd() const {
-	return nCells_[1]+2;
-}
-
-int StaggeredGrid::rIBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::rIEnd () const {
-	return nCells_[0]+2;
-}
-
-int StaggeredGrid::rJBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::rJEnd() const {
-	return nCells_[1]+2;
-}
-
-int StaggeredGrid::dIBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::dIEnd () const {
-	return nCells_[0]+2;
-}
-
-int StaggeredGrid::dJBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::dJEnd() const {
-	return nCells_[1]+2;
-}
-
-int StaggeredGrid::qIBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::qIEnd () const {
-	return nCells_[0]+2;
-}
-
-int StaggeredGrid::qJBegin() const {
-	return 0;
-}
-
-int StaggeredGrid::qJEnd() const {
 	return nCells_[1]+2;
 }
 

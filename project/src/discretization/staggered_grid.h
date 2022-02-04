@@ -43,24 +43,6 @@ public:
   //! access value of p in element (x,y)
   double& p(int i, int j);
 
-  //! access value of r in element (i,j)
-  double r(int i, int j) const;
-
-  //! access value of r in element (x,y)
-  double& r(int i, int j);
-
-  //! access value of d in element (i,j)
-  double d(int i, int j) const;
-
-  //! access value of d in element (x,y)
-  double& d(int i, int j);
-
-  //! access value of q in element (i,j)
-  double q(int i, int j) const;
-
-  //! access value of q in element (x,y)
-  double& q(int i, int j);
-
   //!access value of rhs in element (i,j)
   double& rhs(int i, int j);
 
@@ -112,42 +94,6 @@ public:
   //! one after last valid index for p in y direction
   int pJEnd() const;
 
-  //! first valid index for p in x direction
-  int rIBegin() const;
-
-  //! one after last valid index for p in x direction
-  int rIEnd() const;
-
-  //! first valid index for p in y direction
-  int rJBegin() const;
-
-  //! one after last valid index for p in y direction
-  int rJEnd() const;
-
-  //! first valid index for p in x direction
-  int dIBegin() const;
-
-  //! one after last valid index for p in x direction
-  int dIEnd() const;
-
-  //! first valid index for p in y direction
-  int dJBegin() const;
-
-  //! one after last valid index for p in y direction
-  int dJEnd() const;
-
-  //! first valid index for p in x direction
-  int qIBegin() const;
-
-  //! one after last valid index for p in x direction
-  int qIEnd() const;
-
-  //! first valid index for p in y direction
-  int qJBegin() const;
-
-  //! one after last valid index for p in y direction
-  int qJEnd() const;
-
 protected:
 
   const std::array<int,2> nCells_;
@@ -159,12 +105,6 @@ protected:
   FieldVariable v_;
   
   FieldVariable p_;
-
-  FieldVariable r_;
-
-  FieldVariable d_;
-
-  FieldVariable q_;
   
   FieldVariable rhs_;
   

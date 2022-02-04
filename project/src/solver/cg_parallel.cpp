@@ -1,7 +1,11 @@
 #include "cg_parallel.h"
+#include <iostream>
 
 CGParallel::CGParallel(std::shared_ptr<Discretization>discretization, Partitioning partition, double epsilon, int maximumNumberOfIterations) : 
-PressureSolver(discretization, partition, epsilon, maximumNumberOfIterations){}
+PressureSolver(discretization, partition, epsilon, maximumNumberOfIterations),
+r_(FieldVariable({discretization->nCells()[0]+2, discretization->nCells()[1]+2}, {-0.5*discretization->meshWidth()[0], -0.5*discretization->meshWidth()[1]}, discretization->meshWidth())),
+d_(FieldVariable({discretization->nCells()[0]+2, discretization->nCells()[1]+2}, {-0.5*discretization->meshWidth()[0], -0.5*discretization->meshWidth()[1]}, discretization->meshWidth())),
+q_(FieldVariable({discretization->nCells()[0]+2, discretization->nCells()[1]+2}, {-0.5*discretization->meshWidth()[0], -0.5*discretization->meshWidth()[1]}, discretization->meshWidth())){}
 
 void CGParallel::solve(){
   double dx2 = pow(discretization_->dx(), 2);
@@ -13,12 +17,11 @@ void CGParallel::solve(){
   double beta = 0;
   updateDirection(beta);
 
-  double initial_residual = getGlobalResidual(N);
-  double current_residual = initial_residual;
+  double current_residual = getGlobalResidual(N);
   double old_residual;
   int iteration = 0;
 
-  while (current_residual / initial_residual > epsilon_ && iteration < maximumNumberOfIterations_){
+  while (current_residual > epsilon_ && iteration < maximumNumberOfIterations_){
       exchangeDirection();
       updateQ(dx2, dy2);
       alpha = getAlpha(current_residual);
@@ -28,9 +31,9 @@ void CGParallel::solve(){
       current_residual = getGlobalResidual(N);
       beta = getBeta(old_residual, current_residual);
       updateDirection(beta);
-      setBoundaryValues();
       iteration++;
   }
+  setBoundaryValues();
 }
 
 void CGParallel::setBoundaryValues(){
@@ -59,9 +62,9 @@ void CGParallel::setBoundaryValues(){
 double CGParallel::getAlpha(double residual){
   double local_dq = 0;
 
-  for (int i = discretization_->dIBegin() + 1; i < discretization_->dIEnd() - 1; i++){
-    for (int j = discretization_->dJBegin() + 1; j < discretization_->dJEnd() - 1; j++){
-      local_dq = local_dq + discretization_->d(i,j) * discretization_->q(i,j);
+  for (int i = discretization_->pIBegin(); i < discretization_->pIEnd(); i++){
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      local_dq = local_dq + d_(i,j) * q_(i,j);
     }
   }
 
@@ -77,9 +80,9 @@ double CGParallel::getBeta(double old_residual, double residual){
 double CGParallel::getGlobalResidual(int N){
   double localRes = 0;
 
-  for (int i = discretization_->rIBegin() + 1; i < discretization_->rIEnd() - 1; i++){
-    for (int j = discretization_->rJBegin() + 1; j < discretization_->rJEnd() - 1; j++){
-      localRes = localRes + pow(discretization_->r(i,j), 2);
+  for (int i = discretization_->pIBegin(); i < discretization_->pIEnd(); i++){
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      localRes = localRes + pow(r_(i,j), 2);
     }
   }
 
@@ -89,35 +92,35 @@ double CGParallel::getGlobalResidual(int N){
 }
 
 void CGParallel::calculateResidual(double dx2, double dy2){
-  for (int i = discretization_->rIBegin() + 1; i < discretization_->rIEnd() - 1; i++){
-    for (int j = discretization_->rJBegin() + 1; j < discretization_->rJEnd() - 1; j++){
-      discretization_->r(i,j) = -((discretization_->p(i-1,j) - 2 * discretization_->p(i,j) + discretization_->p(i+1,j)) / dx2) - 
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+      r_(i,j) = -((discretization_->p(i-1,j) - 2 * discretization_->p(i,j) + discretization_->p(i+1,j)) / dx2) - 
       ((discretization_->p(i,j-1) - 2 * discretization_->p(i,j) + discretization_->p(i,j+1)) / dy2) + discretization_->rhs(i,j);
     }
   }
 }
 
 void CGParallel::updateDirection(double beta){
-  for (int i = discretization_->dIBegin() + 1; i < discretization_->dIEnd() - 1; i++){
-    for (int j = discretization_->dJBegin() + 1; j < discretization_->dJEnd() - 1; j++){
-      discretization_->d(i,j) = discretization_->r(i,j) + beta * discretization_->d(i,j);
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+      d_(i,j) = r_(i,j) + beta * d_(i,j);
     }
   }
 }
 
 void CGParallel::updateResidual(double alpha){
-  for (int i = discretization_->rIBegin() + 1; i < discretization_->rIEnd() - 1; i++){
-    for (int j = discretization_->rJBegin() + 1; j < discretization_->rJEnd() - 1; j++){
-      discretization_->r(i,j) = discretization_->r(i,j) - alpha * discretization_->q(i,j);
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+      r_(i,j) = r_(i,j) - alpha * q_(i,j);
     }
   }
 }
 
 void CGParallel::updateQ(double dx2, double dy2){
-  for (int i = discretization_->qIBegin() + 1; i < discretization_->qIEnd() - 1; i++){
-    for (int j = discretization_->qJBegin() + 1; j < discretization_->qJEnd() - 1; j++){
-      discretization_->q(i,j) = ((discretization_->d(i-1,j) - 2 * discretization_->d(i,j) + discretization_->d(i+1,j)) / dx2) + 
-      ((discretization_->d(i,j-1) - 2 * discretization_->d(i,j) + discretization_->d(i,j+1)) / dy2);
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+      q_(i,j) = ((d_(i-1,j) - 2 * d_(i,j) + d_(i+1,j)) / dx2) + 
+      ((d_(i,j-1) - 2 * d_(i,j) + d_(i,j+1)) / dy2);
     }
   }
 }
@@ -125,7 +128,7 @@ void CGParallel::updateQ(double dx2, double dy2){
 void CGParallel::updatePressure(double alpha){
   for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
     for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
-      discretization_->p(i,j) = discretization_->p(i,j) + alpha * discretization_->d(i,j);
+      discretization_->p(i,j) = discretization_->p(i,j) + alpha * d_(i,j);
     }
   }
 }
@@ -136,8 +139,8 @@ void CGParallel::exchangeDirection(){
   if (!partition_.boundaryRight()){
     std::vector<double> sendBufferRight(partition_.nCells()[1], 0);
         
-    for (int j = discretization_->dJBegin()+1; j < discretization_->dJEnd()-1; j++){
-      sendBufferRight[j-1] = discretization_->d(discretization_->dIEnd()-2,j);
+    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
+      sendBufferRight[j-1] = d_(discretization_->pIEnd()-2,j);
     }    
     MPI_Isend(sendBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
   }
@@ -147,8 +150,8 @@ void CGParallel::exchangeDirection(){
   if (!partition_.boundaryLeft()){
     std::vector<double> sendBufferLeft(partition_.nCells()[1], 0);
         
-    for (int j = discretization_->dJBegin()+1; j < discretization_->dJEnd()-1; j++){
-      sendBufferLeft[j-1] = discretization_->d(discretization_->dIBegin()+1,j);
+    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
+      sendBufferLeft[j-1] = d_(discretization_->pIBegin()+1,j);
     }    
     MPI_Isend(sendBufferLeft.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeft);
   }
@@ -162,8 +165,8 @@ void CGParallel::exchangeDirection(){
 
     MPI_Wait(&receiveRequestRight, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->dJBegin()+1; j < discretization_->dJEnd()-1; j++){
-      discretization_->d(discretization_->dIEnd()-1,j) = receiveBufferRight[j-1];
+    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
+      d_(discretization_->pIEnd()-1,j) = receiveBufferRight[j-1];
     }    
   }
 
@@ -176,8 +179,8 @@ void CGParallel::exchangeDirection(){
 
     MPI_Wait(&receiveRequestLeft, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->dJBegin()+1; j < discretization_->dJEnd()-1; j++){
-      discretization_->d(discretization_->dIBegin(),j) = receiveBufferLeft[j-1];
+    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
+      d_(discretization_->pIBegin(),j) = receiveBufferLeft[j-1];
     }    
   }
 
@@ -195,8 +198,8 @@ void CGParallel::exchangeDirection(){
   if (!partition_.boundaryTop()){
     std::vector<double> sendBufferTop(partition_.nCells()[0], 0);
         
-    for (int i = discretization_->dIBegin()+1; i < discretization_->dIEnd()-1; i++){
-      sendBufferTop[i-1] = discretization_->d(i,discretization_->dJEnd()-2);
+    for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
+      sendBufferTop[i-1] = d_(i,discretization_->pJEnd()-2);
     }    
     MPI_Isend(sendBufferTop.data(), partition_.nCells()[0], MPI_DOUBLE, partition_.neighbourTop(), 0, MPI_COMM_WORLD, &sendRequestTop);
   }
@@ -206,8 +209,8 @@ void CGParallel::exchangeDirection(){
   if (!partition_.boundaryBottom()){
     std::vector<double> sendBufferBottom(partition_.nCells()[0], 0);
         
-    for (int i = discretization_->dIBegin()+1; i < discretization_->dIEnd()-1; i++){
-      sendBufferBottom[i-1] = discretization_->d(i,discretization_->dJBegin()+1);
+    for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
+      sendBufferBottom[i-1] = d_(i,discretization_->pJBegin()+1);
     }    
     MPI_Isend(sendBufferBottom.data(), partition_.nCells()[0], MPI_DOUBLE, partition_.neighbourBottom(), 0, MPI_COMM_WORLD, &sendRequestBottom);
   }
@@ -221,8 +224,8 @@ void CGParallel::exchangeDirection(){
 
     MPI_Wait(&receiveRequestTop, MPI_STATUS_IGNORE);
 
-    for (int i = discretization_->dIBegin()+1; i < discretization_->dIEnd()-1; i++){
-      discretization_->d(i,discretization_->dJEnd()-1) = receiveBufferTop[i-1];
+    for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
+      d_(i,discretization_->pJEnd()-1) = receiveBufferTop[i-1];
     }    
   }
 
@@ -235,8 +238,8 @@ void CGParallel::exchangeDirection(){
 
     MPI_Wait(&receiveRequestBottom, MPI_STATUS_IGNORE);
 
-    for (int i = discretization_->dIBegin()+1; i < discretization_->dIEnd()-1; i++){
-      discretization_->d(i,discretization_->dJBegin()) = receiveBufferBottom[i-1];
+    for (int i = discretization_->pIBegin()+1; i < discretization_->pIEnd()-1; i++){
+      d_(i,discretization_->pJBegin()) = receiveBufferBottom[i-1];
     }    
   }
 
