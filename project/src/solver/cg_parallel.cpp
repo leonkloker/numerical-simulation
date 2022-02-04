@@ -24,7 +24,7 @@ void CGParallel::solve(){
   while (current_residual > epsilon_ && iteration < maximumNumberOfIterations_){
       exchangeDirection();
       updateQ(dx2, dy2);
-      alpha = getAlpha(current_residual);
+      alpha = getAlpha(current_residual * pow(N, 0.5));
       updatePressure(alpha);
       updateResidual(alpha);
       old_residual = current_residual;
@@ -34,6 +34,7 @@ void CGParallel::solve(){
       iteration++;
   }
   setBoundaryValues();
+  exchangePressures();
 }
 
 void CGParallel::setBoundaryValues(){
@@ -62,8 +63,8 @@ void CGParallel::setBoundaryValues(){
 double CGParallel::getAlpha(double residual){
   double local_dq = 0;
 
-  for (int i = discretization_->pIBegin(); i < discretization_->pIEnd(); i++){
-    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
       local_dq = local_dq + d_(i,j) * q_(i,j);
     }
   }
@@ -80,8 +81,8 @@ double CGParallel::getBeta(double old_residual, double residual){
 double CGParallel::getGlobalResidual(int N){
   double localRes = 0;
 
-  for (int i = discretization_->pIBegin(); i < discretization_->pIEnd(); i++){
-    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+  for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
+    for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
       localRes = localRes + pow(r_(i,j), 2);
     }
   }
