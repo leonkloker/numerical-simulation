@@ -1,1 +1,0 @@
-/home/leon/Documents/Numerische-Simulation/project/src/../build/numsim_parallel

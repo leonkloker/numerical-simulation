@@ -4,6 +4,7 @@
 #include "partitioning/partitioning.h"
 #include <memory>
 #include <cmath>
+#include <mpi.h>
 
 /* Interface for the pressure solver. 
 It computes the pressure field variable such that the continuity equation is fulfilled.
@@ -18,6 +19,12 @@ public:
   virtual void solve() = 0;
 
 protected:
+
+  //! set pressure boundary values 
+  void setBoundaryValues();
+
+  //! exchange pressure values at subdomain boundaries
+  void exchangePressures();
 
   // Bound value of the residual
   double epsilon_;

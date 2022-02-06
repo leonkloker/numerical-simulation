@@ -21,17 +21,11 @@ public:
 
 private:
 
-  //! set pressure boundary values 
-  void setBoundaryValues();
-
   //! get the global residual
   double getGlobalResidual(double dx2, double dy2);
 
   //! get the residual on the subdomain
   double getLocalResidual(double dx2, double dy2);
-
-  //! exchange pressure values at subdomain boundaries
-  void exchangePressures();
 
   //! execute a Gauss-Seidel iteration on one part of the chess pattern
   void updateGroupBlack(double dx2, double dy2, double factor);

@@ -20,9 +20,6 @@ public:
 
 private:
 
-  //! set pressure boundary values 
-  void setBoundaryValues();
-
   //! get the global residual
   double getGlobalResidual(int N);
 
@@ -49,9 +46,6 @@ private:
 
   //! exchange the values of d at the boundaries of neighbouring subdomains
   void exchangeDirection();
-
-  //! exchange pressure values at the boundaries of neighbouring subdomains
-  void exchangePressures();
 
   FieldVariable r_;
 
