@@ -117,7 +117,7 @@ void ComputationParallel::runSimulation()
 void ComputationParallel::computeTimeStepWidth()
 {
     // temporal stability limit of the diffusion operator
-    double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
+    double diffusionDt = settings_.re * settings_.pr * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
 
     // temporal stability limit of the convection operator
     double convectionDt = meshWidth_[0] / (discretization_->u().max());
