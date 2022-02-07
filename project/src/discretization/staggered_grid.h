@@ -19,11 +19,14 @@ public:
   //! get a reference to field variable u
   const FieldVariable& u() const;
 
-  //! get a reference to field variable u
+  //! get a reference to field variable v
   const FieldVariable& v() const;
  
-  //! get a reference to field variable u
+  //! get a reference to field variable p
   const FieldVariable& p() const;
+
+  //! get a reference to field variable T
+  const FieldVariable& t() const;
 
   //! access value of u in element (i,j)
   double u(int i, int j) const;
@@ -42,6 +45,12 @@ public:
 
   //! access value of p in element (x,y)
   double& p(int i, int j);
+
+  //! access value of t in element (i,j)
+  double t(int i, int j) const;
+
+  //! access value of t in element (x,y)
+  double& t(int i, int j);
 
   //!access value of rhs in element (i,j)
   double& rhs(int i, int j);
@@ -94,6 +103,18 @@ public:
   //! one after last valid index for p in y direction
   int pJEnd() const;
 
+  //! first valid index for t in x direction
+  int tIBegin() const;
+
+  //! one after last valid index for t in x direction
+  int tIEnd() const;
+
+  //! first valid index for t in y direction
+  int tJBegin() const;
+
+  //! one after last valid index for t in y direction
+  int tJEnd() const;
+
 protected:
 
   const std::array<int,2> nCells_;
@@ -104,6 +125,8 @@ protected:
   
   FieldVariable v_;
   
+  FieldVariable t_;
+
   FieldVariable p_;
   
   FieldVariable rhs_;
