@@ -57,6 +57,10 @@ void Settings::loadFromFile(std::string filename)
 		    {
 		     pr = atoi(parameterValue.c_str());
 		    }
+		 else if (parameterName == "beta")
+		    {
+		     beta = atoi(parameterValue.c_str());
+		    }
 		 else if (parameterName == "gX")
                     {
                      g[0] = atof(parameterValue.c_str());
