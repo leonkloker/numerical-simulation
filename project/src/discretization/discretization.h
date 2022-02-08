@@ -23,6 +23,12 @@ public:
   //! compute the 1st derivative ∂ (uv) / ∂y
   virtual double computeDuvDy(int i, int j) const = 0;
 
+  //! compute the 1st derivative ∂ (ut) / ∂x
+  virtual double computeDutDx(int i, int j) const = 0;
+
+  //! compute the 1st derivative ∂ (vt) / ∂y
+  virtual double computeDvtDy(int i, int j) const = 0;
+
   //! compute the 2nd derivative ∂ u / ∂x^2
   double computeD2uDx2(int i, int j) const;
 
@@ -40,5 +46,11 @@ public:
 
   //! compute the 1st derivative ∂ p / ∂y
   double computeDpDy(int i, int j) const;
+
+  //! compute the 2nd derivative ∂ t / ∂x^2
+  double computeD2tDx2(int i, int j) const;
+
+  //! compute the 2nd derivative ∂ t / ∂y^2
+  double computeD2tDy2(int i, int j) const;
 
 };

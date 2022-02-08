@@ -27,4 +27,11 @@ double Discretization::computeDpDy(int i, int j) const{
   return (p(i,j+1) - p(i,j))/meshWidth_[1];
 }
 
+double Discretization::computeD2tDx2(int i, int j) const{
+  return (t(i+1,j) - 2 * t(i,j) + t(i-1,j)) / (pow(meshWidth_[0],2));
+}
+
+double Discretization::computeD2tDy2(int i, int j) const{
+  return (t(i,j+1) - 2 * t(i,j) + t(i,j-1)) / (pow(meshWidth_[1],2));
+}
 

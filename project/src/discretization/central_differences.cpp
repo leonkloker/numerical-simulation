@@ -18,3 +18,11 @@ double CentralDifferences::computeDuvDy (int i, int j) const{
 double CentralDifferences::computeDv2Dy (int i, int j) const{
   return (pow(v(i,j+1) + v(i,j), 2) - pow(v(i,j) + v(i,j-1), 2)) / (4 * meshWidth_[1]);
 }
+
+double CentralDifferences::computeDutDx (int i, int j) const{
+  return (u(i,j) * (t(i+1,j) + t(i,j)) - u(i-1,j) * (t(i,j) + t(i-1,j))) / (4 * meshWidth_[0]);
+}
+
+double CentralDifferences::computeDvtDy (int i, int j) const{
+  return (v(i,j) * (t(i,j+1) + t(i,j)) - v(i,j-1) * (t(i,j) + t(i,j-1))) / (4 * meshWidth_[1]);
+}

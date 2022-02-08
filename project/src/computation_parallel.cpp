@@ -117,7 +117,13 @@ void ComputationParallel::runSimulation()
 void ComputationParallel::computeTimeStepWidth()
 {
     // temporal stability limit of the diffusion operator
-    double diffusionDt = settings_.re * settings_.pr * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
+    if (settings_.beta == 0){ // if Temperature is not used, then prandtls number is not needed for the calculation
+        double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
+    }
+    else {
+        double diffusionDt = settings_.re * settings_.pr * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
+    }
+    
 
     // temporal stability limit of the convection operator
     double convectionDt = meshWidth_[0] / (discretization_->u().max());
@@ -226,14 +232,14 @@ void ComputationParallel::computePreliminaryVelocities()
     // calculate F in the inner part of the subdomain
     for (int i = discretization_->uIBegin() + 1; i < discretization_->uIEnd() - partition_.boundaryRight(); i++){
         for (int j = discretization_->uJBegin() + 1; j < discretization_->uJEnd() - 1; j++){
-            discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0]);
+            discretization_->f(i,j) = discretization_->u(i,j) + dt_ * ((discretization_->computeD2uDx2(i,j) + discretization_->computeD2uDy2(i,j))/settings_.re - discretization_->computeDu2Dx(i,j) - discretization_->computeDuvDy(i,j) + settings_.g[0] * (1 - settings_.beta * (discretization_->t(i,j) + discretization_->t(i+1,j)) / 2));
         }
     }
 
     // calculate G in the inner part of the subdomain
     for (int i = discretization_->vIBegin() + 1; i < discretization_->vIEnd() - 1; i++){
         for (int j = discretization_->vJBegin() + 1; j < discretization_->vJEnd() - partition_.boundaryTop(); j++){
-            discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDv2Dy(i,j) - discretization_->computeDuvDx(i,j) + settings_.g[1]);
+            discretization_->g(i,j) = discretization_->v(i,j) + dt_ * ((discretization_->computeD2vDx2(i,j) + discretization_->computeD2vDy2(i,j))/settings_.re - discretization_->computeDv2Dy(i,j) - discretization_->computeDuvDx(i,j) + settings_.g[1] * (1 - settings_.beta * (discretization_->t(i,j) + discretization_->t(i,j+1)) / 2));
         }
     }
 }

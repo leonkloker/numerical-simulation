@@ -18,4 +18,7 @@ public:
 
   //! write only current values of pressure to file, filename is pressure_<count>.<rankNo>.txt
   void writePressureFile();
+
+  //! write only current values of temperature to file, filename is temperature<count>.<rankNo>.txt
+  void writeTemperatureFile();
 };
