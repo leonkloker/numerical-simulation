@@ -11,7 +11,7 @@ beta = 0.1	      # volume expansion coefficient
 gX = 0.0              # external forces, set to (gX,gY) = (0,-9.81) to account for gravity
 gY = 0.0
 
-# Dirichlet boundary conditions
+# Dirichlet boundary conditions for velocities u and v
 dirichletBottomX = 0
 dirichletBottomY = 0
 dirichletTopX    = 1
@@ -20,6 +20,26 @@ dirichletLeftX   = 0
 dirichletLeftY   = 0
 dirichletRightX  = 0
 dirichletRightY  = 0
+
+# Dirichlet boundary conditions for temperature
+dirichletRightTemperatureValue  = 0
+dirichletLeftTemperatureValue   = 0
+dirichletTopTemperatureValue    = 1
+dirichletBottomTemperatureValue = 0
+dirichletRightT  = 0
+dirichletLeftT   = 0
+dirichletTopT    = 1
+dirichletBottomT = 1
+
+# Neumann boundary conditions for temperature
+neumannRightTemperatureValue  = 0
+neumannLeftTemperatureValue   = 0
+neumannTopTemperatureValue    = 0
+neumannBottomTemperatureValue = 0
+neumannRightT  = 1
+neumannLeftT   = 1
+neumannTopT    = 0
+neumannBottomT = 0
 
 # Discretization parameters
 nCellsX = 80          # number of cells in x and y direction

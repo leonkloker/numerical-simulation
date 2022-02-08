@@ -9,6 +9,7 @@
 #include "solver/sor_parallel.h"
 #include "solver/cg_parallel.h"
 #include "solver/pressure_solver_parallel.h"
+#include "temperature/temperature.h"
 #include <memory>
 #include <cmath>
 
@@ -36,6 +37,12 @@ private:
 
   //! set boundary values of u and v to correct values
   void applyBoundaryValues();
+
+  //! set boundary values of t to correct values
+  void applyBoundaryValuesT();
+
+  //! compute the temperature t
+  void computeTemperature();
 
   //! set boundary values of f and g to correct values 
   void applyBoundaryValuesFG();
@@ -71,6 +78,8 @@ private:
 
   //! object which is responsible for solving the pressure Poisson equation via SOR in a parallel fashion
   std::unique_ptr<PressureSolver> pressureSolver_;
+
+  std::unique_ptr<Temperature>temperature_;
 
   //! object which writes the values of u, v and p in a vtk file for each timestep
   std::unique_ptr<OutputWriterParaviewParallel> outputWriterParaview_;

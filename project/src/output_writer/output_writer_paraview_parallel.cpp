@@ -23,7 +23,7 @@ OutputWriterParaviewParallel::OutputWriterParaviewParallel(std::shared_ptr<Discr
   // create field variables for resulting values, after MPI communication
   uGlobal_(nPointsGlobal_, std::array<double,2>{0.,0.}, discretization_->meshWidth()),
   vGlobal_(nPointsGlobal_, std::array<double,2>{0.,0.}, discretization_->meshWidth()),
-  pGlobal_(nPointsGlobal_, std::array<double,2>{0.,0.}, discretization_->meshWidth())
+  pGlobal_(nPointsGlobal_, std::array<double,2>{0.,0.}, discretization_->meshWidth()),
   tGlobal_(nPointsGlobal_, std::array<double,2>{0.,0.}, discretization_->meshWidth())
 {
   // Create a vtkWriter_
@@ -166,17 +166,17 @@ void OutputWriterParaviewParallel::writeFile(double currentTime)
   // loop over the nodes of the mesh and assign the interpolated t values in the vtk data structure
   // we only consider the cells that are the actual computational domain, not the helper values in the "halo"
 
-  int index = 0;   // index for the vtk data structure, will be incremented in the inner loop
+  int indexT = 0;   // index for the vtk data structure, will be incremented in the inner loop
   for (int j = 0; j < nCellsGlobal_[1]+1; j++)
   {
-    for (int i = 0; i < nCellsGlobal_[0]+1; i++, index++)
+    for (int i = 0; i < nCellsGlobal_[0]+1; i++, indexT++)
     {
-      arrayTemperature->SetValue(index, tGlobal_(i,j));
+      arrayTemperature->SetValue(indexT, tGlobal_(i,j));
     }
   }
 
   // now, we should have added as many values as there are points in the vtk data structure
-  assert(index == dataSet->GetNumberOfPoints());
+  assert(indexT == dataSet->GetNumberOfPoints());
 
   // add the field variable to the data set
   dataSet->GetPointData()->AddArray(arrayTemperature);

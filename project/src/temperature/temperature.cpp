@@ -1,7 +1,7 @@
 #include "temperature.h"
 
 Temperature::Temperature (std::shared_ptr<Discretization>discretization, Partitioning partition) :
-discretization_(discretization), partition_(partition)){}
+discretization_(discretization), partition_(partition){}
 
 
 void Temperature::computeTemperature()
@@ -13,11 +13,60 @@ void Temperature::computeTemperature()
             - discretization_->computeDutDx(i,j) - discretization_->computeDvtDy(i,j));
         }
     }
-
+    // exchange temperatures between the partitions
+    exchangeTemperatures();
 }
 
 void Temperature::applyBoundaryValuesT(){
+  if (partition_.boundaryTop()){
+    if (settings_.dirichletBcTopT[1] == 1){
+      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
+        discretization_->t(i,discretization_->tJEnd()-1) = 2 * settings_.dirichletBcTopT[0] - discretization_->t(i,discretization_->tJEnd()-2);
+      }
+    }
+    else if (settings_.neumannBcTopT[1] == 1){
+      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
+        discretization_->t(i,discretization_->tJEnd()-1) = - meshWidth_[1] * settings_.neumannBcTopT[0] + discretization_->t(i,discretization_->tJEnd()-2);
+      }
+    }
     
+  }
+  if (partition_.boundaryBottom()){
+    if (settings_.dirichletBcBottomT[1] == 1){
+      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
+        discretization_->t(i,discretization_->tJBegin()) = 2 * settings_.dirichletBcBottomT[0] - discretization_->t(i,discretization_->tJBegin()+1);
+      }
+    }
+    else if (settings_.neumannBcBottomT[1] == 1){
+      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
+        discretization_->t(i,discretization_->tJBegin()) = - meshWidth_[1] * settings_.neumannBcBottomT[0] + discretization_->t(i,discretization_->tJBegin()+1);
+      }
+    }
+  }
+  if (partition_.boundaryRight()){
+    if (settings_.dirichletBcRightT[1] == 1){
+      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+        discretization_->t(discretization_->tIEnd()-1, j) = 2 * settings_.dirichletBcRightT[0] - discretization_->t(discretization_->tIEnd()-2,j);
+      }
+    }
+    else if (settings_.neumannBcRightT[1] == 1){
+      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+        discretization_->t(discretization_->tIEnd()-1, j) = - meshWidth_[0] * settings_.neumannBcRightT[0] + discretization_->t(discretization_->tIEnd()-2,j);
+      }
+    }
+  }
+  if (partition_.boundaryLeft()){
+    if (settings_.dirichletBcLeftT[1] == 1){
+      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+        discretization_->t(discretization_->tIBegin(),j) = 2 * settings_.dirichletBcLeftT[0] - discretization_->t(discretization_->tIBegin()+1,j);
+      }
+    }
+    else if (settings_.neumannBcLeftT[1] == 1){
+      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+        discretization_->t(discretization_->tIBegin(),j) = - meshWidth_[0] * settings_.neumannBcLeftT[0] + discretization_->t(discretization_->tIBegin()+1,j);
+      }
+    }    
+  }
 }
 
 void Temperature::exchangeTemperatures(){

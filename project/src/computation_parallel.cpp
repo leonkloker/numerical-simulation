@@ -38,6 +38,9 @@ void ComputationParallel::initialize(int argc, char* argv[])
         pressureSolver_ = std::make_unique<CGParallel>(discretization_, partition_, settings_.epsilon, settings_.maximumNumberOfIterations);       
     }
 
+    // temperature
+    temperature_ = std::make_unique<Temperature>(discretization_, partition_);
+    
     // initialize the outputwriters
     outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(discretization_, partition_);
     outputWriterText_ = std::make_unique<OutputWriterTextParallel>(discretization_, partition_);
@@ -58,8 +61,11 @@ void ComputationParallel::runSimulation()
         // apply the Dirichlet boundary values
         applyBoundaryValues();
 
-          // calculate the timestep such that the simulation is stable
+        // calculate the timestep such that the simulation is stable
         computeTimeStepWidth();
+
+        // apply the corresponding boundary values for t
+        applyBoundaryValuesT();
 
         // apply the corresponding boundary values for F and G
         applyBoundaryValuesFG();
@@ -100,6 +106,8 @@ void ComputationParallel::runSimulation()
     if (dt_ > 0.00001){
         applyBoundaryValues();
         computeTimeStepWidth();
+        applyBoundaryValuesT();
+        computeTemperature();
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
         exchangePreliminaryVelocities();
@@ -176,6 +184,18 @@ void ComputationParallel::applyBoundaryValues()
             discretization_->v(discretization_->vIEnd()-1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(discretization_->vIEnd()-2,j);
         }
     }
+}
+
+void ComputationParallel::applyBoundaryValuesT()
+{
+    // call temperature to set boundary values of t
+    temperature_->applyBoundaryValuesT();
+}
+
+void ComputationParallel::computeTemperature()
+{
+    // call temperature to compute new temperature
+    temperature_->computeTemperature();
 }
 
 void ComputationParallel::applyBoundaryValuesFG()

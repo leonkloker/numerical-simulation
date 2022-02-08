@@ -14,13 +14,13 @@ public:
   //! constructor
   Temperature(std::shared_ptr<Discretization>discretization, Partitioning partition);
 
-private:
-
   //! calculate t at the new time
   void computeTemperature();
 
   //! set temperature boundary values 
   void applyBoundaryValuesT();
+
+private:
 
   //! exchange temperature values at subdomain boundaries
   void exchangeTemperatures();

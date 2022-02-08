@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
    output_writer/output_writer_text.cpp
    output_writer/output_writer_text_parallel.cpp
    output_writer/output_writer_paraview_parallel.cpp
+   temperature/temperature.cpp
    settings/settings.cpp
    solver/sor_parallel.cpp
    solver/cg_parallel.cpp

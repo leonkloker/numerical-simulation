@@ -61,6 +61,7 @@ void Settings::loadFromFile(std::string filename)
 		    {
 		     beta = atoi(parameterValue.c_str());
 		    }
+       // external forces
 		 else if (parameterName == "gX")
                     {
                      g[0] = atof(parameterValue.c_str());
@@ -69,6 +70,7 @@ void Settings::loadFromFile(std::string filename)
                     {
                      g[1] = atof(parameterValue.c_str());
                     }
+       // dirichlet boundary condition for the velocities u, v
 		 else if (parameterName == "dirichletBottomX")
                     {
                      dirichletBcBottom[0] = atof(parameterValue.c_str());
@@ -101,31 +103,85 @@ void Settings::loadFromFile(std::string filename)
                     {
                      dirichletBcRight[1] = atof(parameterValue.c_str());
                     }
-      else if (parameterName == "dirichletRightT")
+      // dirichlet boundary conditions value for temperature
+      else if (parameterName == "dirichletRightTemperatureValue")
                     {
                      dirichletBcLeftT[0] = atof(parameterValue.c_str());
                     }
-      else if (parameterName == "dirichletLeftT")
+      else if (parameterName == "dirichletLeftTemperatureValue")
                     {
                      dirichletBcRightT[0] = atof(parameterValue.c_str());
                     }
-      else if (parameterName == "dirichletTopT")
+      else if (parameterName == "dirichletTopTemperatureValue")
                     {
                      dirichletBcTopT[0] = atof(parameterValue.c_str());
                     }
-      else if (parameterName == "dirichletBottomT")
+      else if (parameterName == "dirichletBottomTemperatureValue")
                     {
                      dirichletBcBottomT[0] = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "nCellsX")
+      // dirichlet boundary conditions on/off for temperature
+      else if (parameterName == "dirichletRightT")
+                    {
+                     dirichletBcLeftT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletLeftT")
+                    {
+                     dirichletBcRightT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletTopT")
+                    {
+                     dirichletBcTopT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletBottomT")
+                    {
+                     dirichletBcBottomT[1] = atof(parameterValue.c_str());
+                    }
+      // neumann boundary conditions value for temperature
+      else if (parameterName == "neumannRightTemperatureValue")
+                    {
+                     neumannBcLeftT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannLeftTemperatureValue")
+                    {
+                     neumannBcRightT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannTopTemperatureValue")
+                    {
+                     neumannBcTopT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannBottomTemperatureValue")
+                    {
+                     neumannBcBottomT[0] = atof(parameterValue.c_str());
+                    }
+      // neumann boundary conditions on/off for temperature
+      else if (parameterName == "neumannRightT")
+                    {
+                     neumannBcLeftT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannLeftT")
+                    {
+                     neumannBcRightT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannTopT")
+                    {
+                     neumannBcTopT[1] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "neumannBottomT")
+                    {
+                     neumannBcBottomT[1] = atof(parameterValue.c_str());
+                    }
+      // number of cells in x and y direction
+		else if (parameterName == "nCellsX")
                     {
                      nCells[0] = atoi(parameterValue.c_str());
                     }
-		 else if (parameterName == "nCellsY")
+		else if (parameterName == "nCellsY")
                     {
                      nCells[1] = atoi(parameterValue.c_str());
                     }
-		 else if (parameterName == "useDonorCell")
+      // boolean whether to use donor cell scheme
+		else if (parameterName == "useDonorCell")
                     {
                      if (parameterValue == "True" || parameterValue == "true"){
                         useDonorCell = true;
@@ -133,38 +189,38 @@ void Settings::loadFromFile(std::string filename)
                         useDonorCell = false;
                      }
                     }
-		 else if (parameterName == "alpha")
+		else if (parameterName == "alpha")
                     {
                      alpha = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "tau")
+		else if (parameterName == "tau")
                     {
                      tau = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "maximumDt")
+		else if (parameterName == "maximumDt")
                     {
                      maximumDt = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "pressureSolver")
+		else if (parameterName == "pressureSolver")
                     {
                      pressureSolver = parameterValue.c_str();
                     }
-		 else if (parameterName == "omega")
+		else if (parameterName == "omega")
                     {
                      omega = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "epsilon")
+		else if (parameterName == "epsilon")
                     {
                      epsilon = atof(parameterValue.c_str());
                     }
-		 else if (parameterName == "maximumNumberOfIterations")
+		else if (parameterName == "maximumNumberOfIterations")
                     {
                      maximumNumberOfIterations = atof(parameterValue.c_str());
                     }
 	         
            	  }
 	         }
-           }
+         }
 
       newfile.close(); //close the file object.
    }
