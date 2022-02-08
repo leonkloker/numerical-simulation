@@ -31,6 +31,16 @@ struct Settings
   std::array<double,2> dirichletBcLeft;    //< prescribed values of u,v at left of domain
   std::array<double,2> dirichletBcRight;   //< prescribed values of u,v at right of domain
 
+  std::array<double,2> dirichletBcBottomT;  //< prescribed values of t at bottom of domain
+  std::array<double,2> dirichletBcTopT;     //< prescribed values of t at top of domain
+  std::array<double,2> dirichletBcLeftT;    //< prescribed values of t at left of domain
+  std::array<double,2> dirichletBcRightT;   //< prescribed values of t at right of domain
+
+  std::array<double,2> neumannBcBottomT;  //< prescribed values of t at bottom of domain
+  std::array<double,2> neumannBcTopT;     //< prescribed values of t at top of domain
+  std::array<double,2> neumannBcLeftT;    //< prescribed values of t at left of domain
+  std::array<double,2> neumannBcRightT;   //< prescribed values of t at right of domain  
+
   std::string pressureSolver = "SOR";      //< which pressure solver to use, "GaussSeidel" or "SOR"
   double omega = 1.0;                //< overrelaxation factor
   double epsilon = 1e-5;             //< tolerance for the residual in the pressure solver

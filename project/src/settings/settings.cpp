@@ -101,6 +101,22 @@ void Settings::loadFromFile(std::string filename)
                     {
                      dirichletBcRight[1] = atof(parameterValue.c_str());
                     }
+      else if (parameterName == "dirichletRightT")
+                    {
+                     dirichletBcLeftT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletLeftT")
+                    {
+                     dirichletBcRightT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletTopT")
+                    {
+                     dirichletBcTopT[0] = atof(parameterValue.c_str());
+                    }
+      else if (parameterName == "dirichletBottomT")
+                    {
+                     dirichletBcBottomT[0] = atof(parameterValue.c_str());
+                    }
 		 else if (parameterName == "nCellsX")
                     {
                      nCells[0] = atoi(parameterValue.c_str());
