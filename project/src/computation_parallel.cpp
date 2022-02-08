@@ -117,13 +117,7 @@ void ComputationParallel::runSimulation()
 void ComputationParallel::computeTimeStepWidth()
 {
     // temporal stability limit of the diffusion operator
-    if (settings_.beta == 0){ // if Temperature is not used, then prandtls number is not needed for the calculation
-        double diffusionDt = settings_.re * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
-    }
-    else {
-        double diffusionDt = settings_.re * settings_.pr * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));  
-    }
-    
+    double diffusionDt = settings_.re * settings_.pr * pow(meshWidth_[0] * meshWidth_[1], 2) / (2 * (pow(meshWidth_[0],2) + pow(meshWidth_[1],2)));        
 
     // temporal stability limit of the convection operator
     double convectionDt = meshWidth_[0] / (discretization_->u().max());
