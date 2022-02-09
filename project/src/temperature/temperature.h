@@ -12,9 +12,7 @@ class Temperature
 public:
 
   //! constructor
-  Temperature(std::shared_ptr<Discretization>discretization, Partitioning partition, double re, double pr, std::array<double,2> meshWidth, std::array<double,2> dirichletBcBottomT, std::array<double,2> dirichletBcTopT, 
-  std::array<double,2> dirichletBcLeftT, std::array<double,2> dirichletBcRightT, std::array<double,2> neumannBcBottomT, std::array<double,2> neumannBcTopT, 
-  std::array<double,2> neumannBcLeftT, std::array<double,2> neumannBcRightT);
+  Temperature(std::shared_ptr<Discretization>discretization, Partitioning partition, double re, double pr, std::array<double,2> meshWidth, std::array<double,16> boundaryConditionsT);
 
   //! calculate t at the new time
   void computeTemperature(double dt_);
@@ -33,19 +31,16 @@ private:
   // Object holding the needed field variables for t.
   std::shared_ptr<Discretization> discretization_;
 
-  // Bound value of the residual
+  // Reynolds number
   double re_;
-  // Bound value of the residual
+  
+  // Prandtls number
   double pr_;
 
+  // mesh width of the discretization scheme in both spatial directions
   const std::array<double,2> meshWidth_;
 
-  const std::array<double,2> dirichletBcBottomT_;
-  const std::array<double,2> dirichletBcTopT_;
-  const std::array<double,2> dirichletBcLeftT_;
-  const std::array<double,2> dirichletBcRightT_;
-  const std::array<double,2> neumannBcBottomT_;
-  const std::array<double,2> neumannBcTopT_;
-  const std::array<double,2> neumannBcLeftT_;
-  const std::array<double,2> neumannBcRightT_;
+  // Boundary conditions for the temperature, where the first 8 entries treat the dirichlet bc and the rest the neumann bc
+  const std::array<double,16> boundaryConditionsT_;
+
 };

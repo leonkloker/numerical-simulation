@@ -106,70 +106,70 @@ void Settings::loadFromFile(std::string filename)
       // dirichlet boundary conditions value for temperature
       else if (parameterName == "dirichletRightTemperatureValue")
                     {
-                     dirichletBcRightT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[0] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletLeftTemperatureValue")
                     {
-                     dirichletBcLeftT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[2] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletTopTemperatureValue")
                     {
-                     dirichletBcTopT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[4] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletBottomTemperatureValue")
                     {
-                     dirichletBcBottomT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[6] = atof(parameterValue.c_str());
                     }
       // dirichlet boundary conditions on/off for temperature
       else if (parameterName == "dirichletRightT")
                     {
-                     dirichletBcRightT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[1] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletLeftT")
                     {
-                     dirichletBcLeftT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[3] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletTopT")
                     {
-                     dirichletBcTopT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[5] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletBottomT")
                     {
-                     dirichletBcBottomT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[7] = atof(parameterValue.c_str());
                     }
       // neumann boundary conditions value for temperature
       else if (parameterName == "neumannRightTemperatureValue")
                     {
-                     neumannBcRightT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[8] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannLeftTemperatureValue")
                     {
-                     neumannBcLeftT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[10] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannTopTemperatureValue")
                     {
-                     neumannBcTopT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[12] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannBottomTemperatureValue")
                     {
-                     neumannBcBottomT[0] = atof(parameterValue.c_str());
+                     boundaryConditionsT[14] = atof(parameterValue.c_str());
                     }
       // neumann boundary conditions on/off for temperature
       else if (parameterName == "neumannRightT")
                     {
-                     neumannBcRightT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[9] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannLeftT")
                     {
-                     neumannBcLeftT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[11] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannTopT")
                     {
-                     neumannBcTopT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[13] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannBottomT")
                     {
-                     neumannBcBottomT[1] = atof(parameterValue.c_str());
+                     boundaryConditionsT[15] = atof(parameterValue.c_str());
                     }
       // number of cells in x and y direction
 		else if (parameterName == "nCellsX")

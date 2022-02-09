@@ -39,7 +39,7 @@ void ComputationParallel::initialize(int argc, char* argv[])
     }
 
     // temperature
-    temperature_ = std::make_unique<Temperature>(discretization_, partition_, settings_.re, settings_.pr, meshWidth_, settings_.dirichletBcBottomT, settings_.dirichletBcTopT, settings_.dirichletBcLeftT, settings_.dirichletBcRightT, settings_.neumannBcBottomT, settings_.neumannBcTopT, settings_.neumannBcLeftT, settings_.neumannBcRightT);
+    temperature_ = std::make_unique<Temperature>(discretization_, partition_, settings_.re, settings_.pr, meshWidth_, settings_.boundaryConditionsT);
     
     // initialize the outputwriters
     outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(discretization_, partition_);

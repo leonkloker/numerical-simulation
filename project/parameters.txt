@@ -26,6 +26,8 @@ dirichletRightTemperatureValue  = 0
 dirichletLeftTemperatureValue   = -15
 dirichletTopTemperatureValue    = 0
 dirichletBottomTemperatureValue = 25
+
+#set to 1 if Dirichlet boundary is applied
 dirichletRightT  = 0
 dirichletLeftT   = 1
 dirichletTopT    = 0
@@ -36,6 +38,8 @@ neumannRightTemperatureValue  = -50
 neumannLeftTemperatureValue   = 0
 neumannTopTemperatureValue    = 0
 neumannBottomTemperatureValue = 0
+
+#set to 1 if Neumann boundary is applied
 neumannRightT  = 1
 neumannLeftT   = 0
 neumannTopT    = 1

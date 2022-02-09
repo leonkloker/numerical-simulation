@@ -1,10 +1,7 @@
 #include "temperature.h"
 
-Temperature::Temperature (std::shared_ptr<Discretization>discretization, Partitioning partition, double re, double pr, std::array<double,2> meshWidth, std::array<double,2> dirichletBcBottomT, std::array<double,2> dirichletBcTopT, 
-  std::array<double,2> dirichletBcLeftT, std::array<double,2> dirichletBcRightT, std::array<double,2> neumannBcBottomT, std::array<double,2> neumannBcTopT, 
-  std::array<double,2> neumannBcLeftT, std::array<double,2> neumannBcRightT) :
-discretization_(discretization), partition_(partition), re_(re), pr_(pr), meshWidth_(meshWidth), dirichletBcBottomT_(dirichletBcBottomT), dirichletBcTopT_(dirichletBcTopT), dirichletBcLeftT_(dirichletBcLeftT),
-dirichletBcRightT_(dirichletBcRightT), neumannBcBottomT_(neumannBcBottomT), neumannBcTopT_(neumannBcTopT), neumannBcLeftT_(neumannBcLeftT), neumannBcRightT_(neumannBcRightT){}
+Temperature::Temperature (std::shared_ptr<Discretization>discretization, Partitioning partition, double re, double pr, std::array<double,2> meshWidth, std::array<double,16> boundaryConditionsT) :
+discretization_(discretization), partition_(partition), re_(re), pr_(pr), meshWidth_(meshWidth), boundaryConditionsT_(boundaryConditionsT){}
 
 
 void Temperature::computeTemperature(double dt_)
@@ -20,50 +17,50 @@ void Temperature::computeTemperature(double dt_)
 
 void Temperature::applyBoundaryValues(){
   if (partition_.boundaryTop()){
-    if (dirichletBcTopT_[1] == 1){
+    if (boundaryConditionsT_[5] == 1){ // dirichlet bc
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJEnd()-1) = 2 * dirichletBcTopT_[0] - discretization_->t(i,discretization_->tJEnd()-2);
+        discretization_->t(i,discretization_->tJEnd()-1) = 2 * boundaryConditionsT_[4] - discretization_->t(i,discretization_->tJEnd()-2);
       }
     }
-    else if (neumannBcTopT_[1] == 1){
+    else if (boundaryConditionsT_[13] == 1){ // neumann bc
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJEnd()-1) = meshWidth_[1] * neumannBcTopT_[0] + discretization_->t(i,discretization_->tJEnd()-2);
+        discretization_->t(i,discretization_->tJEnd()-1) = meshWidth_[1] * boundaryConditionsT_[12] + discretization_->t(i,discretization_->tJEnd()-2);
       }
     } 
   }
   if (partition_.boundaryBottom()){
-    if (dirichletBcBottomT_[1] == 1){
+    if (boundaryConditionsT_[7] == 1){ // dirichlet bc
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJBegin()) = 2 * dirichletBcBottomT_[0] - discretization_->t(i,discretization_->tJBegin()+1);
+        discretization_->t(i,discretization_->tJBegin()) = 2 * boundaryConditionsT_[6] - discretization_->t(i,discretization_->tJBegin()+1);
       }
     }
-    else if (neumannBcBottomT_[1] == 1){
+    else if (boundaryConditionsT_[15] == 1){ // neumann bc
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJBegin()) = meshWidth_[1] * neumannBcBottomT_[0] + discretization_->t(i,discretization_->tJBegin()+1);
+        discretization_->t(i,discretization_->tJBegin()) = meshWidth_[1] * boundaryConditionsT_[14] + discretization_->t(i,discretization_->tJBegin()+1);
       }
     }
   }
   if (partition_.boundaryRight()){
-    if (dirichletBcRightT_[1] == 1){
+    if (boundaryConditionsT_[1] == 1){ // dirichlet bc
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIEnd()-1, j) = 2 * dirichletBcRightT_[0] - discretization_->t(discretization_->tIEnd()-2,j);
+        discretization_->t(discretization_->tIEnd()-1, j) = 2 * boundaryConditionsT_[0] - discretization_->t(discretization_->tIEnd()-2,j);
       }
     }
-    else if (neumannBcRightT_[1] == 1){
+    else if (boundaryConditionsT_[9] == 1){ // neumann bc
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIEnd()-1, j) = meshWidth_[0] * neumannBcRightT_[0] + discretization_->t(discretization_->tIEnd()-2,j);
+        discretization_->t(discretization_->tIEnd()-1, j) = meshWidth_[0] * boundaryConditionsT_[8] + discretization_->t(discretization_->tIEnd()-2,j);
       }
     }
   }
   if (partition_.boundaryLeft()){
-    if (dirichletBcLeftT_[1] == 1){
+    if (boundaryConditionsT_[3] == 1){ // dirichlet bc
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIBegin(),j) = 2 * dirichletBcLeftT_[0] - discretization_->t(discretization_->tIBegin()+1,j);
+        discretization_->t(discretization_->tIBegin(),j) = 2 * boundaryConditionsT_[2] - discretization_->t(discretization_->tIBegin()+1,j);
       }
     }
-    else if (neumannBcLeftT_[1] == 1){
+    else if (boundaryConditionsT_[11] == 1){ // neumann bc
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIBegin(),j) = meshWidth_[0] * neumannBcLeftT_[0] + discretization_->t(discretization_->tIBegin()+1,j);
+        discretization_->t(discretization_->tIBegin(),j) = meshWidth_[0] * boundaryConditionsT_[10] + discretization_->t(discretization_->tIBegin()+1,j);
       }
     }    
   }
