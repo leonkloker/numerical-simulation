@@ -39,7 +39,7 @@ void ComputationParallel::initialize(int argc, char* argv[])
     }
 
     // temperature
-    temperature_ = std::make_unique<Temperature>(discretization_, partition_, settings_.re, settings_.pr, meshWidth_, settings_.dirichletBcBottomT, settings_.dirichletBcLeftT, settings_.dirichletBcRightT, settings_.dirichletBcTopT, settings_.neumannBcBottomT, settings_.neumannBcLeftT, settings_.neumannBcRightT, settings_.neumannBcTopT);
+    temperature_ = std::make_unique<Temperature>(discretization_, partition_, settings_.re, settings_.pr, meshWidth_, settings_.dirichletBcBottomT, settings_.dirichletBcTopT, settings_.dirichletBcLeftT, settings_.dirichletBcRightT, settings_.neumannBcBottomT, settings_.neumannBcTopT, settings_.neumannBcLeftT, settings_.neumannBcRightT);
     
     // initialize the outputwriters
     outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(discretization_, partition_);
@@ -53,6 +53,7 @@ void ComputationParallel::runSimulation()
 
     // write initial state as first output
     applyBoundaryValues();
+    temperature_->applyBoundaryValues();
     outputWriterParaview_->writeFile(time);
 
     // run the integrator of the Navier-Stokes equations
@@ -65,7 +66,13 @@ void ComputationParallel::runSimulation()
         computeTimeStepWidth();
 
         // apply the corresponding boundary values for t
-        applyBoundaryValuesT();
+        temperature_->applyBoundaryValues();
+
+        // compute the new temperature
+        temperature_->computeTemperature(dt_);
+
+        // exchange the temperature at the sudomain boundaries
+        temperature_->exchangeTemperatures();
 
         // apply the corresponding boundary values for F and G
         applyBoundaryValuesFG();
@@ -73,14 +80,14 @@ void ComputationParallel::runSimulation()
         // compute F and G
         computePreliminaryVelocities();
 
-        // exchange F and G at the subdomain boundaries between neighbouring processes
+        // exchange F and G at the subdomain boundaries
         exchangePreliminaryVelocities();
 
         // compute the right-hand side of the pressure Poisson equation
         computeRightHandSide();
 
         // solve the pressure Poisson equation
-        computePressure();
+        pressureSolver_->solve();
 
         // compute U and V
         computeVelocities();
@@ -94,9 +101,8 @@ void ComputationParallel::runSimulation()
         // write U, V and P into a vtk file every second
         if (std::fmod(time - dt_, 1) >= std::fmod(time, 1)){
             outputWriterParaview_->writeFile(time);
+            //outputWriterText_->writeFile(time);
         }
-
-        // outputWriterText_->writeFile(time);
     }
 
     //adjust the value of dt such that endTime is reached exactly
@@ -106,13 +112,14 @@ void ComputationParallel::runSimulation()
     if (dt_ > 0.00001){
         applyBoundaryValues();
         computeTimeStepWidth();
-        applyBoundaryValuesT();
-        computeTemperature(dt_);
+        temperature_->applyBoundaryValues();
+        temperature_->computeTemperature(dt_);
+        temperature_->exchangeTemperatures();
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
         exchangePreliminaryVelocities();
         computeRightHandSide();
-        computePressure();
+        pressureSolver_->solve();
         computeVelocities();
         exchangeVelocities();
 
@@ -184,18 +191,6 @@ void ComputationParallel::applyBoundaryValues()
             discretization_->v(discretization_->vIEnd()-1,j) = 2 * settings_.dirichletBcRight[1] - discretization_->v(discretization_->vIEnd()-2,j);
         }
     }
-}
-
-void ComputationParallel::applyBoundaryValuesT()
-{
-    // call temperature to set boundary values of t
-    temperature_->applyBoundaryValuesT();
-}
-
-void ComputationParallel::computeTemperature(double dt_)
-{
-    // call temperature to compute new temperature
-    temperature_->computeTemperature(dt_);
 }
 
 void ComputationParallel::applyBoundaryValuesFG()
@@ -329,12 +324,6 @@ void ComputationParallel::computeRightHandSide()
             discretization_->rhs(i,j) = (1 / dt_) * ((discretization_->f(i,j) - discretization_->f(i-1,j)) / discretization_->dx() + (discretization_->g(i,j) - discretization_->g(i,j-1)) / discretization_->dy());
         }
     }
-}
-
-void ComputationParallel::computePressure()
-{
-    // call solver to solve Poisson equation
-    pressureSolver_->solve();
 }
 
 void ComputationParallel::computeVelocities()

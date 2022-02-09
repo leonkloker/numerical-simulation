@@ -38,12 +38,6 @@ private:
   //! set boundary values of u and v to correct values
   void applyBoundaryValues();
 
-  //! set boundary values of t to correct values
-  void applyBoundaryValuesT();
-
-  //! compute the temperature t
-  void computeTemperature(double dt_);
-
   //! set boundary values of f and g to correct values 
   void applyBoundaryValuesFG();
 
@@ -59,9 +53,6 @@ private:
   //! compute the right hand side of the Poisson equation for the pressure
   void computeRightHandSide();
 
-  //! solve the Poisson equation for the pressure
-  void computePressure();
-
   //! compute the new velocities, u,v, from the 
   //! preliminary velocities, F,G and the pressure, p
   void computeVelocities();
@@ -76,9 +67,10 @@ private:
   //! discretization scheme of the Navier Stokes equations 
   std::shared_ptr<Discretization> discretization_;
 
-  //! object which is responsible for solving the pressure Poisson equation via SOR in a parallel fashion
+  //! object which is responsible for solving the pressure Poisson equation via SOR or CG
   std::unique_ptr<PressureSolver> pressureSolver_;
 
+  //! object which is responsible for the calculation of the temperature
   std::unique_ptr<Temperature>temperature_;
 
   //! object which writes the values of u, v and p in a vtk file for each timestep

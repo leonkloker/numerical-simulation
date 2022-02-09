@@ -10,17 +10,15 @@ dirichletBcRightT_(dirichletBcRightT), neumannBcBottomT_(neumannBcBottomT), neum
 void Temperature::computeTemperature(double dt_)
 {    
     // calculate T at the new time
-    for (int i = discretization_->pIBegin() + 1; i < discretization_->pIEnd() - 1; i++){
-        for (int j = discretization_->pJBegin() + 1; j < discretization_->pJEnd() - 1; j++){
+    for (int i = discretization_->tIBegin() + 1; i < discretization_->tIEnd() - 1; i++){
+        for (int j = discretization_->tJBegin() + 1; j < discretization_->tJEnd() - 1; j++){
             discretization_->t(i,j) = discretization_->t(i,j) + dt_ * ((1. / (re_ * pr_)) * (discretization_->computeD2tDx2(i,j) + discretization_->computeD2tDy2(i,j)) 
             - discretization_->computeDutDx(i,j) - discretization_->computeDvtDy(i,j));
         }
     }
-    // exchange temperatures between the partitions
-    exchangeTemperatures();
 }
 
-void Temperature::applyBoundaryValuesT(){
+void Temperature::applyBoundaryValues(){
   if (partition_.boundaryTop()){
     if (dirichletBcTopT_[1] == 1){
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
@@ -29,10 +27,9 @@ void Temperature::applyBoundaryValuesT(){
     }
     else if (neumannBcTopT_[1] == 1){
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJEnd()-1) = - meshWidth_[1] * neumannBcTopT_[0] + discretization_->t(i,discretization_->tJEnd()-2);
+        discretization_->t(i,discretization_->tJEnd()-1) = meshWidth_[1] * neumannBcTopT_[0] + discretization_->t(i,discretization_->tJEnd()-2);
       }
-    }
-    
+    } 
   }
   if (partition_.boundaryBottom()){
     if (dirichletBcBottomT_[1] == 1){
@@ -42,7 +39,7 @@ void Temperature::applyBoundaryValuesT(){
     }
     else if (neumannBcBottomT_[1] == 1){
       for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJBegin()) = - meshWidth_[1] * neumannBcBottomT_[0] + discretization_->t(i,discretization_->tJBegin()+1);
+        discretization_->t(i,discretization_->tJBegin()) = meshWidth_[1] * neumannBcBottomT_[0] + discretization_->t(i,discretization_->tJBegin()+1);
       }
     }
   }
@@ -54,7 +51,7 @@ void Temperature::applyBoundaryValuesT(){
     }
     else if (neumannBcRightT_[1] == 1){
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIEnd()-1, j) = - meshWidth_[0] * neumannBcRightT_[0] + discretization_->t(discretization_->tIEnd()-2,j);
+        discretization_->t(discretization_->tIEnd()-1, j) = meshWidth_[0] * neumannBcRightT_[0] + discretization_->t(discretization_->tIEnd()-2,j);
       }
     }
   }
@@ -66,114 +63,60 @@ void Temperature::applyBoundaryValuesT(){
     }
     else if (neumannBcLeftT_[1] == 1){
       for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIBegin(),j) = - meshWidth_[0] * neumannBcLeftT_[0] + discretization_->t(discretization_->tIBegin()+1,j);
+        discretization_->t(discretization_->tIBegin(),j) = meshWidth_[0] * neumannBcLeftT_[0] + discretization_->t(discretization_->tIBegin()+1,j);
       }
     }    
   }
 }
 
-
-/*
-void Temperature::applyBoundaryValuesT(){
-  if (partition_.boundaryTop()){
-    if (settings_.dirichletBcTopT[1] == 1){
-      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJEnd()-1) = 2 * settings_.dirichletBcTopT[0] - discretization_->t(i,discretization_->tJEnd()-2);
-      }
-    }
-    else if (settings_.neumannBcTopT[1] == 1){
-      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJEnd()-1) = - meshWidth_[1] * settings_.neumannBcTopT[0] + discretization_->t(i,discretization_->tJEnd()-2);
-      }
-    }
-    
-  }
-  if (partition_.boundaryBottom()){
-    if (settings_.dirichletBcBottomT[1] == 1){
-      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJBegin()) = 2 * settings_.dirichletBcBottomT[0] - discretization_->t(i,discretization_->tJBegin()+1);
-      }
-    }
-    else if (settings_.neumannBcBottomT[1] == 1){
-      for (int i = discretization_->tIBegin(); i < discretization_->tIEnd(); i++){
-        discretization_->t(i,discretization_->tJBegin()) = - meshWidth_[1] * settings_.neumannBcBottomT[0] + discretization_->t(i,discretization_->tJBegin()+1);
-      }
-    }
-  }
-  if (partition_.boundaryRight()){
-    if (settings_.dirichletBcRightT[1] == 1){
-      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIEnd()-1, j) = 2 * settings_.dirichletBcRightT[0] - discretization_->t(discretization_->tIEnd()-2,j);
-      }
-    }
-    else if (settings_.neumannBcRightT[1] == 1){
-      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIEnd()-1, j) = - meshWidth_[0] * settings_.neumannBcRightT[0] + discretization_->t(discretization_->tIEnd()-2,j);
-      }
-    }
-  }
-  if (partition_.boundaryLeft()){
-    if (settings_.dirichletBcLeftT[1] == 1){
-      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIBegin(),j) = 2 * settings_.dirichletBcLeftT[0] - discretization_->t(discretization_->tIBegin()+1,j);
-      }
-    }
-    else if (settings_.neumannBcLeftT[1] == 1){
-      for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
-        discretization_->t(discretization_->tIBegin(),j) = - meshWidth_[0] * settings_.neumannBcLeftT[0] + discretization_->t(discretization_->tIBegin()+1,j);
-      }
-    }    
-  }
-}
-*/
 void Temperature::exchangeTemperatures(){
   MPI_Request sendRequestRight;
 
   if (!partition_.boundaryRight()){
-    std::vector<double> sendBufferRight(partition_.nCells()[1], 0);
+    std::vector<double> sendBufferRight(partition_.nCells()[1]+2, 0);
         
-    for (int j = discretization_->tJBegin()+1; j < discretization_->tJEnd()-1; j++){
-      sendBufferRight[j-1] = discretization_->t(discretization_->tIEnd()-2,j);
+    for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+      sendBufferRight[j] = discretization_->t(discretization_->tIEnd()-2,j);
     }    
-    MPI_Isend(sendBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
+    MPI_Isend(sendBufferRight.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
   }
 
   MPI_Request sendRequestLeft;
 
   if (!partition_.boundaryLeft()){
-    std::vector<double> sendBufferLeft(partition_.nCells()[1], 0);
+    std::vector<double> sendBufferLeft(partition_.nCells()[1]+2, 0);
         
-    for (int j = discretization_->tJBegin()+1; j < discretization_->tJEnd()-1; j++){
-      sendBufferLeft[j-1] = discretization_->t(discretization_->tIBegin()+1,j);
+    for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+      sendBufferLeft[j] = discretization_->t(discretization_->tIBegin()+1,j);
     }    
-    MPI_Isend(sendBufferLeft.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeft);
+    MPI_Isend(sendBufferLeft.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeft);
   }
 
   if (!partition_.boundaryRight()){
-    std::vector<double> receiveBufferRight(partition_.nCells()[1], 0);
+    std::vector<double> receiveBufferRight(partition_.nCells()[1]+2, 0);
     
     MPI_Request receiveRequestRight;
 
-    MPI_Irecv(receiveBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &receiveRequestRight);
+    MPI_Irecv(receiveBufferRight.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &receiveRequestRight);
 
     MPI_Wait(&receiveRequestRight, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->tJBegin()+1; j < discretization_->tJEnd()-1; j++){
-      discretization_->t(discretization_->tIEnd()-1,j) = receiveBufferRight[j-1];
+    for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+      discretization_->t(discretization_->tIEnd()-1,j) = receiveBufferRight[j];
     }    
   }
 
   if (!partition_.boundaryLeft()){
-    std::vector<double> receiveBufferLeft(partition_.nCells()[1], 0);
+    std::vector<double> receiveBufferLeft(partition_.nCells()[1]+2, 0);
     
     MPI_Request receiveRequestLeft;
 
-    MPI_Irecv(receiveBufferLeft.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeft);
+    MPI_Irecv(receiveBufferLeft.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeft);
 
     MPI_Wait(&receiveRequestLeft, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->tJBegin()+1; j < discretization_->tJEnd()-1; j++){
-      discretization_->t(discretization_->tIBegin(),j) = receiveBufferLeft[j-1];
+    for (int j = discretization_->tJBegin(); j < discretization_->tJEnd(); j++){
+      discretization_->t(discretization_->tIBegin(),j) = receiveBufferLeft[j];
     }    
   }
 

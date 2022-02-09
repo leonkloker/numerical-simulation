@@ -30,50 +30,50 @@ void PressureSolver::exchangePressures(){
   MPI_Request sendRequestRight;
 
   if (!partition_.boundaryRight()){
-    std::vector<double> sendBufferRight(partition_.nCells()[1], 0);
+    std::vector<double> sendBufferRight(partition_.nCells()[1]+2, 0);
         
-    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
-      sendBufferRight[j-1] = discretization_->p(discretization_->pIEnd()-2,j);
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      sendBufferRight[j] = discretization_->p(discretization_->pIEnd()-2,j);
     }    
-    MPI_Isend(sendBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
+    MPI_Isend(sendBufferRight.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &sendRequestRight);
   }
 
   MPI_Request sendRequestLeft;
 
   if (!partition_.boundaryLeft()){
-    std::vector<double> sendBufferLeft(partition_.nCells()[1], 0);
+    std::vector<double> sendBufferLeft(partition_.nCells()[1]+2, 0);
         
-    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
-      sendBufferLeft[j-1] = discretization_->p(discretization_->pIBegin()+1,j);
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      sendBufferLeft[j] = discretization_->p(discretization_->pIBegin()+1,j);
     }    
-    MPI_Isend(sendBufferLeft.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeft);
+    MPI_Isend(sendBufferLeft.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &sendRequestLeft);
   }
 
   if (!partition_.boundaryRight()){
-    std::vector<double> receiveBufferRight(partition_.nCells()[1], 0);
+    std::vector<double> receiveBufferRight(partition_.nCells()[1]+2, 0);
     
     MPI_Request receiveRequestRight;
 
-    MPI_Irecv(receiveBufferRight.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &receiveRequestRight);
+    MPI_Irecv(receiveBufferRight.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourRight(), 0, MPI_COMM_WORLD, &receiveRequestRight);
 
     MPI_Wait(&receiveRequestRight, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
-      discretization_->p(discretization_->pIEnd()-1,j) = receiveBufferRight[j-1];
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      discretization_->p(discretization_->pIEnd()-1,j) = receiveBufferRight[j];
     }    
   }
 
   if (!partition_.boundaryLeft()){
-    std::vector<double> receiveBufferLeft(partition_.nCells()[1], 0);
+    std::vector<double> receiveBufferLeft(partition_.nCells()[1]+2, 0);
     
     MPI_Request receiveRequestLeft;
 
-    MPI_Irecv(receiveBufferLeft.data(), partition_.nCells()[1], MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeft);
+    MPI_Irecv(receiveBufferLeft.data(), partition_.nCells()[1]+2, MPI_DOUBLE, partition_.neighbourLeft(), 0, MPI_COMM_WORLD, &receiveRequestLeft);
 
     MPI_Wait(&receiveRequestLeft, MPI_STATUS_IGNORE);
 
-    for (int j = discretization_->pJBegin()+1; j < discretization_->pJEnd()-1; j++){
-      discretization_->p(discretization_->pIBegin(),j) = receiveBufferLeft[j-1];
+    for (int j = discretization_->pJBegin(); j < discretization_->pJEnd(); j++){
+      discretization_->p(discretization_->pIBegin(),j) = receiveBufferLeft[j];
     }    
   }
 

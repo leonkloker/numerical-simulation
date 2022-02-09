@@ -29,6 +29,6 @@ double DonorCell::computeDutDx (int i, int j) const {
 }
 
 double DonorCell::computeDvtDy (int i, int j) const {
-  return (1. / (2 * this->meshWidth_[0])) * (v(i,j) * (t(i,j+1) + t(i,j)) - v(i,j-1) * (t(i,j) + t(i,j-1))) + 
-  (alpha_ / (2 * this->meshWidth_[0])) * (std::abs(v(i,j)) * (t(i,j) - t(i,j+1)) - std::abs(v(i,j-1)) * (t(i,j-1) - t(i,j)));
+  return (1. / (2 * this->meshWidth_[1])) * (v(i,j) * (t(i,j+1) + t(i,j)) - v(i,j-1) * (t(i,j) + t(i,j-1))) + 
+  (alpha_ / (2 * this->meshWidth_[1])) * (std::abs(v(i,j)) * (t(i,j) - t(i,j+1)) - std::abs(v(i,j-1)) * (t(i,j-1) - t(i,j)));
 }

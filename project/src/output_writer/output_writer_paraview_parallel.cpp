@@ -166,17 +166,17 @@ void OutputWriterParaviewParallel::writeFile(double currentTime)
   // loop over the nodes of the mesh and assign the interpolated t values in the vtk data structure
   // we only consider the cells that are the actual computational domain, not the helper values in the "halo"
 
-  int indexT = 0;   // index for the vtk data structure, will be incremented in the inner loop
+  index = 0;   // index for the vtk data structure, will be incremented in the inner loop
   for (int j = 0; j < nCellsGlobal_[1]+1; j++)
   {
-    for (int i = 0; i < nCellsGlobal_[0]+1; i++, indexT++)
+    for (int i = 0; i < nCellsGlobal_[0]+1; i++, index++)
     {
-      arrayTemperature->SetValue(indexT, tGlobal_(i,j));
+      arrayTemperature->SetValue(index, tGlobal_(i,j));
     }
   }
 
   // now, we should have added as many values as there are points in the vtk data structure
-  assert(indexT == dataSet->GetNumberOfPoints());
+  assert(index == dataSet->GetNumberOfPoints());
 
   // add the field variable to the data set
   dataSet->GetPointData()->AddArray(arrayTemperature);

@@ -6,7 +6,7 @@
 #include <cmath>
 #include <mpi.h>
 
-// Interface for the calculation of the temperature.
+// Class for the calculation of the temperature.
 class Temperature
 {
 public:
@@ -20,12 +20,12 @@ public:
   void computeTemperature(double dt_);
 
   //! set temperature boundary values 
-  void applyBoundaryValuesT();
-
-private:
+  void applyBoundaryValues();
 
   //! exchange temperature values at subdomain boundaries
   void exchangeTemperatures();
+
+private:
 
   //! partitioning of the global domain
   Partitioning partition_;

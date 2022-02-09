@@ -106,11 +106,11 @@ void Settings::loadFromFile(std::string filename)
       // dirichlet boundary conditions value for temperature
       else if (parameterName == "dirichletRightTemperatureValue")
                     {
-                     dirichletBcLeftT[0] = atof(parameterValue.c_str());
+                     dirichletBcRightT[0] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletLeftTemperatureValue")
                     {
-                     dirichletBcRightT[0] = atof(parameterValue.c_str());
+                     dirichletBcLeftT[0] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletTopTemperatureValue")
                     {
@@ -123,11 +123,11 @@ void Settings::loadFromFile(std::string filename)
       // dirichlet boundary conditions on/off for temperature
       else if (parameterName == "dirichletRightT")
                     {
-                     dirichletBcLeftT[1] = atof(parameterValue.c_str());
+                     dirichletBcRightT[1] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletLeftT")
                     {
-                     dirichletBcRightT[1] = atof(parameterValue.c_str());
+                     dirichletBcLeftT[1] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "dirichletTopT")
                     {
@@ -140,11 +140,11 @@ void Settings::loadFromFile(std::string filename)
       // neumann boundary conditions value for temperature
       else if (parameterName == "neumannRightTemperatureValue")
                     {
-                     neumannBcLeftT[0] = atof(parameterValue.c_str());
+                     neumannBcRightT[0] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannLeftTemperatureValue")
                     {
-                     neumannBcRightT[0] = atof(parameterValue.c_str());
+                     neumannBcLeftT[0] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannTopTemperatureValue")
                     {
@@ -157,11 +157,11 @@ void Settings::loadFromFile(std::string filename)
       // neumann boundary conditions on/off for temperature
       else if (parameterName == "neumannRightT")
                     {
-                     neumannBcLeftT[1] = atof(parameterValue.c_str());
+                     neumannBcRightT[1] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannLeftT")
                     {
-                     neumannBcRightT[1] = atof(parameterValue.c_str());
+                     neumannBcLeftT[1] = atof(parameterValue.c_str());
                     }
       else if (parameterName == "neumannTopT")
                     {
