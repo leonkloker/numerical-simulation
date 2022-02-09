@@ -42,7 +42,7 @@ private:
   void applyBoundaryValuesT();
 
   //! compute the temperature t
-  void computeTemperature();
+  void computeTemperature(double dt_);
 
   //! set boundary values of f and g to correct values 
   void applyBoundaryValuesFG();

@@ -39,7 +39,7 @@ void ComputationParallel::initialize(int argc, char* argv[])
     }
 
     // temperature
-    temperature_ = std::make_unique<Temperature>(discretization_, partition_);
+    temperature_ = std::make_unique<Temperature>(discretization_, partition_, settings_.re, settings_.pr, meshWidth_, settings_.dirichletBcBottomT, settings_.dirichletBcLeftT, settings_.dirichletBcRightT, settings_.dirichletBcTopT, settings_.neumannBcBottomT, settings_.neumannBcLeftT, settings_.neumannBcRightT, settings_.neumannBcTopT);
     
     // initialize the outputwriters
     outputWriterParaview_ = std::make_unique<OutputWriterParaviewParallel>(discretization_, partition_);
@@ -107,7 +107,7 @@ void ComputationParallel::runSimulation()
         applyBoundaryValues();
         computeTimeStepWidth();
         applyBoundaryValuesT();
-        computeTemperature();
+        computeTemperature(dt_);
         applyBoundaryValuesFG();
         computePreliminaryVelocities();
         exchangePreliminaryVelocities();
@@ -192,10 +192,10 @@ void ComputationParallel::applyBoundaryValuesT()
     temperature_->applyBoundaryValuesT();
 }
 
-void ComputationParallel::computeTemperature()
+void ComputationParallel::computeTemperature(double dt_)
 {
     // call temperature to compute new temperature
-    temperature_->computeTemperature();
+    temperature_->computeTemperature(dt_);
 }
 
 void ComputationParallel::applyBoundaryValuesFG()
