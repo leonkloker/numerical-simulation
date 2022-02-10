@@ -12,10 +12,10 @@ It computes the pressure field variable such that the continuity equation is ful
 class PressureSolver{
 public:
 
-  // Constructor
+  //! constructor
   PressureSolver(std::shared_ptr<Discretization>discretization, Partitioning partition, double epsilon, int maximumNumberOfIterations);
 
-  // Solve the Poisson problem for the pressure, using the rhs and p field variables in the staggeredGrid.
+  //! solve the Poisson problem for the pressure, using the rhs and p field variables in the staggeredGrid.
   virtual void solve() = 0;
 
 protected:
@@ -26,16 +26,16 @@ protected:
   //! exchange pressure values at subdomain boundaries
   void exchangePressures();
 
-  // Bound value of the residual
+  //! upper bound for the residual
   double epsilon_;
 
-  // Maximum number of iterations
+  //! maximum number of iterations
   int maximumNumberOfIterations_;
 
   //! partitioning of the global domain
   Partitioning partition_;
 
-  // Object holding the needed field variables for rhs and p.
+  //! object accessing the needed field variables for the pressure computation
   std::shared_ptr<Discretization> discretization_;
 };
 

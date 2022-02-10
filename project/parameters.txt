@@ -12,14 +12,14 @@ gX = 0.0              # external forces, set to (gX,gY) = (0,-9.81) to account f
 gY = 0.0
 
 # Dirichlet boundary conditions for velocities u and v
-dirichletBottomX = 4
+dirichletBottomX = 1
 dirichletBottomY = 0.6
-dirichletTopX    = -2
+dirichletTopX    = -3
 dirichletTopY    = 0.6
-dirichletLeftX   = 1.5
-dirichletLeftY   = -0.3
-dirichletRightX  = 1.5
-dirichletRightY  = 3
+dirichletLeftX   = 0
+dirichletLeftY   = 0
+dirichletRightX  = 0
+dirichletRightY  = 0
 
 # Dirichlet boundary conditions for temperature
 dirichletRightTemperatureValue  = 0

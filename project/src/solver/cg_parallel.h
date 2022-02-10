@@ -47,10 +47,13 @@ private:
   //! exchange the values of d at the boundaries of neighbouring subdomains
   void exchangeDirection();
 
+  //! residual of pressure Poisson equation
   FieldVariable r_;
 
+  //! search direction of conjugate gradient
   FieldVariable d_;
 
+  //! auxiliary variable in the conjugate gradient algorithm
   FieldVariable q_;
 
 };

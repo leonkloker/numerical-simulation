@@ -1,6 +1,4 @@
 #include "computation_parallel.h"
-#include <mpi.h>
-#include <vector>
 
 ComputationParallel::ComputationParallel(){}
 
@@ -101,14 +99,13 @@ void ComputationParallel::runSimulation()
         // write U, V and P into a vtk file every second
         if (std::fmod(time - dt_, 1) >= std::fmod(time, 1)){
             outputWriterParaview_->writeFile(time);
-            //outputWriterText_->writeFile(time);
         }
     }
 
-    //adjust the value of dt such that endTime is reached exactly
+    // adjust the value of dt such that endTime is reached exactly
     dt_ = settings_.endTime - time;
 
-    // run one more integration step
+    // run one more integration step if needed
     if (dt_ > 0.00001){
         applyBoundaryValues();
         computeTimeStepWidth();

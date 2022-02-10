@@ -124,8 +124,6 @@ void Temperature::exchangeTemperatures(){
     MPI_Wait(&sendRequestRight, MPI_STATUS_IGNORE);
   }
 
-  // vertical update //
-
   MPI_Request sendRequestTop;
 
   if (!partition_.boundaryTop()){

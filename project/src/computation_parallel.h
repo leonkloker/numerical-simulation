@@ -12,7 +12,8 @@
 #include "temperature/temperature.h"
 #include <memory>
 #include <cmath>
-
+#include <mpi.h>
+#include <vector>
 
 /** This class handles the main simulation.
  *  It implements the time stepping scheme,

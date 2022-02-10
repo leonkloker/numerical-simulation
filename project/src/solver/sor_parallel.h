@@ -36,7 +36,7 @@ private:
   //! execute a Gauss-Seidel iteration on the entire pressure field.
   void iterationStep(double dx2, double dy2, double factor);
   
-  // Relaxation factor
+  //! relaxation factor
   double omega_;
 
 };

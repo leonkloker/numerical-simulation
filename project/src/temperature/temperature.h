@@ -6,7 +6,7 @@
 #include <cmath>
 #include <mpi.h>
 
-// Class for the calculation of the temperature.
+// class for the calculation of the temperature.
 class Temperature
 {
 public:
@@ -28,19 +28,19 @@ private:
   //! partitioning of the global domain
   Partitioning partition_;
 
-  // Object holding the needed field variables for t.
+  //! object accessing the needed field variables for temperature calculation
   std::shared_ptr<Discretization> discretization_;
 
-  // Reynolds number
+  //! Reynolds number
   double re_;
   
-  // Prandtls number
+  //! Prandtl number
   double pr_;
 
-  // mesh width of the discretization scheme in both spatial directions
+  //! mesh width of the discretization scheme in both spatial directions
   const std::array<double,2> meshWidth_;
 
-  // Boundary conditions for the temperature, where the first 8 entries treat the dirichlet bc and the rest the neumann bc
+  //! Dirichlet and Neumann boundary conditions of the temperature are encoded in this array
   const std::array<double,16> boundaryConditionsT_;
 
 };
