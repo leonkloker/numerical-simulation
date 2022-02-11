@@ -6,7 +6,7 @@ void ComputationParallel::initialize(int argc, char* argv[])
 {
     // load the settings from the parameter file
     settings_.loadFromFile(argv[1]);
-
+    
     // calculate dx and dy
     meshWidth_[0] = settings_.physicalSize[0]/settings_.nCells[0];
     meshWidth_[1] = settings_.physicalSize[1]/settings_.nCells[1];
@@ -97,7 +97,7 @@ void ComputationParallel::runSimulation()
         time = time + dt_;
 
         // write U, V and P into a vtk file every second
-        if (std::fmod(time - dt_, 1) >= std::fmod(time, 1)){
+        if (std::fmod(time - dt_, 0.5) >= std::fmod(time, 0.5)){
             outputWriterParaview_->writeFile(time);
         }
     }

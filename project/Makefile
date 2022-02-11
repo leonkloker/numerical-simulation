@@ -14,4 +14,4 @@ release:
 	$(CXX) $(SRC) $(CXXFLAGS) -Ofast -DNDEBUG -o project
 
 clean:
-	rm test2 project
+	rm project project

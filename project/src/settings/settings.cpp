@@ -51,15 +51,15 @@ void Settings::loadFromFile(std::string filename)
                     }
 		 else if (parameterName == "re")
                     {
-                     re = atoi(parameterValue.c_str());
+                     re = atof(parameterValue.c_str());
                     }
 		 else if (parameterName == "pr")
 		    {
-		     pr = atoi(parameterValue.c_str());
+		     pr = atof(parameterValue.c_str());
 		    }
 		 else if (parameterName == "beta")
 		    {
-		     beta = atoi(parameterValue.c_str());
+		     beta = atof(parameterValue.c_str());
 		    }
        // external forces
 		 else if (parameterName == "gX")
@@ -237,4 +237,5 @@ void Settings::printSettings()
     << ", right: ("  << dirichletBcRight[0] << "," << dirichletBcRight[1] << ")" << std::endl
     << "  useDonorCell: " << useDonorCell << ", alpha: " << alpha << std::endl
     << "  pressureSolver: " << pressureSolver << ", omega: " << omega << ", epsilon: " << epsilon << ", maximumNumberOfIterations: " << maximumNumberOfIterations << std::endl;
+    std::cout << " beta: " << beta << " Prandtl number " << pr << std::endl;
 }
