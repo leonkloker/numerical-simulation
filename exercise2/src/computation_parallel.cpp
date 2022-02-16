@@ -43,10 +43,6 @@ void ComputationParallel::initialize(int argc, char* argv[])
 
 void ComputationParallel::runSimulation()
 {
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::milliseconds;
     // initialize time to zero
     double time = 0;
 
